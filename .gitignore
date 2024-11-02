@@ -1,3 +1,13 @@
-.obsidian
+# Obsidian
+*/.obsidian/plugins
+*/.obsidian/workspace.json
+*/.obsidian/workspace-mobile.json
+*/.obsidian/hotkeys.json
+
+# OS
+.trash/
+.DS_Store
+
+# Others
 .hugo_build.lock
 public
