@@ -1,0 +1,97 @@
+author = "Taha"
+baseURL = '/'
+copyright = "© Copyright [Taha](https://mtaha.dev) 2021-2024"
+enableInlineShortcodes = true
+ignoreFiles = [ "templates/.*", ".obsidian/*" ]
+ignoreErrors = ["error-remote-getjson"]
+menuMore = "Show more"
+missingBackButtonLabel = "Back to home page"
+missingContentMessage = "Page not found..."
+newerPosts = "Newer posts"
+olderPosts = "Older posts"
+paginate = 5
+readMore = "Read more"
+readOtherPosts = "Read other posts"
+sectionPagesMenu = "main"
+theme = "risotto"
+title = "M.Taha's Blog"
+
+
+
+[params]
+# autoCover = true
+# centerTheme = false
+# contentTypeName = "posts"
+# favicon = "favicon.ico"
+# fullWidthTheme = true
+noindex = false
+# oneHeadingSize = true
+# readingTime = false
+# showLanguageSelector = false
+# showLastUpdated = false
+# showMenuItems = 2
+# theme.palette = "base16-dark"
+# Toc = false # default
+# TocTitle = "Table of Contents" # default
+# updatedDatePrefix = "Updated"
+
+[params.about]
+title = "M.Taha's Blog"
+description = "M.Taha's personal blog"
+logo = "💾"
+#logo_image = "assets/favicon.ico
+
+[[params.socialLinks]]
+icon = "fa-brands fa-github"
+title = "GitHub"
+url = "https://github.com/mt190502"
+
+[[params.socialLinks]]
+icon = "fa-solid fa-envelope"
+title = "Email"
+url = "mailto:mt190502@mtaha.dev"
+
+[[params.socialLinks]]
+icon = "fa-brands fa-mastodon"
+title = "Mastodon"
+url = "https://fosstodon.org/@mt190502"
+
+[[params.socialLinks]]
+icon = "fa-brands fa-discord"
+title = "Discord"
+url = "https://discordapp.com/users/897062260818739210"
+
+[[params.socialLinks]]
+icon = "fa-brands fa-telegram"
+title = "Telegram"
+url = "https://t.me/UsmanAga"
+
+[[params.socialLinks]]
+icon = "fa-solid fa-photo-film"
+title = "Showroom"
+url = "https://files.mtaha.dev"
+
+
+
+[markup]
+defaultMarkdownHandler = 'goldmark'
+goldmark.renderer.unsafe = true
+highlight.codeFences = true
+highlight.guessSyntax = true
+#highlight.lineNos = true
+highlight.lineNumbersInTable = true
+highlight.style = 'catppuccin-mocha'
+tableOfContents.startLevel = 2
+tableOfContents.endLevel = 3
+tableOfContents.ordered = true
+
+
+
+[[menu.main]]
+  name = "about"
+  url = "https://mtaha.dev"
+  weight = 1
+[[menu.main]]
+  name = "rss"
+  url = "/index.xml"
+  weight = 3
