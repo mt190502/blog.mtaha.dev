@@ -45,6 +45,8 @@ jobs:
           path: public
 
   deploy:
+    environment:
+      name: github-pages
     needs: build
     runs-on: ubuntu-latest
     steps:
