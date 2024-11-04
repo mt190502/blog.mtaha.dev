@@ -50,7 +50,7 @@ date: 2024-11-04T19:06:00+03:00
 
 # Step 4: Change DNS Server Settings
 
-- Some ISPs use DNS poisoning in combination with dpi bypass to block access to certain websites. To bypass this, you need to change your DNS server settings to a healthy alternative. To change your DNS server settings, run the following command
+- Some ISPs use DNS poisoning in combination with DPI bypass to block access to certain websites. To bypass this, you need to change your DNS server settings to a healthy alternative. To change your DNS server settings, run the following command
 
   ```bash
   vim /etc/resolv.conf
