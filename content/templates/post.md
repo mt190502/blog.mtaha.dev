@@ -1,12 +1,13 @@
 ---
 author: Taha
 title: <%tp.file.title%>
-description: 
+description:
 draft: true
-tags: 
+tags:
+toc: true
 date: <%tp.date.now("YYYY-MM-DDTHH:mm:ssZ")%>
 ---
 
 <!--more-->
 
-- 
+-
