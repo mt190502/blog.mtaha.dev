@@ -9,3 +9,4 @@ I'm 21-year-old junior software engineer using languages like Bash, C, Go, Pytho
 
 In this blog you can find my articles on various topics such as Linux, programming and technology.
 
+If you want to read my blog posts, you can check [this](/post) page
