@@ -185,7 +185,19 @@ date: 2024-11-06T13:00:00+03:00
 
 <br>
 
-## Step 8: Create a Caddy Configuration File
+## Step 8: Add Cloudflare DNS module to Caddy
+
+- To use the Cloudflare DNS module with Caddy, you need to download the module with the following command:
+- Note: If you are not using Cloudflare, you can skip this step.
+
+  ```bash
+  sudo caddy add-package github.com/caddy-dns/cloudflare
+  ```
+- ![](/assets/Pasted%20image%2020241106190446.png)
+
+<br>
+
+## Step 9: Create a Caddy Configuration File
 
 - Use the following command to create a Caddy configuration file in the `/etc/caddy` directory:
 
@@ -252,7 +264,7 @@ date: 2024-11-06T13:00:00+03:00
   ```Caddyfile
   yourdomain.com {
       import logger yourdomain
-      import tls-cloudflare
+      import tls-cloudflare            # if you are not using Cloudflare, you can remove this line
       root * /var/www/yourdomain.com
       file_server
   }
@@ -274,7 +286,7 @@ date: 2024-11-06T13:00:00+03:00
 
 <br>
 
-## Step 9: Enable and Start Caddy Service
+## Step 10: Enable and Start Caddy Service
 
 - After creating the Caddy service files, you must enable and start the Caddy service using the following commands:
 
