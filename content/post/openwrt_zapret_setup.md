@@ -124,9 +124,11 @@ date: 2024-11-04T19:06:00+03:00
 - If you set it right, you should see this.
 - ![](/assets/Pasted%20image%2020241104204317.png)
 
-## Step 9: Well Done! You can Test by Accessing the Blocked Websites
-
 ---
+
+## Conclusion
+- Well Done! If you have followed all the steps correctly, you have successfully installed and configured Zapret on your OpenWRT router. You can now bypass censorship and access blocked content with ease. 
+
 
 ## References
 
