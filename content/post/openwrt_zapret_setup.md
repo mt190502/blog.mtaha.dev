@@ -10,6 +10,7 @@ tags:
   - bypass
   - dpi
   - guide
+toc: true
 date: 2024-11-04T19:06:00+03:00
 ---
 
@@ -17,11 +18,11 @@ date: 2024-11-04T19:06:00+03:00
 
 - Censorship has become a major issue affecting Internet freedom worldwide in today's digital age. Various tools and techniques have been developed to counteract these restrictions and allow users to access blocked content. One of these tools is Zapret. It is an independent DPI bypass tool written to combat the censorship imposed by Roskomnadzor in Russia.
 
-# How to Install Zapret
+## How to Install Zapret
 
 - This guide will show you how to install and configure Zapret on your OpenWRT router to bypass censorship and access blocked content. If you are not using OpenWRT, you can follow the [this](https://notes.xeome.dev/notes/Using-zapret-to-bypass-censorship) guide to install Zapret on your computer.
 
-# Step 1: Install Required Packages
+## Step 1: Install Required Packages
 
 - Open to your OpenWRT router's web interface and navigate to the "System" tab. Click on "Software" and search for the following packages:
   - `git`
@@ -29,14 +30,14 @@ date: 2024-11-04T19:06:00+03:00
   - `ncat`
   - `vim`
 
-# Step 2: Connect to Your Router via SSH
+## Step 2: Connect to Your Router via SSH
 
 - Open your terminal and connect to your OpenWRT router via SSH using the following command:
   ```bash
   ssh root@<router-ip>
   ```
 
-# Step 3: Clone the Zapret Repository
+## Step 3: Clone the Zapret Repository
 
 - I recommended to clone the Zapret repository with the `--depth=1` flag to reduce the download size. First, navigate to the `/opt` directory and clone the repository using the following commands:
 
@@ -48,7 +49,7 @@ date: 2024-11-04T19:06:00+03:00
 
 - ![](/assets/Pasted%20image%2020241104204129.png)
 
-# Step 4: Change DNS Server Settings
+## Step 4: Change DNS Server Settings
 
 - Some ISPs use DNS poisoning in combination with DPI bypass to block access to certain websites. To bypass this, you need to change your DNS server settings to a healthy alternative. To change your DNS server settings, run the following command
 
@@ -68,7 +69,7 @@ date: 2024-11-04T19:06:00+03:00
 
 - Save and exit the file by pressing `Esc` and typing `:wq`.
 
-# Step 5: Run the install_prereq.sh Script to Install Prerequisites
+## Step 5: Run the install_prereq.sh Script to Install Prerequisites
 
 - After cloning the repository and changing the DNS server settings, you need to install the prerequisites for Zapret. Run the following command to install the prerequisites:
 
@@ -79,7 +80,7 @@ date: 2024-11-04T19:06:00+03:00
 - OpenWRT uses nftables by default. Select nftables in firewall questions.
 - ![](/assets/Pasted%20image%2020241104204411.png)
 
-# Step 6: Run the install_bin.sh Script to Install the Required Compatible Binaries
+## Step 6: Run the install_bin.sh Script to Install the Required Compatible Binaries
 
 - Run the following command to install the required compatible binaries:
 
@@ -89,7 +90,7 @@ date: 2024-11-04T19:06:00+03:00
 
 - ![](/assets/Pasted%20image%2020241104204218.png)
 
-# Step 7: Run the blockcheck.sh script to Find the Appropriate Zapret Parameters for your ISP
+## Step 7: Run the blockcheck.sh script to Find the Appropriate Zapret Parameters for your ISP
 
 - Run the following command to get the best parameters for your ISP:
 
@@ -104,7 +105,7 @@ date: 2024-11-04T19:06:00+03:00
 - The script will give us the following parameters when the scan is finished. I have to censor these. Note the last line parameter.
 - ![](/assets/Pasted%20image%2020241104210017.png)
 
-# Step 7: Run the install_easy.sh Script to Install the Zapret Services
+## Step 8: Run the install_easy.sh Script to Install the Zapret Services
 
 - Run the following command to install the Zapret services:
 
@@ -123,11 +124,11 @@ date: 2024-11-04T19:06:00+03:00
 - If you set it right, you should see this.
 - ![](/assets/Pasted%20image%2020241104204317.png)
 
-# Step 8: Well Done! You can Test by Accessing the Blocked Websites
+## Step 9: Well Done! You can Test by Accessing the Blocked Websites
 
 ---
 
-# References
+## References
 
 - [Zapret GitHub Repository](https://github.com/bol-van/zapret)
 - [Xeome's Notes on Using Zapret to Bypass Censorship](https://notes.xeome.dev/notes/Using-zapret-to-bypass-censorship)
