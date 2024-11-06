@@ -2,8 +2,9 @@
   "vimMode": true,
   "showInlineTitle": false,
   "newFileLocation": "folder",
-  "newFileFolderPath": "posts",
+  "newFileFolderPath": "post",
   "attachmentFolderPath": "assets",
   "alwaysUpdateLinks": true,
-  "useMarkdownLinks": true
+  "useMarkdownLinks": true,
+  "newLinkFormat": "absolute"
 }
