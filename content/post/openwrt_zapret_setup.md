@@ -22,6 +22,8 @@ date: 2024-11-04T19:06:00+03:00
 
 - This guide will show you how to install and configure Zapret on your OpenWRT router to bypass censorship and access blocked content. If you are not using OpenWRT, you can follow the [this](https://notes.xeome.dev/notes/Using-zapret-to-bypass-censorship) guide to install Zapret on your computer.
 
+<br>
+
 ## Step 1: Install Required Packages
 
 - Open to your OpenWRT router's web interface and navigate to the "System" tab. Click on "Software" and search for the following packages:
@@ -30,12 +32,16 @@ date: 2024-11-04T19:06:00+03:00
   - `ncat`
   - `vim`
 
+<br>
+
 ## Step 2: Connect to Your Router via SSH
 
 - Open your terminal and connect to your OpenWRT router via SSH using the following command:
   ```bash
   ssh root@<router-ip>
   ```
+
+<br>
 
 ## Step 3: Clone the Zapret Repository
 
@@ -48,6 +54,8 @@ date: 2024-11-04T19:06:00+03:00
   ```
 
 - ![](/assets/Pasted%20image%2020241104204129.png)
+
+<br>
 
 ## Step 4: Change DNS Server Settings
 
@@ -69,6 +77,8 @@ date: 2024-11-04T19:06:00+03:00
 
 - Save and exit the file by pressing `Esc` and typing `:wq`.
 
+<br>
+
 ## Step 5: Run the install_prereq.sh Script to Install Prerequisites
 
 - After cloning the repository and changing the DNS server settings, you need to install the prerequisites for Zapret. Run the following command to install the prerequisites:
@@ -80,6 +90,8 @@ date: 2024-11-04T19:06:00+03:00
 - OpenWRT uses nftables by default. Select nftables in firewall questions.
 - ![](/assets/Pasted%20image%2020241104204411.png)
 
+<br>
+
 ## Step 6: Run the install_bin.sh Script to Install the Required Compatible Binaries
 
 - Run the following command to install the required compatible binaries:
@@ -89,6 +101,8 @@ date: 2024-11-04T19:06:00+03:00
   ```
 
 - ![](/assets/Pasted%20image%2020241104204218.png)
+
+<br>
 
 ## Step 7: Run the blockcheck.sh script to Find the Appropriate Zapret Parameters for your ISP
 
@@ -104,6 +118,8 @@ date: 2024-11-04T19:06:00+03:00
 
 - The script will give us the following parameters when the scan is finished. I have to censor these. Note the last line parameter.
 - ![](/assets/Pasted%20image%2020241104210017.png)
+
+<br>
 
 ## Step 8: Run the install_easy.sh Script to Install the Zapret Services
 
@@ -127,8 +143,8 @@ date: 2024-11-04T19:06:00+03:00
 ---
 
 ## Conclusion
-- Well Done! If you have followed all the steps correctly, you have successfully installed and configured Zapret on your OpenWRT router. You can now bypass censorship and access blocked content with ease. 
 
+- Well Done! If you have followed all the steps correctly, you have successfully installed and configured Zapret on your OpenWRT router. You can now bypass censorship and access blocked content with ease.
 
 ## References
 
