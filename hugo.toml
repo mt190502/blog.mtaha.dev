@@ -9,7 +9,7 @@ missingBackButtonLabel = "Back to home page"
 missingContentMessage = "Page not found..."
 newerPosts = "Newer posts"
 olderPosts = "Older posts"
-paginate = 5
+pagination.paperSize = 5
 readMore = "Read more"
 readOtherPosts = "Read other posts"
 sectionPagesMenu = "main"
@@ -22,7 +22,6 @@ title = "M.Taha's Blog"
 # autoCover = true
 # centerTheme = false
 # contentTypeName = "posts"
-# favicon = "favicon.ico"
 # fullWidthTheme = true
 noindex = false
 # oneHeadingSize = true
@@ -31,8 +30,6 @@ noindex = false
 # showLastUpdated = false
 # showMenuItems = 2
 # theme.palette = "base16-dark"
-# Toc = false # default
-# TocTitle = "Table of Contents" # default
 # updatedDatePrefix = "Updated"
 
 [params.about]
@@ -80,10 +77,16 @@ highlight.codeFences = true
 highlight.guessSyntax = true
 #highlight.lineNos = true
 highlight.lineNumbersInTable = true
-highlight.style = 'catppuccin-mocha'
 tableOfContents.startLevel = 2
 tableOfContents.endLevel = 3
 tableOfContents.ordered = true
+
+
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
 
 
 
