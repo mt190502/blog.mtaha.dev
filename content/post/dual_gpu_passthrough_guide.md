@@ -737,7 +737,7 @@ Linux system, allowing you to run Windows and Linux on the same machine.
 ## Big Thanks
 
 - [Baran](https://discordapp.com/users/901811479320350730)
-- [Kerem](https://github.com/Vallentinuus)
+- [Kerem](https://github.com/Vallentinus)
 
 ## References
 
