@@ -278,15 +278,15 @@ file called `local.zone`.
 
   ```bash
   # SSH
-  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=TR-ALLOWLIST port port="22" protocol="tcp" accept'
+  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=ALLOWLIST port port="22" protocol="tcp" accept'
 
   # DNS
-  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=TR-ALLOWLIST port port="53" protocol="tcp" accept'
-  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=TR-ALLOWLIST port port="53" protocol="udp" accept'
+  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=ALLOWLIST port port="53" protocol="tcp" accept'
+  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=ALLOWLIST port port="53" protocol="udp" accept'
 
   # QUIC
-  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=TR-ALLOWLIST port port="853" protocol="tcp" accept'
-  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=TR-ALLOWLIST port port="853" protocol="udp" accept'
+  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=ALLOWLIST port port="853" protocol="tcp" accept'
+  sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source ipset=ALLOWLIST port port="853" protocol="udp" accept'
   ```
 
 - Then we reload the firewall.
