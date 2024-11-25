@@ -473,9 +473,10 @@ Policy Editor to prevent this.
 
 ## Step 12: Setup ROM File
 
-- NOTE: For desktop GPUs, This step is not needed with 465.xx and newer drivers.
-For laptop GPUs, this step is not needed with 500.xx and newer drivers.
-For details, see the [NVIDIA Customer Help Page](https://nvidia.custhelp.com/app/answers/detail/a_id/5173/~/geforce-gpu-passthrough-for-windows-virtual-machine-(beta))
+- NOTE: For desktop GPUs, this step is not required with 465.xx and later drivers.
+For laptop GPUs, this step is not required with 500.xx and later drivers.
+Refer to the [NVIDIA Customer Help Page](https://nvidia.custhelp.com/app/answers/detail/a_id/5173/~/geforce-gpu-passthrough-for-windows-virtual-machine-(beta))
+for more information.
 
 - If you're using Linux:
 
