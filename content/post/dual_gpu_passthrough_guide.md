@@ -473,6 +473,10 @@ Policy Editor to prevent this.
 
 ## Step 12: Setup ROM File
 
+- NOTE: For desktop GPUs, This step is not needed with 465.xx and newer drivers.
+For laptop GPUs, this step is not needed with 500.xx and newer drivers.
+For details, see the [NVIDIA Customer Help Page](https://nvidia.custhelp.com/app/answers/detail/a_id/5173/~/geforce-gpu-passthrough-for-windows-virtual-machine-(beta))
+
 - If you're using Linux:
 
   - NVIDIA: Download [NVFlash](https://www.techpowerup.com/download/nvidia-nvflash/)
@@ -738,8 +742,11 @@ Linux system, allowing you to run Windows and Linux on the same machine.
 
 - [Baran](https://discordapp.com/users/901811479320350730)
 - [Kerem](https://github.com/Vallentinus)
+- [Kreato](https://github.com/kreatoo)
+- [Yusuf Ipek](https://yusufipek.me)
 
 ## References
 
 - [Arch Wiki - PCI passthrough via OVMF](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)
+- [Kreato's GPU Passthrough Guide](https://www.technopat.net/sosyal/konu/kreatonun-laptop-gpu-passthrough-rehberi.1896153/)
 - [Yusuf Ipek - Single GPU Passthrough Guide](https://yusufipek.me/single-gpu-passthrough)
