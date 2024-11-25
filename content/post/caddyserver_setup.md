@@ -14,11 +14,16 @@ date: 2024-11-06T13:00:00+03:00
 
 <!--more-->
 
-- Caddy webserver is a modern, open-source web server with automatic HTTPS written in Go. It is designed to be easy to use and configure, making it an excellent choice for hosting websites and web applications. In this guide, we will show you how to install and configure Caddy on your server. You can download the latest version of Caddy from the [official GitHub page](https://github.com/caddyserver/caddy/releases).
+- Caddy webserver is a modern, open-source web server with automatic HTTPS written
+in Go. It is designed to be easy to use and configure, making it an excellent
+choice for hosting websites and web applications. In this guide, we will show you
+how to install and configure Caddy on your server. You can download the latest
+version of Caddy from the [official GitHub page](https://github.com/caddyserver/caddy/releases).
 
 ## Step 1: Install Required Packages
 
-- Before installing Caddy, you need to install the required packages on your server. You can install the packages with the following commands:
+- Before installing Caddy, you need to install the required packages on your server.
+You can install the packages with the following commands:
 
   - For Debian/Ubuntu:
 
@@ -35,6 +40,7 @@ date: 2024-11-06T13:00:00+03:00
     ```
 
   - For Arch Linux:
+
     ```bash
     sudo pacman -Syyu
     sudo pacman -S curl wget tar jq
@@ -44,7 +50,9 @@ date: 2024-11-06T13:00:00+03:00
 
 ## Step 2: Download Caddy Tarball
 
-- I prefer to download Caddy as a binary because it supports adding custom Caddy extensions. If you install the latest version. You can download the latest version of Caddy with the following command.
+- I prefer to download Caddy as a binary because it supports adding custom Caddy
+extensions. If you install the latest version. You can download the latest version
+of Caddy with the following command.
 
   - For x86_64:
 
@@ -78,7 +86,7 @@ date: 2024-11-06T13:00:00+03:00
     wget -q "https://github.com/caddyserver/caddy/releases/download/$CADDY_LATEST_VERSION/caddy_$(string replace -a v '' $CADDY_LATEST_VERSION)_linux_arm64.tar.gz"
     ```
 
-  - ![](/assets/Pasted%20image%2020241106141252.png)
+  - ![photo](/assets/Pasted%20image%2020241106141252.png)
 
 <br>
 
@@ -90,20 +98,22 @@ date: 2024-11-06T13:00:00+03:00
   tar -xzf caddy_*.tar.gz
   ```
 
-- ![](/assets/Pasted%20image%2020241106141445.png)
+- ![photo](/assets/Pasted%20image%2020241106141445.png)
 
 <br>
 
 ## Step 4: Move Caddy Binary to /usr/local/bin
 
-- After extracting the tarball, move the Caddy binary to the `/usr/local/bin` directory and make it executable with the following commands:
+- After extracting the tarball, move the Caddy binary to the `/usr/local/bin`
+directory and make it executable with the following commands:
 
   ```bash
   sudo mv caddy /usr/local/bin
   sudo chmod +x /usr/local/bin/caddy
   ```
 
-- Note: You must restore file context for the caddy binary with the following command if you are using SELinux:
+- Note: You must restore file context for the caddy binary with the following
+command if you are using SELinux:
 
   ```bash
   sudo restorecon -vR /usr/local/bin/caddy
@@ -115,26 +125,29 @@ date: 2024-11-06T13:00:00+03:00
   caddy version
   ```
 
-- ![](/assets/Pasted%20image%2020241106150428.png)
+- ![photo](/assets/Pasted%20image%2020241106150428.png)
 
 <br>
 
 ## Step 5: Download Caddy Service Files
 
-- To run Caddy as a service, you need to create a systemd service file. You can download the service file with the following command:
+- To run Caddy as a service, you need to create a systemd service file. You can
+download the service file with the following command:
 
   ```bash
   sudo wget -q https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy.service -O /etc/systemd/system/caddy.service
   sudo wget -q https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy-api.service -O /etc/systemd/system/caddy-api.service
   ```
 
-- ![](/assets/Pasted%20image%2020241106142228.png)
+- ![photo](/assets/Pasted%20image%2020241106142228.png)
 
 <br>
 
 ## Step 6: Change Default Binary Path in Caddy Service Files
 
-- We have installed the Caddy binary into the `/usr/local/bin` directory. You need to change the path in the Caddy service files to point to the correct location. Open the service files with the following command:
+- We have installed the Caddy binary into the `/usr/local/bin` directory. You need
+to change the path in the Caddy service files to point to the correct location.
+Open the service files with the following command:
 
   ```bash
   sudo sed -i 's|/usr/bin/caddy|/usr/local/bin/caddy|g' /etc/systemd/system/caddy.service
@@ -147,20 +160,22 @@ date: 2024-11-06T13:00:00+03:00
   cat /etc/systemd/system/caddy* | grep ^Exec
   ```
 
-![](/assets/Pasted%20image%2020241106142553.png)
+![photo](/assets/Pasted%20image%2020241106142553.png)
 
 <br>
 
 ## Step 7: Create Caddy User, Group and Log Files Directory
 
-- To run Caddy securely, you need to create a special user and group for Caddy. You can create a Caddy user and group with the following commands:
+- To run Caddy securely, you need to create a special user and group for Caddy.
+You can create a Caddy user and group with the following commands:
 
   ```bash
   sudo groupadd --system caddy
   sudo useradd --system --gid caddy --create-home --home-dir /var/lib/caddy --shell /usr/sbin/nologin --comment "Caddy Web Server" caddy
   ```
 
-- If your application uses the `www-data` user, you can add the caddy user to the `www-data` group and vice versa with the following commands:
+- If your application uses the `www-data` user, you can add the caddy user to the
+`www-data` group and vice versa with the following commands:
 
   ```bash
   sudo usermod -aG www-data caddy
@@ -181,25 +196,28 @@ date: 2024-11-06T13:00:00+03:00
   cat /etc/passwd | grep caddy
   ```
 
-- ![](/assets/Pasted%20image%2020241106142758.png)
+- ![photo](/assets/Pasted%20image%2020241106142758.png)
 
 <br>
 
 ## Step 8: Add Cloudflare DNS module to Caddy
 
-- To use the Cloudflare DNS module with Caddy, you need to download the module with the following command:
+- To use the Cloudflare DNS module with Caddy, you need to download the module
+with the following command:
 - Note: If you are not using Cloudflare, you can skip this step.
 
   ```bash
   sudo caddy add-package github.com/caddy-dns/cloudflare
   ```
-- ![](/assets/Pasted%20image%2020241106190446.png)
+
+- ![photo](/assets/Pasted%20image%2020241106190446.png)
 
 <br>
 
 ## Step 9: Create a Caddy Configuration File
 
-- Use the following command to create a Caddy configuration file in the `/etc/caddy` directory:
+- Use the following command to create a Caddy configuration file in the `/etc/caddy`
+directory:
 
   ```bash
   sudo mkdir -p /etc/caddy
@@ -259,7 +277,8 @@ date: 2024-11-06T13:00:00+03:00
   }
   ```
 
-- If you have configured a domain and DNS settings, you can append the following configuration to the Caddyfile:
+- If you have configured a domain and DNS settings, you can append the following
+configuration to the Caddyfile:
 
   ```Caddyfile
   yourdomain.com {
@@ -270,7 +289,10 @@ date: 2024-11-06T13:00:00+03:00
   }
   ```
 
-- Note: If you are using Cloudflare, you will need to create a Cloudflare API token and store it with [systemd creds](https://systemd.io/CREDENTIALS). You can create a Cloudflare API token by following their [official documentation](https://developers.cloudflare.com/api/tokens/create). After creating the API token, you can save it using the following command:
+- Note: If you are using Cloudflare, you will need to create a Cloudflare API token
+and store it with [systemd creds](https://systemd.io/CREDENTIALS). You can create
+a Cloudflare API token by following their [official documentation](https://developers.cloudflare.com/api/tokens/create).
+After creating the API token, you can save it using the following command:
 
   ```bash
   systemd-ask-password -n | sudo systemd-creds encrypt --name=cfapitoken -p - -
@@ -278,9 +300,9 @@ date: 2024-11-06T13:00:00+03:00
   sudo systemctl edit caddy-api.service
   ```
 
-- ![](/assets/Pasted%20image%2020241106145046.png)
+- ![photo](/assets/Pasted%20image%2020241106145046.png)
 
-- ![](/assets/Pasted%20image%2020241106145159.png)
+- ![photo](/assets/Pasted%20image%2020241106145159.png)
 
 - Save and exit the files by pressing `Esc` and typing `:wq`.
 
@@ -288,7 +310,8 @@ date: 2024-11-06T13:00:00+03:00
 
 ## Step 10: Enable and Start Caddy Service
 
-- After creating the Caddy service files, you must enable and start the Caddy service using the following commands:
+- After creating the Caddy service files, you must enable and start the Caddy
+service using the following commands:
 
   ```bash
   sudo systemctl enable --now caddy
@@ -300,7 +323,8 @@ date: 2024-11-06T13:00:00+03:00
   sudo systemctl status caddy
   ```
 
-- If you want to testing the Caddy server, you can open your browser and navigate to `http://<server-ip>`. You can also use the following command:
+- If you want to testing the Caddy server, you can open your browser and navigate
+to `http://<server-ip>`. You can also use the following command:
 
   ```bash
   curl -I http://localhost
@@ -308,7 +332,7 @@ date: 2024-11-06T13:00:00+03:00
 
 - You should see the following output:
 
-  ```
+  ```curl
   HTTP/1.1 200 OK
   Server: Caddy
   Date: Sun, 06 Nov 2024 13:00:00 GMT
@@ -316,10 +340,11 @@ date: 2024-11-06T13:00:00+03:00
   Content-Type: text/plain; charset=utf-8
   ```
 
-- ![](/assets/Pasted%20image%2020241106143607.png)
+- ![photo](/assets/Pasted%20image%2020241106143607.png)
 
 ---
 
 ## Conclusion
 
-- Congratulations! You have successfully installed and configured Caddy on your server. You are now ready to host websites and web applications with Caddy.
+- Congratulations! You have successfully installed and configured Caddy on your
+server. You are now ready to host websites and web applications with Caddy.

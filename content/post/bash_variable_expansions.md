@@ -623,7 +623,6 @@ specified by the operator. For example:
       variable='Hello, World 123!'
       ```
   
-
 ---
 
 ## Conclusion
