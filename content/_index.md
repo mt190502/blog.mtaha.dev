@@ -5,7 +5,7 @@ title:
 
 # Hi 👋
 
-I'm 21-year-old junior software engineer using languages like Bash, C, Go, Python and Rust. I am particularly skilled in the use of these languages for developing simple Linux terminal commands. 
+I'm Muhammed Taha. I'm 21 years old. I have been interested in software development and linux for about 5 years. I am developing myself in these fields
 
 In this blog you can find my articles on various topics such as Linux, programming and technology.
 
