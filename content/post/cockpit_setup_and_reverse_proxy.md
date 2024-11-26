@@ -183,6 +183,8 @@ web servers:
     ```
 
     - Note: Replace `your-domain.com` with your actual domain name.
+    - Note: If you want to use authorization with Caddy, you can follow [this](/post/caddyserver_auth_setup)
+    guide.
 
     - ![photo](/assets/Pasted%20image%2020241125122256.png)
 
