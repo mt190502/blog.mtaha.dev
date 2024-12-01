@@ -18,15 +18,14 @@ date: 2024-11-14T13:00:00+03:00
 - Kubernetes is an open-source container orchestration platform that automates the
 deployment, scaling, and management of containerized applications. The software
 was initially developed by Google and is now maintained by the Cloud Native
-Computing Foundation (CNCF).
-- Kubernetes is an effective tool for the efficient management of a substantial
-number of containers.
+Computing Foundation (CNCF). Kubernetes is an effective tool for the efficient
+management of a substantial number of containers.
+- Tailscale is a virtual private network (VPN) service that facilitates secure
+access to a network from any location worldwide. The configuration process is
+straightforward and the software is compatible with a range of operating systems,
+including Windows, macOS, Linux, iOS and Android.
 - This guide will demonstrate the process of establishing a basic Kubernetes
-cluster utilising the Tailscale VPN infrastructure. Tailscale is a virtual
-private network (VPN) service that facilitates secure access to a network from
-any location worldwide. The configuration process is straightforward and the software
-is compatible with a range of operating systems, including Windows, macOS, Linux,
-iOS and Android.
+cluster utilising the Tailscale VPN infrastructure.
 
 <br>
 
@@ -98,15 +97,17 @@ that you use the following ACL list.
   ```json
   {
       "tagOwners": {
-          "tag:personal": ["autogroup:admin"],
-          "tag:servers":  ["autogroup:admin"],
-          "tag:k8s-node": ["autogroup:admin"],
+          "tag:personal":     ["autogroup:admin"],
+          "tag:servers":      ["autogroup:admin"],
+          "tag:k8s-operator": ["autogroup:admin"],
+          "tag:k8s-node":     ["tag:k8s-operator"],
+          "tag:k8s-pods":     ["tag:k8s-operator"],
       },
       "acls": [
           {
               "action": "accept",
-              "src": ["tag:personal"],
-              "dst": ["*:*"],
+              "src":    ["tag:personal"],
+              "dst":    ["*:*"],
           },
           {
               "action": "accept",
@@ -114,12 +115,16 @@ that you use the following ACL list.
                   "autogroup:admin",
                   "tag:servers",
                   "tag:k8s-node",
+                  "tag:k8s-pods",
+                  "tag:k8s-operator",
                   "10.0.0.0/8",
                   "172.16.0.0/16",
               ],
               "dst": [
                   "tag:servers:*",
                   "tag:k8s-node:*",
+                  "tag:k8s-pods:*",
+                  "tag:k8s-operator:*",
                   "10.0.0.0/8:*",
                   "172.16.0.0/16:*",
               ],
@@ -128,9 +133,9 @@ that you use the following ACL list.
       "ssh": [
           {
               "action": "accept",
-              "src": ["tag:personal"],
-              "dst": ["tag:servers"],
-              "users": ["autogroup:nonroot", "root"],
+              "src":    ["autogroup:admin", "tag:personal"],
+              "dst":    ["tag:servers"],
+              "users":  ["autogroup:nonroot", "root", "fedora"],
           },
       ],
   }
@@ -356,13 +361,13 @@ by following the official Kubernetes installation guides:
     lines:
 
       ```bash
-      deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /
+      deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /
       ```
 
     - Then run the following commands to add the Kubernetes repository key:
 
       ```bash
-      curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+      curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
       ```
 
   - For CentOS/RHEL users
@@ -371,10 +376,10 @@ by following the official Kubernetes installation guides:
       ```bash
       [kubernetes]
       name=Kubernetes
-      baseurl=https://pkgs.k8s.io/core:/stable:/v1.30/rpm/
+      baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
       enabled=1
       gpgcheck=1
-      gpgkey=https://pkgs.k8s.io/core:/stable:/v1.30/rpm/repodata/repomd.xml.key
+      gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
       ```
 
 - ![photo](/assets/Pasted%20image%2020241114154307.png)
@@ -383,18 +388,15 @@ by following the official Kubernetes installation guides:
 
 ## Step 11: Setup Docker Repository and Install Kubernetes Packages
 
-- Once you have set up the Kubernetes and Docker repository, install the Kubernetes
+- Once you have set up the Kubernetes repository, install the Kubernetes
 packages on all the machines. Run the following commands to do this:
 
   ```bash
-  # This setup is required to the containerd.io package
-  curl -fsSL https://get.docker.com | sudo bash
-
   # For Ubuntu/Debian
-  sudo apt install -y containerd.io kubeadm kubelet kubectl kubernetes-cni
+  sudo apt install -y containerd kubeadm kubelet kubectl kubernetes-cni
 
   # For CentOS/RHEL
-  sudo dnf install -y containerd.io kubeadm kubelet kubectl kubernetes-cni
+  sudo dnf install -y containerd kubeadm kubelet kubectl kubernetes-cni
   ```
   
 - ![photo](/assets/Pasted%20image%2020241114154323.png)
@@ -548,7 +550,7 @@ I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI p
       helm repo add flannel https://flannel-io.github.io/flannel/
 
       # Install Flannel
-      helm install flannel --set podCidr="172.16.0.0/16" --namespace kube-flannel flannel/flannel --create-namespace
+      helm install flannel --set podCidr="172.16.0.0/16" --set flannel.args[0]='--ip-masq' --set flannel.args[1]='--kube-subnet-mgr' --set flannel.args[2]='--iface=tailscale0' --namespace kube-flannel flannel/flannel --create-namespace
 
       # Label the Flannel pods
       k label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
@@ -593,10 +595,11 @@ You can install MetalLB by running the following steps:
   - Install MetalLB by Helm with the following command:
 
     ```bash
-    helm install metallb metallb/metallb --namespace metallb-system --create-namespace --values metallb.yml
+    helm install metallb metallb/metallb --namespace metallb-system --create-namespace
+    kubectl apply -f metallb.yaml
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241115133511.png)
+    - ![photo](/assets/Pasted%20image%2020241201230504.png)
 
   - Verify the MetalLB installation by running the following command:
 
