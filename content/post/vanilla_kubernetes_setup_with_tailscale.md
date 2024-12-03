@@ -185,7 +185,7 @@ this, run the following commands:
   sudo iptables -F
 
   #~ add tailscale and kubernetes cni interfaces
-  sudo firewall-cmd --zone=trusted --permanent --add-interface={tailscale0,cni0,vxlan.calico,flannel.1}
+  sudo firewall-cmd --zone=trusted --permanent --add-interface={tailscale0,cni0,vxlan.calico,flannel.1,cali+}
 
   #~ add ports for kubernetes
   sudo firewall-cmd --zone=public --permanent --add-service={dns,http,https,mdns,llmnr}
@@ -198,7 +198,7 @@ this, run the following commands:
   sudo firewall-cmd --reload
   ```
 
-- ![photo](/assets/Pasted%20image%2020241114154026.png)
+- ![photo](/assets/Pasted%20image%2020241203193447.png)
 
 <br>
 
@@ -386,7 +386,7 @@ by following the official Kubernetes installation guides:
 
 <br>
 
-## Step 11: Setup Docker Repository and Install Kubernetes Packages
+## Step 11: Install Kubernetes Packages
 
 - Once you have set up the Kubernetes repository, install the Kubernetes
 packages on all the machines. Run the following commands to do this:
