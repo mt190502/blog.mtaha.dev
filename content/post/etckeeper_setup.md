@@ -18,7 +18,7 @@ date: 2024-12-18T12:00:00+03:00
 files in the `/etc` directory. Using Git as its backend, Etckeeper allows you to
 version control your configuration files, making it easier to monitor and revert
 changes if necessary.
-- In this guide, we will show you how to set up Etckeeper on your system and start
+- In this guide, I will show you how to set up Etckeeper on your system and start
 tracking changes to your configuration files.
 
 ## Step 1: Install Etckeeper
