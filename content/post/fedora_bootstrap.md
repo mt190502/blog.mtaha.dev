@@ -274,7 +274,7 @@ commands:
 - Then bootstrap the fedora installation:
 
   ```bash
-  sudo dnf --installroot=/mnt --releasever=41 --forcearch=x86_64 --setopt=fastermirror=True group install "Core"
+  sudo dnf --installroot=/mnt --releasever=41 --forcearch=x86_64 --setopt=fastestmirror=True group install "Core"
   ```
 
   - ![photo](/assets/Pasted%20image%2020241220110757.png)
