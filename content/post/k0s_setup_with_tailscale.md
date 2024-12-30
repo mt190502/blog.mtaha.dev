@@ -362,13 +362,13 @@ You can install k0s by running the following commands:
 commands:
 
   ```bash
-    #~ find your k0sctl version (distro + architecture)
-    curl -sSLf https://api.github.com/repos/k0sproject/k0sctl/releases/latest | jq -r '.assets[].browser_download_url' 
+  #~ find your k0sctl version (distro + architecture)
+  curl -sSLf https://api.github.com/repos/k0sproject/k0sctl/releases/latest | jq -r '.assets[].browser_download_url' 
 
-    #~ download k0sctl
-    sudo wget <URL> -O /usr/local/bin/k0sctl
-    sudo chmod +x /usr/local/bin/k0sctl
-    ```
+  #~ download k0sctl
+  sudo wget <URL> -O /usr/local/bin/k0sctl
+  sudo chmod +x /usr/local/bin/k0sctl
+  ```
 
   - ![photo](/assets/Pasted%20image%2020241203203433.png)
 <br>
@@ -464,6 +464,10 @@ You can create the file by running the following command:
             telemetry:
               enabled: false
     ```
+
+    Note: If you are using systemd-resolved, you need append to the `kubelet-extra-args`
+the following line: `--resolv-conf=/run/systemd/resolve/resolv.conf`. For example:
+`--kubelet-extra-args=\"--node-ip=<IP_ADDRESS> --resolv-conf=/run/systemd/resolve/resolv.conf\"`
 
 <br>
 
