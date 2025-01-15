@@ -5,7 +5,7 @@ title:
 
 # Hi 👋
 
-I'm Muhammed Taha. I'm 21 years old. I have been interested in software development and linux for about 5 years. I am developing myself in these fields
+I'm Muhammed Taha. I'm 22 years old. I have been interested in software development and linux for about 5 years. I am developing myself in these fields
 
 In this blog you can find my articles on various topics such as Linux, programming and technology.
 

@@ -1,6 +1,6 @@
 author = "Taha"
 baseURL = '/'
-copyright = "© Copyright [Taha](https://mtaha.dev) 2021-2024"
+copyright = "© Copyright [Taha](https://mtaha.dev) 2021-2025"
 enableInlineShortcodes = true
 ignoreFiles = [ "templates/.*", ".obsidian/*" ]
 ignoreErrors = ["error-remote-getjson"]
