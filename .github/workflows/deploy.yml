@@ -27,19 +27,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: true # Fetch themes (true OR recursive)
+          submodules: true # Fetch Zola themes (true OR recursive)
           fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
 
-      - name: build
-        uses: shalzz/zola-deploy-action@v0.19.2
-        env:
-          BUILD_DIR: docs/
-          BUILD_ONLY: true
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: zola@0.19.2
+
+      - name: Build site
+        run: zola build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: docs
+          path: public
 
   deploy:
     environment:
