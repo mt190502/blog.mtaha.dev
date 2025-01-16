@@ -1,19 +1,19 @@
----
-author: Taha
-title: Vanilla Kubernetes Setup with Tailscale
-description: Installling Kubernetes with Tailscale VPN Infrastructure
-draft: false
-tags:
-  - tailscale
-  - vpn
-  - vanilla
-  - kubernetes
-  - guide
-toc: true
-date: 2024-11-14T13:00:00+03:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Vanilla Kubernetes Setup with Tailscale"
+description = "Installling Kubernetes with Tailscale VPN Infrastructure"
+draft = false
+date = 2024-11-14T13:00:00+03:00
+[taxonomies]
+tags = ["k8s", "kubernetes", "cluster", "kubernetes-distribution", "guide"]
+[extra]
+toc = true
+toc_ordered = true
+disclaimer = """
+In this guide, I will use Fedora 41 Cloud Edition as the base operating system.
+Some steps may vary depending on the distribution you are using.
+"""
++++
 
 - Kubernetes is an open-source container orchestration platform that automates the
 deployment, scaling, and management of containerized applications. The software
@@ -35,12 +35,8 @@ cluster utilising the Tailscale VPN infrastructure.
 - Two or more machines with a minimum of a 2-core CPU and 4 GB of RAM, running a
 Linux operating system.
 
-<br>
+{% alert(important=true) %}
 
-## Disclaimer
-
-- In this guide, I will use Fedora 41 Cloud Edition as the base operating system.
-Some steps may vary depending on the distribution you are using.
 - I will use the following machines:
 
   - Master Node:
@@ -64,6 +60,8 @@ Some steps may vary depending on the distribution you are using.
       OS: Fedora 41 Cloud Edition\
       Location: Homelab\
       Machine: Raspberry Pi 5 - 8 GB
+
+{% end %}
 
 <br>
 
@@ -170,8 +168,11 @@ hostname.
   ::1 <hostname>
   ```
 
-  - Replace `<hostname>` with the hostname of the machine.
-    - ![photo](/assets/Pasted%20image%2020241115150257.png)
+  {% alert(note=true) %}
+  Replace `<hostname>` with the hostname of the machine.
+  {% end %}
+  
+  - ![photo](/assets/Pasted%20image%2020241115150257.png)
 
 <br>
 
@@ -198,8 +199,8 @@ this, run the following commands:
   sudo firewall-cmd --reload
   ```
 
-- ![photo](/assets/Pasted%20image%2020241203193447.png)
-
+  - ![photo](/assets/Pasted%20image%2020241203193447.png)
+  
 <br>
 
 ## Step 5: Enable CGroup and Disable Swap
@@ -209,38 +210,38 @@ CGroup is a Linux kernel feature that provides a way to limit, account for, and
 isolate the resource usage of a collection of processes. To enable CGroup and disable
 swap, look at the following steps:
 
-  - If you are using swap (not zram), you need to disable it by running the following
-  commands:
+- If you are using swap (not zram), you need to disable it by running the following
+commands:
+
+  ```bash
+  sudo swapoff -a
+  sudo vim /etc/fstab
+
+  #~ comment the swap line
+  ```
+
+  - Example: ![photo](/assets/Pasted%20image%2020241115152555.png)
+
+- For GRUB users:
+  - Open the `/etc/default/grub` file and change the following line:
 
     ```bash
-    sudo swapoff -a
-    sudo vim /etc/fstab
-
-    #~ comment the swap line
+    GRUB_CMDLINE_LINUX="cgroup_enable=memory systemd.zram=0"
     ```
 
-    - Example: ![photo](/assets/Pasted%20image%2020241115152555.png)
+- For systemdboot users:
+  - Open the `/etc/kernel/cmdline` file and add the following lines:
 
-  - For GRUB users:
-    - Open the `/etc/default/grub` file and change the following line:
+    ```bash
+    cgroup_enable=memory systemd.zram=0
+    ```
 
-      ```bash
-      GRUB_CMDLINE_LINUX="cgroup_enable=memory systemd.zram=0"
-      ```
+- For Raspberry Pi users:
+  - Open the `/boot/cmdline.txt` file and add the following lines:
 
-  - For systemdboot users:
-    - Open the `/etc/kernel/cmdline` file and add the following lines:
-
-      ```bash
-      cgroup_enable=memory systemd.zram=0
-      ```
-
-  - For Raspberry Pi users:
-    - Open the `/boot/cmdline.txt` file and add the following lines:
-
-      ```bash
-      cgroup_enable=memory systemd.zram=0
-      ```
+    ```bash
+    cgroup_enable=memory systemd.zram=0
+    ```
 
 - ![photo](/assets/Pasted%20image%2020241114154035.png)
 - ![photo](/assets/Pasted%20image%2020241114154044.png)
@@ -252,23 +253,23 @@ swap, look at the following steps:
 - The next step is to enable IP forwarding on all the machines. To do this, follow
 the steps below:
 
-  - Open the `/etc/sysctl.d/kubernetes.conf` file and add the following lines:
+- Open the `/etc/sysctl.d/kubernetes.conf` file and add the following lines:
 
-    ```bash
-    net.bridge.bridge-nf-call-ip6tables = 1
-    net.bridge.bridge-nf-call-iptables = 1
-    net.ipv6.conf.all.forwarding = 1
-    net.ipv4.conf.all.src_valid_mark = 1
-    net.ipv4.ip_forward = 1
-    ```
+  ```bash
+  net.bridge.bridge-nf-call-ip6tables = 1
+  net.bridge.bridge-nf-call-iptables = 1
+  net.ipv6.conf.all.forwarding = 1
+  net.ipv4.conf.all.src_valid_mark = 1
+  net.ipv4.ip_forward = 1
+  ```
 
-    - ![photo](/assets/Pasted%20image%2020241114154110.png)
+  - ![photo](/assets/Pasted%20image%2020241114154110.png)
 
-  - Then run the following command to apply the changes:
+- Then run the following command to apply the changes:
 
-    ```bash
-    sudo sysctl --system
-    ```
+  ```bash
+  sudo sysctl --system
+  ```
 
 <br>
 
@@ -294,32 +295,32 @@ complete this step, run the following commands:
 - In the next step, you need to regenerate the initramfs and apply the bootloader
 configuration to all the machines. You can do this by running the following commands:
 
-  - For GRUB users:
+- For GRUB users:
 
-    ```bash
-    # For Ubuntu/Debian
-    sudo update-initramfs -u
-    sudo update-grub
+  ```bash
+  # For Ubuntu/Debian
+  sudo update-initramfs -u
+  sudo update-grub
 
-    # For CentOS/RHEL
-    sudo dracut -fv
-    sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-    ```
+  # For CentOS/RHEL
+  sudo dracut -fv
+  sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+  ```
 
-  - For systemdboot users:
+- For systemdboot users:
 
-    ```bash
-    # For Ubuntu/Debian
-    sudo update-initramfs -u
-    sudo systemctl restart systemd-boot-update
+  ```bash
+  # For Ubuntu/Debian
+  sudo update-initramfs -u
+  sudo systemctl restart systemd-boot-update
 
-    # For CentOS/RHEL
-    sudo dracut -fv
-    sudo dnf reinstall -y kernel-core
-    ```
+  # For CentOS/RHEL
+  sudo dracut -fv
+  sudo dnf reinstall -y kernel-core
+  ```
 
-  - ![photo](/assets/Pasted%20image%2020241114155019.png)
-  - ![photo](/assets/Pasted%20image%2020241114155028.png)
+- ![photo](/assets/Pasted%20image%2020241114155019.png)
+- ![photo](/assets/Pasted%20image%2020241114155028.png)
 
 <br>
 
@@ -356,33 +357,33 @@ by following the official Kubernetes installation guides:
 [link1](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/),
 [link2](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/change-package-repository/#switching-to-another-kubernetes-package-repository)
 
-  - For Debian/Ubuntu users
-    - Open the `/etc/apt/sources.list.d/kubernetes.list` file and add the following
-    lines:
+- For Debian/Ubuntu users
+  - Open the `/etc/apt/sources.list.d/kubernetes.list` file and add the following
+  lines:
 
-      ```bash
-      deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /
-      ```
+    ```bash
+    deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /
+    ```
 
-    - Then run the following commands to add the Kubernetes repository key:
+  - Then run the following commands to add the Kubernetes repository key:
 
-      ```bash
-      curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-      ```
+    ```bash
+    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    ```
 
-  - For CentOS/RHEL users
-    - Open the `/etc/yum.repos.d/kubernetes.repo` file and add the following lines:
+- For CentOS/RHEL users
+  - Open the `/etc/yum.repos.d/kubernetes.repo` file and add the following lines:
 
-      ```bash
-      [kubernetes]
-      name=Kubernetes
-      baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
-      enabled=1
-      gpgcheck=1
-      gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
-      ```
+    ```bash
+    [kubernetes]
+    name=Kubernetes
+    baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
+    enabled=1
+    gpgcheck=1
+    gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
+    ```
 
-- ![photo](/assets/Pasted%20image%2020241114154307.png)
+  - ![photo](/assets/Pasted%20image%2020241114154307.png)
 
 <br>
 
@@ -399,7 +400,7 @@ packages on all the machines. Run the following commands to do this:
   sudo dnf install -y containerd kubeadm kubelet kubectl kubernetes-cni
   ```
   
-- ![photo](/assets/Pasted%20image%2020241114154323.png)
+  - ![photo](/assets/Pasted%20image%2020241114154323.png)
 
 <br>
 
@@ -414,7 +415,7 @@ commands to do this:
   sudo sed -i 's/ SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
   ```
 
-- ![photo](/assets/Pasted%20image%2020241114154422.png)
+  - ![photo](/assets/Pasted%20image%2020241114154422.png)
 
 <br>
 
@@ -432,13 +433,13 @@ and add the following line:
   echo "KUBELET_EXTRA_ARGS=\"--node-ip=$(tailscale ip --4)\"" | sudo tee /etc/sysconfig/kubelet
   ```
 
-  - Then restart the kubelet service by running the following command:
+- Then restart the kubelet service by running the following command:
 
-    ```bash
-    sudo systemctl restart kubelet containerd
-    ```
+  ```bash
+  sudo systemctl restart kubelet containerd
+  ```
 
-- ![photo](/assets/Pasted%20image%2020241114154433.png)
+  - ![photo](/assets/Pasted%20image%2020241114154433.png)
 
 <br>
 
@@ -453,8 +454,8 @@ by running the following command:
 
   - ![photo](/assets/Pasted%20image%2020241114154456.png)
 
-  - After the initialisation process is complete, run the following commands to
-  set up the Kubernetes configuration file:
+- After the initialisation process is complete, run the following commands to
+set up the Kubernetes configuration file:
 
   ```bash
   mkdir -p $HOME/.kube
@@ -472,13 +473,15 @@ by running the following command:
 the worker nodes to the cluster by running the following command on each worker node:
 
   ```bash
-  sudo kubeadm join <join-string-from-step-12> --apiserver-advertise-address $(tailscale ip --4)
+  sudo kubeadm join <join-string-from-step-14> --apiserver-advertise-address $(tailscale ip --4)
   ```
 
-  - Note: I recommend that you save the master join string to a file and use it
-  for new master nodes in the future.
+  - ![photo](/assets/Pasted%20image%2020241114154505.png)
 
-    - ![photo](/assets/Pasted%20image%2020241114154505.png)
+  {% alert(note=true) %}
+  I recommend that you save the master join string to a file and use it for new
+  master nodes in the future.
+  {% end %}
 
 <br>
 
@@ -501,73 +504,73 @@ Kubernetes cluster. The CNI plugin is responsible for providing networking capab
 to the containers running on the cluster. If you have high system requirements,
 I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI plugin.
 
-  - For Calico
+- For Calico
 
-    - Deploy the tigera operator by running the following command:
+  - Deploy the tigera operator by running the following command:
 
-      ```bash
-      kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/tigera-operator.yaml
-      ```
+    ```bash
+    kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/tigera-operator.yaml
+    ```
 
-      - ![photo](/assets/Pasted%20image%2020241115125024.png)
+    - ![photo](/assets/Pasted%20image%2020241115125024.png)
 
-    - Then download calico custom manifest file:
+  - Then download calico custom manifest file:
 
-      ```bash
-      curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/custom-resources.yaml > calico.yaml
-      ```
+    ```bash
+    curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/custom-resources.yaml > calico.yaml
+    ```
 
-      - ![photo](/assets/Pasted%20image%2020241115125030.png)
+    - ![photo](/assets/Pasted%20image%2020241115125030.png)
 
-    - Edit the calico.yaml file and change the `cidr` value to `172.16.0.0/16`.
-      - ![photo](/assets/Pasted%20image%2020241115155929.png)
+  - Edit the calico.yaml file and change the `cidr` value to `172.16.0.0/16`.
+    - ![photo](/assets/Pasted%20image%2020241115155929.png)
 
-    - Apply the calico custom manifest file:
+  - Apply the calico custom manifest file:
 
-      ```bash
-      kubectl create -f calico.yaml
-      ```
+    ```bash
+    kubectl create -f calico.yaml
+    ```
 
-      - ![photo](/assets/Pasted%20image%2020241115125043.png)
+    - ![photo](/assets/Pasted%20image%2020241115125043.png)
 
-    - Finally, verify the calico installation by running the following command:
+  - Finally, verify the calico installation by running the following command:
 
-      ```bash
-      kubectl get pods -A       
-      
-      # or use k9s
-      k9s
-      ```
+    ```bash
+    kubectl get pods -A       
+    
+    # or use k9s
+    k9s
+    ```
 
-      - ![photo](/assets/Pasted%20image%2020241115125049.png)
+    - ![photo](/assets/Pasted%20image%2020241115125049.png)
 
-  - For Flannel
+- For Flannel
 
-    - Install the Flannel CNI plugin by Helm:
+  - Install the Flannel CNI plugin by Helm:
 
-      ```bash
-      # Add the Flannel repository
-      helm repo add flannel https://flannel-io.github.io/flannel/
+    ```bash
+    # Add the Flannel repository
+    helm repo add flannel https://flannel-io.github.io/flannel/
 
-      # Install Flannel
-      helm install flannel --set podCidr="172.16.0.0/16" --set flannel.args[0]='--ip-masq' --set flannel.args[1]='--kube-subnet-mgr' --set flannel.args[2]='--iface=tailscale0' --namespace kube-flannel flannel/flannel --create-namespace
+    # Install Flannel
+    helm install flannel --set podCidr="172.16.0.0/16" --set flannel.args[0]='--ip-masq' --set flannel.args[1]='--kube-subnet-mgr' --set flannel.args[2]='--iface=tailscale0' --namespace kube-flannel flannel/flannel --create-namespace
 
-      # Label the Flannel pods
-      k label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
-      ```
+    # Label the Flannel pods
+    k label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
+    ```
 
-      - ![photo](/assets/Pasted%20image%2020241115125057.png)
+    - ![photo](/assets/Pasted%20image%2020241115125057.png)
 
-    - Verify the Flannel installation by running the following command:
+  - Verify the Flannel installation by running the following command:
 
-      ```bash
-      kubectl get pods -A
+    ```bash
+    kubectl get pods -A
 
-      # or use k9s
-      k9s
-      ```
+    # or use k9s
+    k9s
+    ```
 
-      - ![photo](/assets/Pasted%20image%2020241115125103.png)
+    - ![photo](/assets/Pasted%20image%2020241115125103.png)
 
 <br>
 
@@ -577,40 +580,40 @@ I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI p
 MetalLB is a load balancer that provides network load balancing for Kubernetes clusters.
 You can install MetalLB by running the following steps:
 
-  - Create a file with the name `metallb.yaml' and add the following content:
+- Create a file with the name `metallb.yaml' and add the following content:
 
-    ```yaml
-    apiVersion: metallb.io/v1beta1
-    kind: IPAddressPool
-    metadata:
-      name: default
-      namespace: metallb-system
-    spec:
-      addresses:
-      - 172.16.20.0/24
-    ```
+  ```yaml
+  apiVersion: metallb.io/v1beta1
+  kind: IPAddressPool
+  metadata:
+    name: default
+    namespace: metallb-system
+  spec:
+    addresses:
+    - 172.16.20.0/24
+  ```
 
-    - ![photo](/assets/Pasted%20image%2020241115133505.png)
+  - ![photo](/assets/Pasted%20image%2020241115133505.png)
 
-  - Install MetalLB by Helm with the following command:
+- Install MetalLB by Helm with the following command:
 
-    ```bash
-    helm install metallb metallb/metallb --namespace metallb-system --create-namespace
-    kubectl apply -f metallb.yaml
-    ```
+  ```bash
+  helm install metallb metallb/metallb --namespace metallb-system --create-namespace
+  kubectl apply -f metallb.yaml
+  ```
 
-    - ![photo](/assets/Pasted%20image%2020241201230504.png)
+  - ![photo](/assets/Pasted%20image%2020241201230504.png)
 
-  - Verify the MetalLB installation by running the following command:
+- Verify the MetalLB installation by running the following command:
 
-    ```bash
-    kubectl get pods -A
+  ```bash
+  kubectl get pods -A
 
-    # or use k9s cli
-    k9s
-    ```
+  # or use k9s cli
+  k9s
+  ```
 
-    - ![photo](/assets/Pasted%20image%2020241115133517.png)
+  - ![photo](/assets/Pasted%20image%2020241115133517.png)
 
 <br>
 
@@ -621,28 +624,28 @@ cluster. The local-path-provisioner is a storage class that provides persistent
 storage for the containers running on the cluster. You can install the local-path-provisioner
 by running the following steps:
 
-  - Install the local-path-provisioner with the following command:
+- Install the local-path-provisioner with the following command:
 
-    ```bash
-    # Install local-path-provisioner
-    kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.28/deploy/local-path-storage.yaml
+  ```bash
+  # Install local-path-provisioner
+  kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/v0.0.28/deploy/local-path-storage.yaml
 
-    # Patch the local-path storage class
-    kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true", "defaultVolumeType":"local"}}, "allowVolumeExpansion": true}'
-    ```
+  # Patch the local-path storage class
+  kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true", "defaultVolumeType":"local"}}, "allowVolumeExpansion": true}'
+  ```
 
-    - ![photo](/assets/Pasted%20image%2020241115133526.png)
+  - ![photo](/assets/Pasted%20image%2020241115133526.png)
 
-  - Verify the local-path-provisioner installation by running the following command:
+- Verify the local-path-provisioner installation by running the following command:
 
-    ```bash
-    kubectl get pods -A
-    
-    # or use k9s
-    k9s
-    ```
+  ```bash
+  kubectl get pods -A
+  
+  # or use k9s
+  k9s
+  ```
 
-    - ![photo](/assets/Pasted%20image%2020241115133531.png)
+  - ![photo](/assets/Pasted%20image%2020241115133531.png)
 
 ---
 

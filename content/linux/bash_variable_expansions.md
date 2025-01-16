@@ -1,17 +1,15 @@
----
-author: Taha
-title: Bash Variable Expansions
-description: Bash Variable Expansions
-draft: false
-tags:
-  - bash
-  - variables
-  - regex
-toc: true
-date: 2024-11-06T11:00:00+03:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Bash Variable Expansions"
+description = "Bash Variable Expansions"
+draft = false
+date = 2024-11-06T11:00:00+03:00
+[taxonomies]
+tags = ["bash", "variables", "regex"]
+[extra]
+toc = true
+toc_ordered = true
++++
 
 - Bash (short for Bourne-Again SHell), is a shell program and command language
 supported by the Free Software Foundation and first developed for the GNU Project
@@ -25,7 +23,7 @@ operations on variables, such as extracting substrings, replacing text, and more
 
 <br>
 
-## ${\#variable}
+## $\{#variable\}
 
 - This expansion returns the length of the variable. For example:
 
@@ -42,7 +40,7 @@ operations on variables, such as extracting substrings, replacing text, and more
 
 <br>
 
-## ${variable%pattern}
+## $\{variable%pattern\}
 
 - This expansion removes the match of the pattern from the end of the variable.
 Wildcards can be used in the pattern. For example:
@@ -62,7 +60,7 @@ Wildcards can be used in the pattern. For example:
 
 <br>
 
-## ${variable#pattern}
+## $\{variable#pattern\}
 
 - This expansion removes the match of the pattern from the beginning of the variable.
 Wildcards can be used in the pattern. For example:
@@ -82,7 +80,7 @@ Wildcards can be used in the pattern. For example:
 
 <br>
 
-## ${variable%%pattern}
+## $\{variable%%pattern\}
 
 - This expansion removes the longest match of the pattern from the end of the
 variable. Wildcards can be used in the pattern. For example:
@@ -102,7 +100,7 @@ variable. Wildcards can be used in the pattern. For example:
 
 <br>
 
-## ${variable##pattern}
+## $\{variable##pattern\}
 
 - This expansion removes the longest match of the pattern from the beginning of
 the variable. Wildcards can be used in the pattern. For example:
@@ -122,7 +120,7 @@ the variable. Wildcards can be used in the pattern. For example:
 
 <br>
 
-## ${variable^}
+## $\{variable^\}
 
 - This expansion converts the first character of the variable to uppercase. For example:
 
@@ -139,7 +137,7 @@ the variable. Wildcards can be used in the pattern. For example:
 
 <br>
 
-## ${variable^^}
+## $\{variable^^\}
 
 - This expansion converts all characters of the variable to uppercase. For example:
 
@@ -156,7 +154,7 @@ the variable. Wildcards can be used in the pattern. For example:
 
 <br>
 
-## ${variable^^pattern}
+## $\{variable^^pattern\}
 
 - This expansion converts all characters of the variable that match the pattern
 to uppercase. For example:
@@ -174,7 +172,7 @@ to uppercase. For example:
 
 <br>
 
-## ${variable,}
+## $\{variable,\}
 
 - This expansion converts the first character of the variable to lowercase. For example:
 
@@ -191,7 +189,7 @@ to uppercase. For example:
 
 <br>
 
-## ${variable,,}
+## $\{variable,,\}
 
 - This expansion converts all characters of the variable to lowercase. For example:
 
@@ -208,7 +206,7 @@ to uppercase. For example:
 
 <br>
 
-## ${variable,,pattern}
+## $\{variable,,pattern\}
 
 - This expansion converts all characters of the variable that match the pattern
 to lowercase. For example:
@@ -226,7 +224,7 @@ to lowercase. For example:
 
 <br>
 
-## ${variable~}
+## $\{variable~\}
 
 - This expansion swaps the case of the first character of the variable. For example:
 
@@ -243,7 +241,7 @@ to lowercase. For example:
 
 <br>
 
-## ${variable\~\~}
+## $\{variable\~\~\}
 
 - This expansion swaps the case of all characters of the variable. For example:
 
@@ -260,7 +258,7 @@ to lowercase. For example:
 
 <br>
 
-## ${variable\~\~pattern}
+## $\{variable\~\~pattern\}
 
 - This expansion swaps the case of all characters of the variable that match the
 pattern. For example:
@@ -278,7 +276,7 @@ pattern. For example:
 
 <br>
 
-## ${variable/pattern/replacement}
+## $\{variable/pattern/replacement\}
 
 - This expansion replaces the first match of the pattern with the replacement in
 the variable (like sed). For example:
@@ -296,7 +294,7 @@ the variable (like sed). For example:
 
 <br>
 
-## ${variable//pattern/replacement}
+## $\{variable//pattern/replacement\}
 
 - This expansion replaces all matches of the pattern with the replacement in the
 variable (like sed). For example:
@@ -314,7 +312,7 @@ variable (like sed). For example:
 
 <br>
 
-## ${variable/%pattern/replacement}
+## $\{variable/%pattern/replacement\}
 
 - This expansion replaces the last match of the pattern with the replacement in
 the variable (like sed). For example:
@@ -332,7 +330,7 @@ the variable (like sed). For example:
 
 <br>
 
-## ${variable/#pattern/replacement}
+## $\{variable/#pattern/replacement\}
 
 - This expansion replaces the first match of the pattern with the replacement in
 the variable (like sed). For example:
@@ -350,7 +348,7 @@ the variable (like sed). For example:
 
 <br>
 
-## ${variable:position}
+## $\{variable:position\}
 
 - This expansion returns the substring of the variable starting from the position.
 For example:
@@ -368,7 +366,7 @@ For example:
 
 <br>
 
-## ${variable:position:length}
+## $\{variable:position:length\}
 
 - This expansion returns the substring of the variable starting from the position
 with the specified length. For example:
@@ -386,7 +384,7 @@ with the specified length. For example:
 
 <br>
 
-## ${variable: -position}
+## $\{variable: -position\}
 
 - This expansion returns the substring of the variable starting from the position
 from the end. For example:
@@ -404,7 +402,7 @@ from the end. For example:
 
 <br>
 
-## ${variable: -position:length}
+## $\{variable: -position:length\}
 
 - This expansion returns the substring of the variable starting from the position
 from the end with the specified length. For example:
@@ -422,7 +420,7 @@ from the end with the specified length. For example:
 
 <br>
 
-## ${variable:+value}
+## $\{variable:+value\}
 
 - This expansion returns the value if the variable is set and not null. For example:
 
@@ -439,7 +437,7 @@ from the end with the specified length. For example:
 
 <br>
 
-## ${variable:-value}
+## $\{variable:-value\}
 
 - This expansion returns the value if the variable is not set or null. For example:
 
@@ -455,7 +453,7 @@ from the end with the specified length. For example:
 
 <br>
 
-## ${variable:?message}
+## $\{variable:?message\}
 
 - This expansion returns the message if the variable is not set or null. For example:
 
@@ -471,7 +469,7 @@ from the end with the specified length. For example:
 
 <br>
 
-## ${variable:\=value}
+## $\{variable:\=value\}
 
 - This expansion sets the value if the variable is not set or null. For example:
 
@@ -487,7 +485,7 @@ from the end with the specified length. For example:
 
 <br>
 
-## ${!prefix*} and ${!prefix@}
+## $\{!prefix*\} and $\{!prefix@\}
 
 - This expansions returns the names of variables whose names start with the prefix.
 For example:
@@ -508,7 +506,7 @@ For example:
 
 <br>
 
-## ${variable[\*]} and ${variable[@]}
+## $\{variable[\*]} and ${variable[@]\}
 
 - This expansions returns the values of the variable as an array. For example:
 
@@ -527,7 +525,7 @@ For example:
 
 <br>
 
-## ${parameter@operator}
+## $\{parameter@operator\}
 
 - This expansions performs various operations on the parameter. The operators are
 specified by the operator. For example:

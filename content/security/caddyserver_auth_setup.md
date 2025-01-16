@@ -1,21 +1,15 @@
----
-author: Taha
-title: Authentication with Caddy Server
-description: Setting up Authentication with Caddy Server
-draft: false
-tags:
-    - authentication
-    - basicauth
-    - caddy
-    - google
-    - guide
-    - security
-    - webserver
-toc: true
-date: 2024-11-25T11:00:00+03:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Authentication with Caddy Server"
+description = "Setting up Authentication with Caddy Server"
+draft = false
+date = 2024-11-25T11:00:00+03:00
+[taxonomies]
+tags = ["authentication", "basicauth", "caddy", "google", "guide", "security", "webserver"]
+[extra]
+toc = true
+toc_ordered = true
++++
 
 - Caddy webserver is a modern, open-source web server with automatic HTTPS written
 in Go. It is designed to be easy to use and configure, making it an excellent
@@ -64,7 +58,9 @@ command:
     `<password_hash>` with the password hash you generated in the previous step.
   - ![photo](/assets/Pasted%20image%2020241125180721.png)
 
-### Step 3: Restart and Test Caddy
+<br>
+
+### Step 2: Restart and Test Caddy
 
 - Once you have added the basic authentication configuration to your Caddyfile,
 you will need to restart Caddy for the changes to take effect. You can do this
@@ -93,15 +89,15 @@ steps below.
 - The first step is to create a Google OAuth client that will be used to authenticate
 users. You can create a Google OAuth client by following the steps below:
 
-#### Create a Google Cloud Project
+#### Step 1.1: Create a Google Cloud Project
 
 - Go to the [Google Cloud Console](https://console.cloud.google.com/).
 - Create a new project by clicking on the `Select a project` dropdown menu and
-    then clicking on the `New Project` button.
+      then clicking on the `New Project` button.
 - Enter a name for your project and click on the `Create` button.
   - ![photo](/assets/Pasted%20image%2020241125191722.png)
 
-#### Create OAuth Application
+#### Step 1.2: Create OAuth Application
 
 - Once the project is created, switch to the project and go to the `APIs & Services`
   - ![photo](/assets/Pasted%20image%2020241125192648.png)
@@ -114,7 +110,7 @@ users. You can create a Google OAuth client by following the steps below:
   - ![photo](/assets/Pasted%20image%2020241125201512.png)
   - ![photo](/assets/Pasted%20image%2020241125201841.png)
 
-#### Create OAuth Client ID and Copy Credentials
+#### Step 1.3: Create OAuth Client ID and Copy Credentials
 
 - Click on the `Credentials` tab on the left sidebar. Then click on the `Create Credentials`
     dropdown menu and select `OAuth client ID`

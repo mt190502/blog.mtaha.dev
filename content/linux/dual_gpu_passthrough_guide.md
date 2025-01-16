@@ -1,23 +1,15 @@
----
-author: Taha
-title: Dual GPU Passtrough Guide
-description: A step-by-step guide to setting up dual GPU passthrough on a Linux system.
-draft: false
-tags:
-  - dual-gpu
-  - iommu
-  - kvm
-  - linux
-  - passthrough
-  - qemu
-  - vfio
-  - windows
-  - guide
-toc: true
-date: 2024-11-07T20:00:00+03:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Dual GPU Passtrough Guide"
+description = "A step-by-step guide to setting up dual GPU passthrough on a Linux system."
+draft = false
+date = 2024-11-07T20:00:00+03:00
+[taxonomies]
+tags = ["dual-gpu", "iommu", "kvm", "linux", "passthrough", "qemu", "vfio", "windows", "guide"]
+[extra]
+toc = true
+toc_ordered = true
++++
 
 - The latest advances in virtualization now make it possible to run multiple
 operating systems simultaneously on high-performance computers. In this
@@ -38,7 +30,7 @@ maximize the graphics performance of both operating systems independently.
 - A Linux distribution with a recent kernel (5.0 or later)
 - A Windows installation ISO
 
----
+<br>
 
 ## Step 1: Enable IOMMU from BIOS
 
@@ -56,13 +48,14 @@ for passthrough to work correctly. To enable IOMMU, you need to enable IOMMU
 - To enable IOMMU in the kernel, you need to add the following kernel parameters
   to the bootloader configuration files.
 
-  - If you're using GRUB bootloader, open the GRUB configuration file:
+- If you're using GRUB bootloader;
+  - Open the GRUB configuration file:
 
     ```bash
     sudo vim /etc/default/grub
     ```
 
-    - Add the following line to the `GRUB_CMDLINE_LINUX` parameter:
+  - Add the following line to the `GRUB_CMDLINE_LINUX` parameter:
 
     ```bash
     GRUB_CMDLINE_LINUX="... intel_iommu=on iommu=pt"  # For Intel
@@ -70,7 +63,7 @@ for passthrough to work correctly. To enable IOMMU, you need to enable IOMMU
     ```
 
     - ![photo](/assets/Pasted%20image%2020241107122734.png)
-    - Update the GRUB configuration:
+  - Update the GRUB configuration:
 
       ```bash
       sudo update-grub
@@ -88,43 +81,46 @@ for passthrough to work correctly. To enable IOMMU, you need to enable IOMMU
       sudo grub2-mkconfig -o /boot/grub2/grub.cfg
       ```
 
-  - If you're using systemd-boot, open the default kernel command line file:
+- If you're using systemd-boot;
+  - Open the default kernel command line file:
 
     ```bash
     sudo vim /etc/kernel/cmdline
     ```
 
-    - Add the following line to the file:
+  - Add the following line to the file:
 
-      ```bash
-      intel_iommu=on iommu=pt  # For Intel
-      amd_iommu=on iommu=pt    # For AMD
-      ```
+    ```bash
+    intel_iommu=on iommu=pt  # For Intel
+    amd_iommu=on iommu=pt    # For AMD
+    ```
 
-      - ![photo](/assets/Pasted%20image%2020241107123413.png)
+    - ![photo](/assets/Pasted%20image%2020241107123413.png)
 
-    - And open the current kernel configuration file:
+  - And open the current kernel configuration file:
 
-      ```bash
-      sudo vim /boot/loader/entries/$(cat /etc/machine-id)-$(uname -r).conf
-      ```
+    ```bash
+    sudo vim /boot/loader/entries/$(cat /etc/machine-id)-$(uname -r).conf
+    ```
 
-      or
+    or
 
-      ```bash
-      sudo vim /boot/efi/loader/entries/$(cat /etc/machine-id)-$(uname -r).conf
-      ```
+    ```bash
+    sudo vim /boot/efi/loader/entries/$(cat /etc/machine-id)-$(uname -r).conf
+    ```
 
-      - Add the following line to append the `options` line:
+  - Add the following line to append the `options` line:
 
-        ```bash
-        intel_iommu=on iommu=pt  # For Intel
-        amd_iommu=on iommu=pt    # For AMD
-        ```
+    ```bash
+    intel_iommu=on iommu=pt  # For Intel
+    amd_iommu=on iommu=pt    # For AMD
+    ```
 
-        - ![photo](/assets/Pasted%20image%2020241107124236.png)
+    - ![photo](/assets/Pasted%20image%2020241107124236.png)
 
-    - Reboot the system to apply the changes.
+- Reboot the system to apply the changes.
+
+<br>
 
 ## Step 3: Verify IOMMU Support
 
@@ -171,20 +167,19 @@ for passthrough to work correctly. To enable IOMMU, you need to enable IOMMU
 
     ```bash
     ...
-    IOMMU Group 10:
-    01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc.
-    [AMD/ATI] Ellesmere [Radeon RX 470/480/570/570X/580/580X/590] [1002:67df] 
-    (rev ef)
-    01:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Ellesmere
-    HDMI Audio [Radeon RX 470/480 / 570/580/590] [1002:aaf0]
+    IOMMU Group 10: 
+    01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Ellesmere [Radeon RX 470/480/570/570X/580/580X/590] [1002:67df] (rev ef)
+    01:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Ellesmere HDMI Audio [Radeon RX 470/480 / 570/580/590] [1002:aaf0]
     ...
     ```
 
-    - You will see the GPU vendor ID and device ID in the output. You will require
+    {% alert(important=true) %}
+    You will see the GPU vendor ID and device ID in the output. You will require
      this information when configuring the virtual machine. This is an AMD GPU
      with the vendor ID `1002` and device ID `67df` (`[1002:67df]`).
      The audio device is also shown in the same group with the vendor ID `1002`
      and device ID `aaf0` (`[1002:aaf0]`).
+    {% end %}
 
 <br>
 
@@ -220,8 +215,10 @@ for passthrough to work correctly. To enable IOMMU, you need to enable IOMMU
   sudo usermod -aG libvirt,qemu,kvm $USER
   ```
 
-  - Note: If you're get `group x does not exist` error, remove group `x` from the
+  {% alert(note=true) %}
+  If you're get `group x does not exist` error, remove group `x` from the
   command and try again.
+  {% end %}
 
 <br>
 
@@ -307,8 +304,10 @@ a new file in the /etc/modprobe.d/ directory with the following command to do th
 
   - ![photo](/assets/Pasted%20image%2020241107131559.png)
 
-- If you don't see the vfio-pci driver in the output, go back to Step 6 and check
-the configuration file.
+  {% alert(important=true) %}
+  If you don't see the vfio-pci driver in the output, go back to Step 6 and check
+  the configuration file.
+  {% end %}
 
 <br>
 
@@ -462,21 +461,25 @@ install the necessary files.
 
   - ![photo](/assets/Pasted%20image%2020241107141027.png)
 
-- Note: The Windows update will install the GPU driver automatically, which will
+{% alert(note=true) %}
+The Windows update will install the GPU driver automatically, which will
 cause the system to crash. You must disable the automatic updates from the Group
 Policy Editor to prevent this.
 
-  - <https://answers.microsoft.com/en-us/windows/forum/all/how-to-stop-windows-11-from-downloading-drivers/ccff88ed-76cf-4639-b6d7-391566f3d2d5>
-  - <https://answers.microsoft.com/en-us/windows/forum/all/disable-driver-updates/63957b76-b55c-4c59-93f0-72835e9b2fff>
+- <https://answers.microsoft.com/en-us/windows/forum/all/how-to-stop-windows-11-from-downloading-drivers/ccff88ed-76cf-4639-b6d7-391566f3d2d5>
+- <https://answers.microsoft.com/en-us/windows/forum/all/disable-driver-updates/63957b76-b55c-4c59-93f0-72835e9b2fff>
+{% end %}
 
 <br>
 
 ## Step 12: Setup ROM File
 
-- NOTE: For desktop GPUs, this step is not required with 465.xx and later drivers.
-For laptop GPUs, this step is not required with 500.xx and later drivers.
+{% alert(important=true) %}
+For desktop GPUs, this step is not required with `465.xx` and `later` drivers.
+For laptop GPUs, this step is not required with `500.xx` and `later` drivers.
 Refer to the [NVIDIA Customer Help Page](https://nvidia.custhelp.com/app/answers/detail/a_id/5173/~/geforce-gpu-passthrough-for-windows-virtual-machine-(beta))
 for more information.
+{% end %}
 
 - If you're using Linux:
 
@@ -549,7 +552,7 @@ for more information.
 
 ## Step 13: Setup shared memory
 
-- Open Virt-Manager and click on the newly created virtual machine. Next, click
+- Open `virt-manager` and click on the newly created virtual machine. Next, click
 on Overview and then XML.
 - Add the following lines to xml file:
 

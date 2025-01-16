@@ -1,21 +1,19 @@
----
-author: Taha
-title: Grafana with Prometheus Node Exporter
-description: Monitoring Servers with Grafana and Prometheus Node Exporter
-draft: false
-tags:
-  - monitoring
-  - prometheus
-  - node-exporter
-  - grafana
-  - system
-  - server
-  - guide
-toc: true
-date: 2024-11-26T13:00:00+03:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Grafana with Prometheus Node Exporter"
+description = "Monitoring Servers with Grafana and Prometheus Node Exporter"
+draft = false
+date = 2024-11-26T13:00:00+03:00
+[taxonomies]
+tags = ["monitoring", "prometheus", "node-exporter", "grafana", "system", "server", "guide"]
+[extra]
+toc = true
+toc_ordered = true
+disclaimer = """
+In this guide, I will use Fedora 41 Cloud Edition as the base operating system.
+Some steps may vary depending on the distribution you are using.
+"""
++++
 
 - Grafana is a multi-platform open-source analytics and interactive visualization
 web application. It provides charts, graphs, and alerts for the web when connected
@@ -23,11 +21,6 @@ to supported data sources. Prometheus Node Exporter is a Prometheus exporter for
 hardware and OS metrics exposed by *NIX kernels, written in Go with pluggable
 metric collectors. In this guide, we will install and configure Grafana and
 Prometheus Node Exporter
-
-## Disclaimer
-
-- In this guide, I will use Fedora 41 Cloud Edition as the base operating system.
-Some steps may vary depending on the distribution you are using.
 
 <br>
 
@@ -119,7 +112,7 @@ to install Grafana:
       sudo vim /etc/yum.repos.d/grafana.repo
       ```
 
-      ```bash
+      ```toml
       [grafana]
       name=grafana
       baseurl=https://rpm.grafana.com
@@ -409,7 +402,7 @@ Prometheus Node Exporter in Grafana.
 - You can customize the dashboard by adding more panels and changing the
 settings.
 
-<br>
+---
 
 ## Conclusion
 

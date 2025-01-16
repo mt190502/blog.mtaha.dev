@@ -1,18 +1,15 @@
----
-author: Taha
-title: Etckeeper Setup
-description: Etckeeper Setup
-draft: false
-tags:
-  - etckeeper
-  - setup
-  - guide
-toc: true
-date: 2024-12-18T12:00:00+03:00
-
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Etckeeper Setup"
+description = "Etckeeper Setup"
+draft = false
+date = 2024-12-18T12:00:00+03:00
+[taxonomies]
+tags = ["etckeeper", "setup", "guide"]
+[extra]
+toc = true
+toc_ordered = true
++++
 
 - Etckeeper is a tool designed to help you manage and track changes to your configuration
 files in the `/etc` directory. Using Git as its backend, Etckeeper allows you to
@@ -20,6 +17,8 @@ version control your configuration files, making it easier to monitor and revert
 changes if necessary.
 - In this guide, I will show you how to set up Etckeeper on your system and start
 tracking changes to your configuration files.
+
+<br>
 
 ## Step 1: Install Etckeeper
 
@@ -164,9 +163,11 @@ do so by following these steps:
 
     - ![photo](/assets/Pasted%20image%2020241218152259.png)
 
-      - Note: If you are using etckeeper on multiple machines, I recommend using
-      hostname or machine-id as the branch name. Or you can use hostname to create
-      multiple git repositories.
+    {% alert(note=true) %}
+    If you are using etckeeper on multiple machines, I recommend using hostname
+    or machine-id as the branch name. Or you can use hostname to create multiple
+    git repositories.
+    {% end %}
 
   - Now, your configuration files will be stored in a remote Git repository, allowing
 you to access them from anywhere.

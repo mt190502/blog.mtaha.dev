@@ -1,3 +1,3 @@
-[submodule "themes/risotto"]
-	path = themes/risotto
-	url = https://github.com/joeroe/risotto
+[submodule "themes/duckquill"]
+	path = themes/duckquill
+	url = https://codeberg.org/daudix/duckquill.git

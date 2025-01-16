@@ -1,20 +1,15 @@
----
-author: Taha
-title: Bypassing Censorship with OpenWRT and Zapret
-description: Using zapret to bypass censorship with OpenWRT
-draft: false
-tags:
-  - openwrt
-  - zapret
-  - censorship
-  - bypass
-  - dpi
-  - guide
-toc: true
-date: 2024-11-04T19:06:00+03:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Bypassing Censorship with OpenWRT and Zapret"
+description = "Using zapret to bypass censorship with OpenWRT"
+draft = false
+date = 2024-11-04T19:06:00+03:00
+[taxonomies]
+tags = ["openwrt", "zapret", "censorship", "bypass", "dpi", "guide"]
+[extra]
+toc = true
+toc_ordered = true
++++
 
 - Censorship has become a major issue affecting Internet freedom worldwide in
 today's digital age. Various tools and techniques have been developed to counteract
@@ -33,8 +28,8 @@ guide to install Zapret on your computer.
 
 ## Step 1: Install Required Packages
 
-- Open to your OpenWRT router's web interface and navigate to the "System" tab.
-Click on "Software" and search for the following packages:
+- Open to your OpenWRT router's web interface and navigate to the `System` tab.
+Click on `Software` and search for the following packages:
   - `git`
   - `git-http`
   - `ncat`
@@ -65,7 +60,7 @@ using the following commands:
   cd zapret
   ```
 
-- ![photo](/assets/Pasted%20image%2020241104204129.png)
+  - ![photo](/assets/Pasted%20image%2020241104204129.png)
 
 <br>
 
@@ -100,11 +95,11 @@ following line to the last line.
 install the prerequisites for Zapret. Run the following command to install the prerequisites:
 
   ```bash
-    ./install_prereq.sh
+  ./install_prereq.sh
   ```
 
 - OpenWRT uses nftables by default. Select nftables in firewall questions.
-- ![photo](/assets/Pasted%20image%2020241104204411.png)
+  - ![photo](/assets/Pasted%20image%2020241104204411.png)
 
 <br>
 
@@ -113,10 +108,10 @@ install the prerequisites for Zapret. Run the following command to install the p
 - Run the following command to install the required compatible binaries:
 
   ```bash
-    ./install_bin.sh
+  ./install_bin.sh
   ```
 
-- ![photo](/assets/Pasted%20image%2020241104204218.png)
+  - ![photo](/assets/Pasted%20image%2020241104204218.png)
 
 <br>
 
@@ -125,18 +120,18 @@ install the prerequisites for Zapret. Run the following command to install the p
 - Run the following command to get the best parameters for your ISP:
 
   ```bash
-    ./blockcheck.sh
+  ./blockcheck.sh
   ```
 
 - The blockcheck.sh script asks for the address of a blocked site. Discord is blocked
 in my country, so I enter the address of a blocked subdomain. Enter the address
 and leave the other questions with their default answers.
 
-- ![photo](/assets/Pasted%20image%2020241104204234.png)
+  - ![photo](/assets/Pasted%20image%2020241104204234.png)
 
 - The script will give us the following parameters when the scan is finished. I
 have to censor these. Note the last line parameter.
-- ![photo](/assets/Pasted%20image%2020241104210017.png)
+  - ![photo](/assets/Pasted%20image%2020241104210017.png)
 
 <br>
 
@@ -145,19 +140,19 @@ have to censor these. Note the last line parameter.
 - Run the following command to install the Zapret services:
 
   ```bash
-    ./install_easy.sh
+  ./install_easy.sh
   ```
 
 - OpenWRT uses nftables, so we choose nftables here
-- ![photo](/assets/Pasted%20image%2020241104204300.png)
+  - ![photo](/assets/Pasted%20image%2020241104204300.png)
 - We activate nfqws
-- ![photo](/assets/Pasted%20image%2020241104204840.png)
+  - ![photo](/assets/Pasted%20image%2020241104204840.png)
 - Press Y to change the default nfqws parameters.
-- ![photo](/assets/Pasted%20image%2020241104204311.png)
+  - ![photo](/assets/Pasted%20image%2020241104204311.png)
 - Delete the selected fields and paste the parameter from step 6.
-- ![photo](/assets/Pasted%20image%2020241104204722.png)
+  - ![photo](/assets/Pasted%20image%2020241104204722.png)
 - If you set it right, you should see this.
-- ![photo](/assets/Pasted%20image%2020241104204317.png)
+  - ![photo](/assets/Pasted%20image%2020241104204317.png)
 
 ---
 

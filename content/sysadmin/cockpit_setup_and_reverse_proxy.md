@@ -1,30 +1,26 @@
----
-author: Taha
-title: Cockpit Setup with Reverse Proxy
-description: Installing Cockpit and setting up with Reverse Proxy
-draft: false
-tags:
-  - cockpit
-  - setup
-  - reverse-proxy
-  - guide
-toc: true
-date: 2024-11-25T07:00:00+03:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Cockpit Setup with Reverse Proxy"
+description = "Installing Cockpit and setting up with Reverse Proxy"
+draft = false
+date = 2024-11-25T07:00:00+03:00
+[taxonomies]
+tags = ["cockpit", "setup", "reverse-proxy", "guide"]
+[extra]
+toc = true
+toc_ordered = true
+disclaimer = """
+In this guide, I will use Fedora 41 Cloud Edition as the base operating system.
+Some steps may vary depending on the distribution you are using.
+"""
++++
 
 - Cockpit is a web-based server management tool that allows you to monitor and
 manage multiple servers from a single interface. It provides an easy-to-use
 dashboard that displays system information and logs. In this guide I will show
 you how to install Cockpit on your server and set it up behind a reverse proxy.
 
-## Disclaimer
-
-- In this guide, I will use Fedora 41 Cloud Edition as the base operating system.
-Some steps may vary depending on the distribution you are using.
-
-<br>
+---
 
 ## Step 1: Install Cockpit
 

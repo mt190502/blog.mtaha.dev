@@ -1,19 +1,19 @@
----
-author: Taha
-title: K0s with Tailscale VPN
-description: Installling K0s with Tailscale VPN Infrastructure
-draft: false
-tags:
-  - tailscale
-  - vpn
-  - k0s
-  - kubernetes
-  - guide
-toc: true
-date: 2024-12-03T18:00:00+03:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "K0s with Tailscale VPN"
+description = "Installling K0s with Tailscale VPN Infrastructure"
+draft = false
+date = 2024-12-03T18:00:00+03:00
+[taxonomies]
+tags = ["k0s", "kubernetes", "cluster", "kubernetes-distribution", "guide"]
+[extra]
+toc = true
+toc_ordered = true
+disclaimer = """
+In this guide, I will use Fedora 41 Cloud Edition as the base operating system.
+Some steps may vary depending on the distribution you are using.
+"""
++++
 
 - K0s is a lightweight, easy-to-use Kubernetes distribution that is designed for
 developers and small teams. It is a single binary that can be installed on any
@@ -26,6 +26,7 @@ including Windows, macOS, Linux, iOS and Android.
 cluster using the Tailscale VPN infrastructure.
 - NOTE: This guide is similar to the [Vanilla Kubernetes Setup with Tailscale](/post/vanilla_kubernetes_setup_with_tailscale)
 guide. It differs from the other guide only in a few steps.
+
 <br>
 
 ## Prerequisites
@@ -34,12 +35,8 @@ guide. It differs from the other guide only in a few steps.
 - Two or more machines with a minimum of a 2-core CPU and 4 GB of RAM, running a
 Linux operating system.
 
-<br>
+{% alert(important=true) %}
 
-## Disclaimer
-
-- In this guide, I will use Fedora 41 Cloud Edition as the base operating system.
-Some steps may vary depending on the distribution you are using.
 - I will use the following machines:
 
   - Master Node:
@@ -64,6 +61,7 @@ Some steps may vary depending on the distribution you are using.
       OS: Fedora 41 Cloud Edition\
       Location: Homelab\
       Machine: Raspberry Pi 5 - 8 GB
+{% end %}
 
 <br>
 
@@ -92,7 +90,7 @@ your machine.
 - The next step is to configure the Tailscale ACL (access control list) to allow
 communication between machines in your Kubernetes cluster. You can edit the ACL
 list from this [link](https://login.tailscale.com/admin/acls/file). I recommend
-that you use the following ACL list.
+that you use the following ACL list:
 
   ```json
   {
@@ -142,11 +140,12 @@ that you use the following ACL list.
   ```
 
 - After configuring the ACL list, you can apply the ACL tags to the machines in
-the main Tailscale dashboard. Select the machine > click on the ellipsis and select
-'Edit ACL Tags' > add the tags 'servers' and 'k8s-node' to the Kubernetes nodes.
+the main **Tailscale dashboard**.\
+Select the machine > click on the ellipsis and select Edit ACL Tags > add
+the tags 'servers' and 'k8s-node' to the Kubernetes nodes.
 
-- ![photo](/assets/Pasted%20image%2020241115145810.png)
-- ![photo](/assets/Pasted%20image%2020241115145824.png)
+  - ![photo](/assets/Pasted%20image%2020241115145810.png)
+  - ![photo](/assets/Pasted%20image%2020241115145824.png)
 
 <br>
   
@@ -170,8 +169,11 @@ hostname.
   ::1 <hostname>
   ```
 
-  - Replace `<hostname>` with the hostname of the machine.
-    - ![photo](/assets/Pasted%20image%2020241115150257.png)
+  {% alert(note=true) %}
+  Replace `<hostname>` with the hostname of the machine.
+  {% end %}
+  
+  - ![photo](/assets/Pasted%20image%2020241115150257.png)
 
 <br>
 
@@ -198,7 +200,7 @@ this, run the following commands:
   sudo firewall-cmd --reload
   ```
 
-- ![photo](/assets/Pasted%20image%2020241203193447.png)
+  - ![photo](/assets/Pasted%20image%2020241203193447.png)
 
 <br>
 
@@ -209,38 +211,38 @@ CGroup is a Linux kernel feature that provides a way to limit, account for, and
 isolate the resource usage of a collection of processes. To enable CGroup and disable
 swap, look at the following steps:
 
-  - If you are using swap (not zram), you need to disable it by running the following
-  commands:
+- If you are using swap (not zram), you need to disable it by running the following
+commands:
+
+  ```bash
+  sudo swapoff -a
+  sudo vim /etc/fstab
+
+  #~ comment the swap line
+  ```
+
+  - Example: ![photo](/assets/Pasted%20image%2020241115152555.png)
+
+- For GRUB users:
+  - Open the `/etc/default/grub` file and change the following line:
 
     ```bash
-    sudo swapoff -a
-    sudo vim /etc/fstab
-
-    #~ comment the swap line
+    GRUB_CMDLINE_LINUX="cgroup_enable=memory systemd.zram=0"
     ```
 
-    - Example: ![photo](/assets/Pasted%20image%2020241115152555.png)
+- For systemdboot users:
+  - Open the `/etc/kernel/cmdline` file and add the following lines:
 
-  - For GRUB users:
-    - Open the `/etc/default/grub` file and change the following line:
+    ```bash
+    cgroup_enable=memory systemd.zram=0
+    ```
 
-      ```bash
-      GRUB_CMDLINE_LINUX="cgroup_enable=memory systemd.zram=0"
-      ```
+- For Raspberry Pi users:
+  - Open the `/boot/cmdline.txt` file and add the following lines:
 
-  - For systemdboot users:
-    - Open the `/etc/kernel/cmdline` file and add the following lines:
-
-      ```bash
-      cgroup_enable=memory systemd.zram=0
-      ```
-
-  - For Raspberry Pi users:
-    - Open the `/boot/cmdline.txt` file and add the following lines:
-
-      ```bash
-      cgroup_enable=memory systemd.zram=0
-      ```
+    ```bash
+    cgroup_enable=memory systemd.zram=0
+    ```
 
 - ![photo](/assets/Pasted%20image%2020241114154035.png)
 - ![photo](/assets/Pasted%20image%2020241114154044.png)
@@ -252,23 +254,23 @@ swap, look at the following steps:
 - The next step is to enable IP forwarding on all the machines. To do this, follow
 the steps below:
 
-  - Open the `/etc/sysctl.d/kubernetes.conf` file and add the following lines:
+- Open the `/etc/sysctl.d/kubernetes.conf` file and add the following lines:
 
-    ```bash
-    net.bridge.bridge-nf-call-ip6tables = 1
-    net.bridge.bridge-nf-call-iptables = 1
-    net.ipv6.conf.all.forwarding = 1
-    net.ipv4.conf.all.src_valid_mark = 1
-    net.ipv4.ip_forward = 1
-    ```
+  ```bash
+  net.bridge.bridge-nf-call-ip6tables = 1
+  net.bridge.bridge-nf-call-iptables = 1
+  net.ipv6.conf.all.forwarding = 1
+  net.ipv4.conf.all.src_valid_mark = 1
+  net.ipv4.ip_forward = 1
+  ```
 
-    - ![photo](/assets/Pasted%20image%2020241114154110.png)
+  - ![photo](/assets/Pasted%20image%2020241114154110.png)
 
-  - Then run the following command to apply the changes:
+- Then run the following command to apply the changes:
 
-    ```bash
-    sudo sysctl --system
-    ```
+  ```bash
+  sudo sysctl --system
+  ```
 
 <br>
 
@@ -294,32 +296,32 @@ complete this step, run the following commands:
 - In the next step, you need to regenerate the initramfs and apply the bootloader
 configuration to all the machines. You can do this by running the following commands:
 
-  - For GRUB users:
+- For GRUB users:
 
-    ```bash
-    # For Ubuntu/Debian
-    sudo update-initramfs -u
-    sudo update-grub
+  ```bash
+  # For Ubuntu/Debian
+  sudo update-initramfs -u
+  sudo update-grub
 
-    # For CentOS/RHEL
-    sudo dracut -fv
-    sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-    ```
+  # For CentOS/RHEL
+  sudo dracut -fv
+  sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+  ```
 
-  - For systemdboot users:
+- For systemdboot users:
 
-    ```bash
-    # For Ubuntu/Debian
-    sudo update-initramfs -u
-    sudo systemctl restart systemd-boot-update
+  ```bash
+  # For Ubuntu/Debian
+  sudo update-initramfs -u
+  sudo systemctl restart systemd-boot-update
 
-    # For CentOS/RHEL
-    sudo dracut -fv
-    sudo dnf reinstall -y kernel-core
-    ```
+  # For CentOS/RHEL
+  sudo dracut -fv
+  sudo dnf reinstall -y kernel-core
+  ```
 
-  - ![photo](/assets/Pasted%20image%2020241114155019.png)
-  - ![photo](/assets/Pasted%20image%2020241114155028.png)
+- ![photo](/assets/Pasted%20image%2020241114155019.png)
+- ![photo](/assets/Pasted%20image%2020241114155028.png)
 
 <br>
 
@@ -400,8 +402,7 @@ You can create the file by running the following command:
         privateInterface: tailscale0
         installFlags:
           - '--kubelet-extra-args=\"--node-ip=1.2.3.4\"'    # Write the IP address of the master node here (tailscale ip --4 m1)
-          - '--disable-components=metrics-server'
-      - ssh:
+       - ssh:
           address: 2.3.4.5                                  # Write the IP address of the worker node 1 here (tailscale ip --4 w1)
           user: root
           port: 22
@@ -465,9 +466,11 @@ You can create the file by running the following command:
               enabled: false
     ```
 
-    Note: If you are using systemd-resolved, you need append to the `kubelet-extra-args`
+    {% alert(note=true) %}
+    If you are using systemd-resolved, you need append to the `kubelet-extra-args`
 the following line: `--resolv-conf=/run/systemd/resolve/resolv.conf`. For example:
 `--kubelet-extra-args=\"--node-ip=<IP_ADDRESS> --resolv-conf=/run/systemd/resolve/resolv.conf\"`
+    {% end %}
 
 <br>
 
@@ -482,7 +485,7 @@ command:
 
   - ![photo](/assets/Pasted%20image%2020241203211120.png)
 
-  - After the initialisation process is complete, run the following commands to
+- After the initialisation process is complete, run the following commands to
   set up the Kubernetes configuration file:
 
   ```bash
@@ -513,7 +516,7 @@ on your Kubernetes cluster. You can install HELM by running the following comman
 MetalLB is a load balancer that provides network load balancing for Kubernetes clusters.
 You can install MetalLB by running the following steps:
 
-  - Create a file with the name `metallb.yaml' and add the following content:
+- Create a file with the name `metallb.yaml' and add the following content:
 
     ```yaml
     apiVersion: metallb.io/v1beta1
@@ -526,18 +529,18 @@ You can install MetalLB by running the following steps:
       - 172.16.20.0/24
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241115133505.png)
+  - ![photo](/assets/Pasted%20image%2020241115133505.png)
 
-  - Install MetalLB by Helm with the following command:
+- Install MetalLB by Helm with the following command:
 
     ```bash
     helm install metallb metallb/metallb --namespace metallb-system --create-namespace
     kubectl apply -f metallb.yaml
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241201230504.png)
+  - ![photo](/assets/Pasted%20image%2020241201230504.png)
 
-  - Verify the MetalLB installation by running the following command:
+- Verify the MetalLB installation by running the following command:
 
     ```bash
     kubectl get pods -A
@@ -555,7 +558,7 @@ cluster. The local-path-provisioner is a storage class that provides persistent
 storage for the containers running on the cluster. You can install the local-path-provisioner
 by running the following steps:
 
-  - Install the local-path-provisioner with the following command:
+- Install the local-path-provisioner with the following command:
 
     ```bash
     # Install local-path-provisioner
@@ -565,9 +568,9 @@ by running the following steps:
     kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true", "defaultVolumeType":"local"}}, "allowVolumeExpansion": true}'
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241115133526.png)
+  - ![photo](/assets/Pasted%20image%2020241115133526.png)
 
-  - Verify the local-path-provisioner installation by running the following command:
+- Verify the local-path-provisioner installation by running the following command:
 
     ```bash
     kubectl get pods -A

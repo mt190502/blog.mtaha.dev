@@ -1,19 +1,23 @@
----
-author: Taha
-title: Fedora Bootstrap Guide
-description: Installing Fedora With Systemdboot Without Using Anaconda Installer
-draft: false
-tags:
-  - setup
-  - fedora
-  - linux
-  - bootstrap
-  - guide
-toc: true
-date: 2024-12-21T12:00:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Fedora Bootstrap Guide"
+description = "Installing Fedora With Systemdboot Without Using Anaconda Installer"
+draft = false
+date = 2024-12-21T12:00:00+03:00
+[taxonomies]
+tags = ["setup", "fedora", "linux", "bootstrap", "guide"]
+[extra]
+toc = true
+toc_ordered = true
+disclaimer = """
+In this article I have chosen ubuntu for the live boot and fedora for the target.
+You can use other distributions for live boot and target installation. If you use
+a different distribution for the target, you need to check the bootstrap commands
+for that distribution. For example: [debootstrap](https://pkgs.org/search/?q=debootstrap&on=files),
+[pacstrap](https://pkgs.org/search/?q=pacstrap&on=files) and [dnf](https://pkgs.org/search/?q=dnf&on=files).
+The parameters may differ depending on the tool you are using
+"""
++++
 
 - In linux distributions, the bootstrap process is used to install the base of a
 distribution without a GUI installer (e.g. Calamares, Anaconda, etc.) using package
@@ -29,17 +33,6 @@ managers or other tools. This method can be done in many distributions. For exam
   and etc.
 - Today in this article I will try to explain in detail the steps I take when using
 this method.
-
-<br>
-
-## Disclaimer
-
-- In this article I have chosen ubuntu for the live boot and fedora for the target.
-You can use other distributions for live boot and target installation. If you use
-a different distribution for the target, you need to check the bootstrap commands
-for that distribution. For example: [debootstrap](https://pkgs.org/search/?q=debootstrap&on=files),
-[pacstrap](https://pkgs.org/search/?q=pacstrap&on=files) and [dnf](https://pkgs.org/search/?q=dnf&on=files).
-The parameters may differ depending on the tool you are using
 
 <br>
 
@@ -79,7 +72,7 @@ disk you want to install the system on:
 
   - ![photo](/assets/Pasted%20image%2020241220103151.png)
 
-- In my case, I will use `/dev/vda` disk. You can use `cfisk` to create partitions
+- In my case, I will use `/dev/vda` disk. You can use `cfdisk` to create partitions
 on the disk. You can do this by running the following command:
   
     ```bash
@@ -513,7 +506,7 @@ root user and change selinux mode to `permissive` by running the following comma
 - After rebooting the system, change the selinux mode to `enforcing` back.
   - ![photo](/assets/Pasted%20image%2020241220173327.png)
 
-<br>
+---
 
 ## Conclusion
 

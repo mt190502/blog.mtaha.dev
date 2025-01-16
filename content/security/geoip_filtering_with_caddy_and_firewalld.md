@@ -1,21 +1,15 @@
----
-author: Taha
-title: Geoip Filtering with Caddy and FirewallD
-description: Setting Up Geoip (IPv4) Filtering with Caddy and FirewallD
-draft: false
-tags:
-  - geoip
-  - filtering
-  - blocking
-  - caddy
-  - firewall
-  - ipv4
-  - guide
-toc: true
-date: 2024-11-08T22:00:00+03:00
----
-
-<!--more-->
++++
+authors = ["Taha"]
+title = "Geoip Filtering with Caddy and FirewallD"
+description = "Setting Up Geoip (IPv4) Filtering with Caddy and FirewallD"
+draft = false
+date = 2024-11-08T22:00:00+03:00
+[taxonomies]
+tags = ["geoip", "filtering", "blocking", "caddy", "firewall", "ipv4", "guide"]
+[extra]
+toc = true
+toc_ordered = true
++++
 
 - GeoIP filtering is a security technique that controls access to a website,
 server or online resource based on the geographical location of the incoming IP
@@ -25,6 +19,8 @@ spam, hacking attempts or unauthorised access.
 - Today I'm going to explain how to set up GeoIP filtering with Caddy and FirewallD.
 - I've explained how to set up Caddy in my previous articles:
 [Setting Up Caddy Web Server](/post/caddyserver_setup)
+
+<br>
 
 ## Step 1: Select a GeoIP Database for Caddy
 
@@ -72,7 +68,7 @@ page and download the `GeoLite2-country.mmdb` file to your server.
 We do not want to block requests from local addresses. So we add local addresses
 to the Geofilter file as shown below. For example:
 
-    ```Caddyfile
+    ```bash
     @geofilter {
         not maxmind_geolocation {
             db_path "/etc/caddy/GeoLite2-Country.mmdb"
@@ -90,10 +86,12 @@ to the Geofilter file as shown below. For example:
 
   - ![photo](/assets/Pasted%20image%2020241108134247.png)
 
-  - Note: If you are using CloudFlare proxy, you should add the [CloudFlare IP ranges](https://www.cloudflare.com/ips/)
+  {% alert(note=true) %}
+  If you are using CloudFlare proxy, you should add the [CloudFlare IP ranges](https://www.cloudflare.com/ips/)
   to the `Geofilter` file. For example:
+  {% end %}
 
-    ```Caddyfile
+    ```bash
         not remote_ip 103.21.244.0/22       # CloudFlare
         not remote_ip 103.22.200.0/22       # CloudFlare
         not remote_ip 103.31.4.0/22         # CloudFlare
@@ -111,12 +109,12 @@ to the Geofilter file as shown below. For example:
         not remote_ip 198.41.128.0/17       # CloudFlare
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241108134554.png)
+  - ![photo](/assets/Pasted%20image%2020241108134554.png)
 
-  - If you want to display a custom error page for blocked countries, you can add
+- If you want to display a custom error page for blocked countries, you can add
   the following lines to the end of the `Geofilter` file
 
-    ```Caddyfile
+    ```bash
     header  @geofilter Content-Type text/html
     respond @geofilter <<HTML
         <html>
@@ -126,7 +124,7 @@ to the Geofilter file as shown below. For example:
         HTML 401
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241108142241.png)
+  - ![photo](/assets/Pasted%20image%2020241108142241.png)
 
 - Then save this file and open the `Caddyfile` again.
 
@@ -136,7 +134,7 @@ to the Geofilter file as shown below. For example:
 
 - Add the following line to the `Caddyfile`:
 
-    ```Caddyfile
+    ```bash
     yourdomain.com {
         ...
         import geofilter                   # Import the Geofilter
@@ -216,7 +214,9 @@ tool.
     0 0 * * SUN /usr/local/bin/geoupdate.sh
     ```
 
-  - Note: This line will update the GeoLite2 database every Sunday at midnight.
+  {% alert(note=true) %}
+  This line will update the GeoLite2 database every Sunday at midnight.
+  {% end %}
 
 <br>
 

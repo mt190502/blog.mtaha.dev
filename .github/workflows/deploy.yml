@@ -1,4 +1,4 @@
-name: Deploy Hugo site to GitHub Pages
+name: Deploy Zola site to GitHub Pages
 
 on:
   push:
@@ -27,17 +27,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: true # Fetch Hugo themes (true OR recursive)
+          submodules: true # Fetch themes (true OR recursive)
           fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: '0.119.0'
-          extended: true
-
-      - name: Build
-        run: hugo --minify
+      - name: build
+        uses: shalzz/zola-deploy-action@v0.19.2
+        env:
+          BUILD_DIR: public/
+          BUILD_ONLY: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
