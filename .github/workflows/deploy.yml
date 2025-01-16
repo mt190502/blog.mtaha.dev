@@ -33,13 +33,13 @@ jobs:
       - name: build
         uses: shalzz/zola-deploy-action@v0.19.2
         env:
-          BUILD_DIR: public/
+          BUILD_DIR: docs/
           BUILD_ONLY: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: public
+          path: docs
 
   deploy:
     environment:
