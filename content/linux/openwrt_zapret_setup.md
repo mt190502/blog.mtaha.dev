@@ -103,7 +103,40 @@ install the prerequisites for Zapret. Run the following command to install the p
 
 <br>
 
-## Step 6: Run the install_bin.sh Script to Install the Required Compatible Binaries
+## Step 6: Get the Required Compatible Binaries and Extract Them
+
+- Get the required compatible binaries from the [Zapret GitHub repository](https://github.com/bol-van/zapret/releases/latest).
+  Copy the link of the latest release.
+
+  - ![photo](/assets/Pasted%20image%2020250117214206.png)
+
+- Then, run the following command to download and extract the binaries:
+
+  ```bash
+  mkdir /opt/zapret/tmp
+  wget -O zapret.tar.gz <link>
+  tar -xvzf zapret.tar.gz
+  ```
+
+  - ![photo](/assets/Pasted%20image%2020250117214712.png)
+
+- Then move the binaries to `/opt/zapret/binaries` directory:
+
+  ```bash
+  ls                                                  # Find the name of the extracted directory
+  mv <extracted-directory>/binaries /opt/zapret/
+  ```
+
+- Then remove the temporary directory:
+
+  ```bash
+  cd /opt/zapret
+  rm -r tmp
+  ```
+
+<br>
+
+## Step 7: Run the install_bin.sh Script to Install the Required Compatible Binaries
 
 - Run the following command to install the required compatible binaries:
 
@@ -115,7 +148,7 @@ install the prerequisites for Zapret. Run the following command to install the p
 
 <br>
 
-## Step 7: Run the blockcheck.sh script to Find the Appropriate Zapret Parameters
+## Step 8: Run the blockcheck.sh script to Find the Appropriate Zapret Parameters
 
 - Run the following command to get the best parameters for your ISP:
 
@@ -135,7 +168,7 @@ have to censor these. Note the last line parameter.
 
 <br>
 
-## Step 8: Run the install_easy.sh Script to Install the Zapret Services
+## Step 9: Run the install_easy.sh Script to Install the Zapret Services
 
 - Run the following command to install the Zapret services:
 
