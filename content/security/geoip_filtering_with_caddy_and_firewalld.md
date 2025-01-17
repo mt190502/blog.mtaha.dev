@@ -33,14 +33,25 @@ Note: This database is updated every 3 days.
 page and download the `GeoLite2-country.mmdb` file to your server.
 
   ```bash
-  sudo wget -O /etc/caddy/GeoLite2-country.mmdb <copied_url>
+  sudo wget -O /etc/caddy/GeoLite2-Country.mmdb <copied_url>
   ```
 
   - ![photo](/assets/Pasted%20image%2020241108120524.png)
 
 <br>
 
-## Step 2: Set Up Caddy for GeoIP Filtering
+## Step 2: Install maxmind_geolocation Plugin for Caddy
+
+- To use the maxmind geolocation module with Caddy, you need to download the module
+with the following command:
+
+  ```bash
+  sudo caddy add-package github.com/porech/caddy-maxmind-geolocation
+  ```
+
+<br>
+
+## Step 3: Set Up Caddy for GeoIP Filtering
 
 - Open the `Caddyfile` with your preferred text editor.
 
@@ -152,7 +163,7 @@ to the Geofilter file as shown below. For example:
 
 <br>
 
-## Step 3: Test the GeoIP Filtering for Caddy
+## Step 4: Test the GeoIP Filtering for Caddy
 
 - If you have a another server in a blocked country or if you have a VPN, you can
 test the GeoIP filtering by accessing your domain. I tested it with [this](https://pagespeedplus.com/tools/test-website-different-locations)
@@ -163,7 +174,7 @@ tool.
 
 <br>
 
-## Step 4: Set Up Cronjob for GeoIP Database Update
+## Step 5: Set Up Cronjob for GeoIP Database Update
 
 - We can create a cronjob to automatically update the GeoLite2 database.
 - Create a new file named `geoupdate.sh` in the `/usr/local/bin` directory.
@@ -220,7 +231,7 @@ tool.
 
 <br>
 
-## Step 5: Select countries to Allow With FirewallD
+## Step 6: Select countries to Allow With FirewallD
 
 - The methods described up to this step apply to HTTPS connections. However, we
 cannot always use HTTPS connections. For example, if we are using a DNS server,
@@ -241,7 +252,7 @@ Note: I will use the Germany and Turkey databases as an example.
 
 <br>
 
-## Step 6: Set Up FirewallD for GeoIP Filtering
+## Step 7: Set Up FirewallD for GeoIP Filtering
 
 - We don't want to refuse connections from local addresses. So we create a new
 file called `local.zone`.
