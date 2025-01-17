@@ -4,6 +4,7 @@ compile_sass = true
 default_language = "en"
 feed_filenames = ["rss.xml", "atom.xml"]
 generate_feeds = true
+generate_robots_txt = true
 ignored_content = [ "*/templates/*.md", "**/.obsidian" ]
 minify_html = true
 taxonomies = [{ name = "tags", feed = true }]
@@ -26,6 +27,11 @@ bottom_footnotes = true
 
 [search]
 index_format = "fuse_json"
+
+
+
+[slugify]
+paths = "safe"
 
 
 
