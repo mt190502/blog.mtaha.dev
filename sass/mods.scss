@@ -7,3 +7,10 @@ main {
 .crt pre {
     overflow: hidden;
 }
+
+body {
+    background-image: var(--bg-overlay), url("/bg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}

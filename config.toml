@@ -37,7 +37,7 @@ paths = "safe"
 
 [extra]
 accent_color = "#00AAFF"
-accent_color_dark = "#0077BB"
+accent_color_dark = "#00AAFF"
 show_copy_button = true
 show_reading_time = true
 show_share_button = false
