@@ -1,11 +1,17 @@
+# Obsidian
+*/.obsidian/plugins
+*/.obsidian/workspace.json
+*/.obsidian/workspace-mobile.json
+*/.obsidian/hotkeys.json
+
+# OS
+.trash/
 .DS_Store
-.gitignore
+
+# Node
 node_modules
-public
-prof
-tsconfig.tsbuildinfo
-.obsidian
 .quartz-cache
-private/
-.replit
-replit.nix
+
+# Output
+public
+private
