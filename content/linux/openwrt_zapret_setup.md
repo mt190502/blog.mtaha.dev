@@ -4,7 +4,7 @@ title: "Bypassing Censorship with OpenWRT and Zapret"
 description: "Using zapret to bypass censorship with OpenWRT"
 draft: false
 date: 2024-11-04T19:06:00+03:00
-tags: ["openwrt", "zapret", "censorship", "bypass", "dpi", "guide"]
+tags: ["bypass", "censorship", "dpi", "firewall", "guide", "network", "openwrt", "router", "tutorial", "zapret"]
 ---
 
 ## Introduction

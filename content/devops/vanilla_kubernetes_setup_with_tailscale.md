@@ -4,7 +4,7 @@ title: "Vanilla Kubernetes Setup with Tailscale"
 description: "Installing Kubernetes with Tailscale VPN Infrastructure"
 draft: false
 date: 2024-11-14T13:00:00+03:00
-tags: ["k8s", "kubernetes", "cluster", "kubernetes-distribution", "guide"]
+tags: ["cluster", "devops", "guide", "k8s", "kubernetes-distribution", "kubernetes", "tailscale", "tutorial", "vpn"]
 ---
 
 > [!warning] Disclaimer

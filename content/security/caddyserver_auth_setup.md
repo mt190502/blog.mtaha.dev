@@ -4,7 +4,7 @@ title: "Authentication with Caddy Server"
 description: "Setting up Authentication with Caddy Server"
 draft: false
 date: 2024-11-25T11:00:00+03:00
-tags: ["authentication", "basicauth", "caddy", "google", "guide", "security", "webserver"]
+tags: ["authentication", "basic-auth", "caddy", "google", "guide", "identity", "oauth", "security", "tutorial", "users"]
 ---
 
 

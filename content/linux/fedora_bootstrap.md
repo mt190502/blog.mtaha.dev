@@ -4,7 +4,7 @@ title: "Fedora Bootstrap Guide"
 description: "Installing Fedora With Systemdboot Without Using Anaconda Installer"
 draft: false
 date: 2024-12-21T12:00:00+03:00
-tags: ["setup", "fedora", "linux", "bootstrap", "guide"]
+tags: ["bootstrap", "btrfs", "chroot", "command-line", "custom-install", "disk-partitioning", "filesystem", "installation", "kernel", "linux-fhs", "live-environment", "system-configuration", "tutorial"]
 ---
 
 > [!warning] Disclaimer

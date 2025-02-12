@@ -4,7 +4,8 @@ title: "Bash Variable Expansions"
 description: "Bash Variable Expansions"
 draft: false
 date: 2024-11-06T11:00:00+03:00
-tags: ["bash", "variables", "regex"]
+tags: ["bash", "linux", "programming", "regex", "shell-scripting", "tutorial", "variables"]
+
 ---
 
 ## Introduction

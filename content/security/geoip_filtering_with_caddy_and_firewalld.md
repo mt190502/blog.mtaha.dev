@@ -4,7 +4,7 @@ title: "Geoip Filtering with Caddy and FirewallD"
 description: "Setting Up Geoip (IPv4) Filtering with Caddy and FirewallD"
 draft: false
 date: 2024-11-08T22:00:00+03:00
-tags: ["geoip", "filtering", "blocking", "caddy", "firewall", "ipv4", "guide"]
+tags: ["caddy", "cyber-threats", "data-security", "filtering", "firewall", "geoip", "geolocation", "guide", "ipv4", "network", "security", "tutorial"]
 ---
 
 ## Introduction

@@ -4,7 +4,7 @@ title: "Grafana with Prometheus Node Exporter"
 description: "Monitoring Servers with Grafana and Prometheus Node Exporter"
 draft: false
 date: 2024-11-26T13:00:00+03:00
-tags: ["monitoring", "prometheus", "node-exporter", "grafana", "system", "server", "guide"]
+tags: ["analytics", "data-visualization", "grafana", "guide", "monitoring", "node-exporter", "prometheus", "server", "system-performance"]
 ---
 
 > [!warning] Disclaimer
@@ -49,7 +49,7 @@ it from the official repository. Run the following commands to install them:
     sudo dnf install node-exporter golang-github-prometheus
     ```
 
-    ![photo](/assets/Pasted%20image%2020241126162443.png)
+   i ![photo](/assets/Pasted%20image%2020241126162443.png)
 
 - After installing this packages, start and enable the services:
 

@@ -4,7 +4,7 @@ title: "Cockpit Setup with Reverse Proxy"
 description: "Installing Cockpit and setting up with Reverse Proxy"
 draft: false
 date: 2024-11-25T07:00:00+03:00
-tags: ["cockpit", "setup", "reverse-proxy", "guide"]
+tags: ["administration", "cockpit", "guide", "linux", "management", "server", "system", "tutorial", "web-interface"]
 ---
 
 > [!warning] Disclaimer

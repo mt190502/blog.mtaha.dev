@@ -4,7 +4,7 @@ title: "Etckeeper Setup"
 description: "Etckeeper Setup"
 draft: false
 date: 2024-12-18T12:00:00+03:00
-tags: ["etckeeper", "setup", "guide"]
+tags: ["backup", "configs", "config-management", "etckeeper", "git", "guide", "linux", "sysadmin", "version-control"]
 ---
 
 ## Introduction

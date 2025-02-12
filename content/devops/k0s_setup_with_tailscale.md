@@ -4,7 +4,7 @@ title: "K0s with Tailscale VPN"
 description: "Installing K0s with Tailscale VPN Infrastructure"
 draft: false
 date: 2024-12-03T18:00:00+03:00
-tags: ["k0s", "kubernetes", "cluster", "kubernetes-distribution", "guide"]
+tags: ["cluster", "devops", "guide", "k0s", "kubernetes-distribution", "kubernetes", "tailscale", "tutorial", "vpn"]
 ---
 
 > [!warning] Disclaimer

@@ -4,7 +4,7 @@ title: "Dual GPU Passthrough Guide"
 description: "A step-by-step guide to setting up dual GPU passthrough on a Linux system."
 draft: false
 date: 2024-11-07T20:00:00+03:00
-tags: ["dual-gpu", "iommu", "kvm", "linux", "passthrough", "qemu", "vfio", "windows", "guide"]
+tags: ["dual-gpu", "gaming", "gpu", "guide", "hardware", "iommu", "kvm", "libvirt", "linux", "passthrough", "performance", "qemu", "tutorial", "vfio", "virtualization", "windows"]
 ---
 
 ## Introduction
