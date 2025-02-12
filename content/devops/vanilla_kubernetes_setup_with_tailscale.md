@@ -35,7 +35,7 @@ cluster utilising the Tailscale VPN infrastructure.
 - Two or more machines with a minimum of a 2-core CPU and 4 GB of RAM, running a
 Linux operating system.
 
-> [!note] I will use the following machines:
+> [!info] I will use the following machines:
 >
 >- Master Node:
 >   - Hostname: m1.srv.mtaha.dev\
@@ -139,8 +139,8 @@ that you use the following ACL list.
 the main Tailscale dashboard. Select the machine > click on the ellipsis and select
 'Edit ACL Tags' > add the tags 'servers' and 'k8s-node' to the Kubernetes nodes.
 
-- ![photo](/assets/Pasted%20image%2020241115145810.png)
-- ![photo](/assets/Pasted%20image%2020241115145824.png)
+  ![photo](/assets/Pasted%20image%2020241115145810.png)
+  ![photo](/assets/Pasted%20image%2020241115145824.png)
 
 <br>
   
@@ -155,7 +155,7 @@ hostname.
   sudo hostnamectl set-hostname <hostname>
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114153754.png)
+  ![photo](/assets/Pasted%20image%2020241114153754.png)
 
 - Then edit the `/etc/hosts` file. Add the following lines for the per machine:
 
@@ -164,12 +164,12 @@ hostname.
   ::1 <hostname>
   ```
 
-  {% alert(note=true) %}
-  Replace `<hostname>` with the hostname of the machine.
-  {% end %}
-  
-  - ![photo](/assets/Pasted%20image%2020241115150257.png)
+  > [!note] Note
+  >
+  > Replace `<hostname>` with the hostname of the machine.
 
+  ![photo](/assets/Pasted%20image%2020241115150257.png)
+  
 <br>
 
 ## Step 4: Set up FirewallD rules
@@ -195,7 +195,7 @@ this, run the following commands:
   sudo firewall-cmd --reload
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241203193447.png)
+  ![photo](/assets/Pasted%20image%2020241203193447.png)
   
 <br>
 
@@ -216,7 +216,9 @@ commands:
   #~ comment the swap line
   ```
 
-  - Example: ![photo](/assets/Pasted%20image%2020241115152555.png)
+  - Example:
+
+    ![photo](/assets/Pasted%20image%2020241115152555.png)
 
 - For GRUB users:
   - Open the `/etc/default/grub` file and change the following line:
@@ -239,8 +241,8 @@ commands:
     cgroup_enable=memory systemd.zram=0
     ```
 
-- ![photo](/assets/Pasted%20image%2020241114154035.png)
-- ![photo](/assets/Pasted%20image%2020241114154044.png)
+![photo](/assets/Pasted%20image%2020241114154035.png)
+![photo](/assets/Pasted%20image%2020241114154044.png)
 
 <br>
 
@@ -259,7 +261,7 @@ the steps below:
   net.ipv4.ip_forward = 1
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114154110.png)
+  ![photo](/assets/Pasted%20image%2020241114154110.png)
 
 - Then run the following command to apply the changes:
 
@@ -282,7 +284,7 @@ complete this step, run the following commands:
   sudo dnf --refresh update -y
   ```
 
-- ![photo](/assets/Pasted%20image%2020241114154253.png)
+  ![photo](/assets/Pasted%20image%2020241114154253.png)
 
 <br>
 
@@ -315,8 +317,8 @@ configuration to all the machines. You can do this by running the following comm
   sudo dnf reinstall -y kernel-core
   ```
 
-- ![photo](/assets/Pasted%20image%2020241114155019.png)
-- ![photo](/assets/Pasted%20image%2020241114155028.png)
+  ![photo](/assets/Pasted%20image%2020241114155019.png)
+  ![photo](/assets/Pasted%20image%2020241114155028.png)
 
 <br>
 
@@ -333,8 +335,8 @@ configuration to all the machines. You can do this by running the following comm
   cat /proc/cgroups
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114155114.png)
-  - ![photo](/assets/Pasted%20image%2020241114155120.png)
+  ![photo](/assets/Pasted%20image%2020241114155114.png)
+  ![photo](/assets/Pasted%20image%2020241114155120.png)
 
 <br>
 
@@ -379,7 +381,7 @@ by following the official Kubernetes installation guides:
     gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241114154307.png)
+  ![photo](/assets/Pasted%20image%2020241114154307.png)
 
 <br>
 
@@ -396,7 +398,7 @@ packages on all the machines. Run the following commands to do this:
   sudo dnf install -y containerd kubeadm kubelet kubectl kubernetes-cni
   ```
   
-  - ![photo](/assets/Pasted%20image%2020241114154323.png)
+  ![photo](/assets/Pasted%20image%2020241114154323.png)
 
 <br>
 
@@ -411,7 +413,7 @@ commands to do this:
   sudo sed -i 's/ SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114154422.png)
+  ![photo](/assets/Pasted%20image%2020241114154422.png)
 
 <br>
 
@@ -435,7 +437,7 @@ and add the following line:
   sudo systemctl restart kubelet containerd
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114154433.png)
+  ![photo](/assets/Pasted%20image%2020241114154433.png)
 
 <br>
 
@@ -448,7 +450,7 @@ by running the following command:
   sudo kubeadm init --control-plane-endpoint $(tailscale ip --4):6443 --apiserver-advertise-address $(tailscale ip --4) --pod-network-cidr 172.16.0.0/16 --upload-certs
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114154456.png)
+  ![photo](/assets/Pasted%20image%2020241114154456.png)
 
 - After the initialisation process is complete, run the following commands to
 set up the Kubernetes configuration file:
@@ -459,7 +461,7 @@ set up the Kubernetes configuration file:
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114154517.png)
+  ![photo](/assets/Pasted%20image%2020241114154517.png)
 
 <br>
 
@@ -472,12 +474,12 @@ the worker nodes to the cluster by running the following command on each worker 
   sudo kubeadm join <join-string-from-step-14> --apiserver-advertise-address $(tailscale ip --4)
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114154505.png)
+  ![photo](/assets/Pasted%20image%2020241114154505.png)
 
-  {% alert(note=true) %}
-  I recommend that you save the master join string to a file and use it for new
+  > [!tip] Tip
+  >
+  > I recommend that you save the master join string to a file and use it for new
   master nodes in the future.
-  {% end %}
 
 <br>
 
@@ -508,7 +510,7 @@ I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI p
     kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/tigera-operator.yaml
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241115125024.png)
+    ![photo](/assets/Pasted%20image%2020241115125024.png)
 
   - Then download calico custom manifest file:
 
@@ -516,10 +518,10 @@ I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI p
     curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.29.0/manifests/custom-resources.yaml > calico.yaml
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241115125030.png)
+    ![photo](/assets/Pasted%20image%2020241115125030.png)
 
   - Edit the calico.yaml file and change the `cidr` value to `172.16.0.0/16`.
-    - ![photo](/assets/Pasted%20image%2020241115155929.png)
+    ![photo](/assets/Pasted%20image%2020241115155929.png)
 
   - Apply the calico custom manifest file:
 
@@ -527,7 +529,7 @@ I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI p
     kubectl create -f calico.yaml
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241115125043.png)
+    ![photo](/assets/Pasted%20image%2020241115125043.png)
 
   - Finally, verify the calico installation by running the following command:
 
@@ -538,7 +540,7 @@ I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI p
     k9s
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241115125049.png)
+    ![photo](/assets/Pasted%20image%2020241115125049.png)
 
 - For Flannel
 
@@ -555,7 +557,7 @@ I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI p
     k label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241115125057.png)
+    ![photo](/assets/Pasted%20image%2020241115125057.png)
 
   - Verify the Flannel installation by running the following command:
 
@@ -566,7 +568,7 @@ I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI p
     k9s
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241115125103.png)
+    ![photo](/assets/Pasted%20image%2020241115125103.png)
 
 <br>
 
@@ -589,7 +591,7 @@ You can install MetalLB by running the following steps:
     - 172.16.20.0/24
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241115133505.png)
+  ![photo](/assets/Pasted%20image%2020241115133505.png)
 
 - Install MetalLB by Helm with the following command:
 
@@ -598,7 +600,7 @@ You can install MetalLB by running the following steps:
   kubectl apply -f metallb.yaml
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241201230504.png)
+  ![photo](/assets/Pasted%20image%2020241201230504.png)
 
 - Verify the MetalLB installation by running the following command:
 
@@ -609,7 +611,7 @@ You can install MetalLB by running the following steps:
   k9s
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241115133517.png)
+  ![photo](/assets/Pasted%20image%2020241115133517.png)
 
 <br>
 
@@ -630,7 +632,7 @@ by running the following steps:
   kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true", "defaultVolumeType":"local"}}, "allowVolumeExpansion": true}'
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241115133526.png)
+  ![photo](/assets/Pasted%20image%2020241115133526.png)
 
 - Verify the local-path-provisioner installation by running the following command:
 
@@ -641,7 +643,7 @@ by running the following steps:
   k9s
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241115133531.png)
+  ![photo](/assets/Pasted%20image%2020241115133531.png)
 
 ---
 

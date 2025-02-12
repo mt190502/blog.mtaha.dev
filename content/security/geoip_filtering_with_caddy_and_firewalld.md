@@ -24,8 +24,11 @@ rver_auth_setup|Setting Up Caddy Web Server]]
 
 - I prefer the GeoLite2 database for Caddy. If you have a Maxmind membership you
 can use it too. If you don't have a Maxmind membership, you can download the GeoLite2
-database from the following link: <https://github.com/P3TERX/GeoLite.mmdb>\
-Note: This database is updated every 3 days.
+database from the following link: <https://github.com/P3TERX/GeoLite.mmdb>
+
+  > [!info] Information
+  >
+  > This database is updated every 3 days.
   
 - Copy the `GeoLite2-country.mmdb` URL from the [releases](https://github.com/P3TERX/GeoLite.mmdb/releases)
 page and download the `GeoLite2-country.mmdb` file to your server.
@@ -34,7 +37,7 @@ page and download the `GeoLite2-country.mmdb` file to your server.
   sudo wget -O /etc/caddy/GeoLite2-Country.mmdb <copied_url>
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241108120524.png)
+  ![photo](/assets/Pasted%20image%2020241108120524.png)
 
 <br>
 
@@ -65,7 +68,7 @@ with the following command:
     }
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241108124719.png)
+  ![photo](/assets/Pasted%20image%2020241108124719.png)
 
 - Create a new file named `Geofilter` in the `/etc/caddy` directory.
 
@@ -93,32 +96,33 @@ to the Geofilter file as shown below. For example:
     }
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241108134247.png)
+  ![photo](/assets/Pasted%20image%2020241108134247.png)
 
-  {% alert(note=true) %}
-  If you are using CloudFlare proxy, you should add the [CloudFlare IP ranges](https://www.cloudflare.com/ips/)
-  to the `Geofilter` file. For example:
-  {% end %}
-
-    ```bash
-        not remote_ip 103.21.244.0/22       # CloudFlare
-        not remote_ip 103.22.200.0/22       # CloudFlare
-        not remote_ip 103.31.4.0/22         # CloudFlare
-        not remote_ip 104.16.0.0/13         # CloudFlare
-        not remote_ip 104.24.0.0/14         # CloudFlare
-        not remote_ip 108.162.192.0/18      # CloudFlare
-        not remote_ip 131.0.72.0/22         # CloudFlare
-        not remote_ip 141.101.64.0/18       # CloudFlare
-        not remote_ip 162.158.0.0/15        # CloudFlare
-        not remote_ip 172.64.0.0/13         # CloudFlare
-        not remote_ip 173.245.48.0/20       # CloudFlare
-        not remote_ip 188.114.96.0/20       # CloudFlare
-        not remote_ip 190.93.240.0/20       # CloudFlare
-        not remote_ip 197.234.240.0/22      # CloudFlare
-        not remote_ip 198.41.128.0/17       # CloudFlare
-    ```
-
-  - ![photo](/assets/Pasted%20image%2020241108134554.png)
+  > [!note] Note
+  >
+  > If you are using CloudFlare proxy, you should add the [CloudFlare IP ranges](https://www.cloudflare.com/ips/)
+  to the `Geofilter` file.\
+  > For example:
+  >
+  > ```bash
+  >     not remote_ip 103.21.244.0/22       # CloudFlare
+  >     not remote_ip 103.22.200.0/22       # CloudFlare
+  >     not remote_ip 103.31.4.0/22         # CloudFlare
+  >     not remote_ip 104.16.0.0/13         # CloudFlare
+  >     not remote_ip 104.24.0.0/14         # CloudFlare
+  >     not remote_ip 108.162.192.0/18      # CloudFlare
+  >     not remote_ip 131.0.72.0/22         # CloudFlare
+  >     not remote_ip 141.101.64.0/18       # CloudFlare
+  >     not remote_ip 162.158.0.0/15        # CloudFlare
+  >     not remote_ip 172.64.0.0/13         # CloudFlare
+  >     not remote_ip 173.245.48.0/20       # CloudFlare
+  >     not remote_ip 188.114.96.0/20       # CloudFlare
+  >     not remote_ip 190.93.240.0/20       # CloudFlare
+  >     not remote_ip 197.234.240.0/22      # CloudFlare
+  >     not remote_ip 198.41.128.0/17       # CloudFlare
+  >  ```
+  >
+  > ![photo](/assets/Pasted%20image%2020241108134554.png)
 
 - If you want to display a custom error page for blocked countries, you can add
   the following lines to the end of the `Geofilter` file
@@ -133,7 +137,7 @@ to the Geofilter file as shown below. For example:
         HTML 401
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241108142241.png)
+  ![photo](/assets/Pasted%20image%2020241108142241.png)
 
 - Then save this file and open the `Caddyfile` again.
 
@@ -151,7 +155,7 @@ to the Geofilter file as shown below. For example:
     }
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241108135737.png)
+  ![photo](/assets/Pasted%20image%2020241108135737.png)
 
 - Then save this file and restart Caddy.
 
@@ -168,7 +172,7 @@ test the GeoIP filtering by accessing your domain. I tested it with [this](https
 tool.
 
 - Result:
-  - ![photo](/assets/Pasted%20image%2020241108142440.png)
+  ![photo](/assets/Pasted%20image%2020241108142440.png)
 
 <br>
 
@@ -189,7 +193,7 @@ tool.
     [[ "$?" == "0" ]] && systemctl restart caddy
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241108152748.png)
+  ![photo](/assets/Pasted%20image%2020241108152748.png)
 
 - Then save the file and make it executable.
 
@@ -209,7 +213,7 @@ tool.
     stat /etc/caddy/GeoLite2-Country.mmdb
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241108143153.png)
+  ![photo](/assets/Pasted%20image%2020241108143153.png)
 
 - If the script runs successfully, we can add it to the crontab.
 
@@ -223,9 +227,8 @@ tool.
     0 0 * * SUN /usr/local/bin/geoupdate.sh
     ```
 
-  {% alert(note=true) %}
-  This line will update the GeoLite2 database every Sunday at midnight.
-  {% end %}
+  > [!tip] Tip\
+  > This line will update the GeoLite2 database every Sunday at midnight.
 
 <br>
 
@@ -239,14 +242,17 @@ requests to the server port.
 
 - I prefer the [ipdeny database](https://www.ipdeny.com/ipblocks/) this step.
 - Copy the links to the database files for the countries you want to authorise.
-Then download these databases using the following command:\
-Note: I will use the Germany and Turkey databases as an example.
+Then download these databases using the following command:
+
+  > [!note] Note
+  >
+  > I will use the Deutschland and Türkiye databases as an example.
 
   ```bash
   wget <copied_url>
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241108124400.png)
+  ![photo](/assets/Pasted%20image%2020241108124400.png)
 
 <br>
 
@@ -312,7 +318,7 @@ located in a country that is not allowed (or we can use a VPN).
   telnet <server_ip> 53           # DNS
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241108144741.png)
+  ![photo](/assets/Pasted%20image%2020241108144741.png)
 
 <br>
 

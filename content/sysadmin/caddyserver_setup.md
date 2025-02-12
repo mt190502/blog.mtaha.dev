@@ -83,7 +83,7 @@ of Caddy with the following command.
     wget -q "https://github.com/caddyserver/caddy/releases/download/$CADDY_LATEST_VERSION/caddy_$(string replace -a v '' $CADDY_LATEST_VERSION)_linux_arm64.tar.gz"
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241106141252.png)
+    ![photo](/assets/Pasted%20image%2020241106141252.png)
 
 <br>
 
@@ -95,7 +95,7 @@ of Caddy with the following command.
   tar -xzf caddy_*.tar.gz
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241106141445.png)
+  ![photo](/assets/Pasted%20image%2020241106141445.png)
 
 <br>
 
@@ -109,12 +109,14 @@ directory and make it executable with the following commands:
   sudo chmod +x /usr/local/bin/caddy
   ```
 
-- Note: You must restore file context for the caddy binary with the following
-command if you are using SELinux:
-
-  ```bash
-  sudo restorecon -vR /usr/local/bin/caddy
-  ```
+  > [!note] Note
+  >
+  > - You must restore file context for the caddy binary with the following
+  > command if you are using SELinux:
+  >
+  >   ```bash
+  >   sudo restorecon -vR /usr/local/bin/caddy
+  >    ```
 
 - You can check the caddy version with the following command:
 
@@ -122,7 +124,7 @@ command if you are using SELinux:
   caddy version
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241106150428.png)
+  ![photo](/assets/Pasted%20image%2020241106150428.png)
 
 <br>
 
@@ -136,7 +138,7 @@ download the service file with the following command:
   sudo wget -q https://raw.githubusercontent.com/caddyserver/dist/master/init/caddy-api.service -O /etc/systemd/system/caddy-api.service
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241106142228.png)
+  ![photo](/assets/Pasted%20image%2020241106142228.png)
 
 <br>
 
@@ -157,7 +159,7 @@ Open the service files with the following command:
   cat /etc/systemd/system/caddy* | grep ^Exec
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241106142553.png)
+  ![photo](/assets/Pasted%20image%2020241106142553.png)
 
 <br>
 
@@ -193,21 +195,24 @@ You can create a Caddy user and group with the following commands:
   cat /etc/passwd | grep caddy
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241106142758.png)
+  ![photo](/assets/Pasted%20image%2020241106142758.png)
 
 <br>
 
 ## Step 8: Add Cloudflare DNS module to Caddy
 
+> [!info] Information
+>
+> If you are not using Cloudflare, you can skip this step.
+
 - To use the Cloudflare DNS module with Caddy, you need to download the module
 with the following command:
-- Note: If you are not using Cloudflare, you can skip this step.
 
   ```bash
   sudo caddy add-package github.com/caddy-dns/cloudflare
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241106190446.png)
+  ![photo](/assets/Pasted%20image%2020241106190446.png)
 
 <br>
 
@@ -286,20 +291,21 @@ configuration to the Caddyfile:
   }
   ```
 
-- Note: If you are using Cloudflare, you will need to create a Cloudflare API token
-and store it with [systemd creds](https://systemd.io/CREDENTIALS). You can create
-a Cloudflare API token by following their [official documentation](https://developers.cloudflare.com/api/tokens/create).
-After creating the API token, you can save it using the following command:
-
-  ```bash
-  systemd-ask-password -n | sudo systemd-creds encrypt --name=cfapitoken -p - -
-  sudo systemctl edit caddy.service
-  sudo systemctl edit caddy-api.service
-  ```
-
-  - ![photo](/assets/Pasted%20image%2020241106145046.png)
-
-  - ![photo](/assets/Pasted%20image%2020241106145159.png)
+> [!note] Note
+> If you are using Cloudflare, you will need to create a Cloudflare API token
+> and store it with [systemd creds](https://systemd.io/CREDENTIALS). You can create
+> a Cloudflare API token by following their [official documentation](https://developers.cloudflare.com/api/tokens/create).
+> After creating the API token, you can save it using the following command:
+>
+> ```bash
+> systemd-ask-password -n | sudo systemd-creds encrypt --name=cfapitoken -p - -
+> sudo systemctl edit caddy.service
+> sudo systemctl edit caddy-api.service
+>   ```
+>
+> ![photo](/assets/Pasted%20image%2020241106145046.png)
+>
+> ![photo](/assets/Pasted%20image%2020241106145159.png)
 
 - Save and exit the files by pressing `Esc` and typing `:wq`.
 
@@ -337,7 +343,7 @@ to `http://<server-ip>`. You can also use the following command:
   Content-Type: text/plain; charset=utf-8
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241106143607.png)
+  ![photo](/assets/Pasted%20image%2020241106143607.png)
 
 ---
 

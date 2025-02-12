@@ -55,7 +55,7 @@ using the following commands:
   cd zapret
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241104204129.png)
+  ![photo](/assets/Pasted%20image%2020241104204129.png)
 
 <br>
 
@@ -78,7 +78,7 @@ following line to the last line.
 
 - This is what the file should look like when you're done.
 
-  - ![photo](/assets/Pasted%20image%2020241104204207.png)
+  ![photo](/assets/Pasted%20image%2020241104204207.png)
 
 - Save and exit the file by pressing `Esc` and typing `:wq`.
 
@@ -94,7 +94,7 @@ install the prerequisites for Zapret. Run the following command to install the p
   ```
 
 - OpenWRT uses nftables by default. Select nftables in firewall questions.
-  - ![photo](/assets/Pasted%20image%2020241104204411.png)
+  ![photo](/assets/Pasted%20image%2020241104204411.png)
 
 <br>
 
@@ -103,7 +103,7 @@ install the prerequisites for Zapret. Run the following command to install the p
 - Get the required compatible binaries from the [Zapret GitHub repository](https://github.com/bol-van/zapret/releases/latest).
   Copy the link of the latest release.
 
-  - ![photo](/assets/Pasted%20image%2020250117214206.png)
+  ![photo](/assets/Pasted%20image%2020250117214206.png)
 
 - Then, run the following command to download and extract the binaries:
 
@@ -113,7 +113,7 @@ install the prerequisites for Zapret. Run the following command to install the p
   tar -xvzf zapret.tar.gz
   ```
 
-  - ![photo](/assets/Pasted%20image%2020250117214712.png)
+  ![photo](/assets/Pasted%20image%2020250117214712.png)
 
 - Then move the binaries to `/opt/zapret/binaries` directory:
 
@@ -139,7 +139,7 @@ install the prerequisites for Zapret. Run the following command to install the p
   ./install_bin.sh
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241104204218.png)
+  ![photo](/assets/Pasted%20image%2020241104204218.png)
 
 <br>
 
@@ -155,11 +155,11 @@ install the prerequisites for Zapret. Run the following command to install the p
 in my country, so I enter the address of a blocked subdomain. Enter the address
 and leave the other questions with their default answers.
 
-  - ![photo](/assets/Pasted%20image%2020241104204234.png)
+  ![photo](/assets/Pasted%20image%2020241104204234.png)
 
 - The script will give us the following parameters when the scan is finished. I
 have to censor these. Note the last line parameter.
-  - ![photo](/assets/Pasted%20image%2020241104210017.png)
+  ![photo](/assets/Pasted%20image%2020241104210017.png)
 
 <br>
 
@@ -172,15 +172,15 @@ have to censor these. Note the last line parameter.
   ```
 
 - OpenWRT uses nftables, so we choose nftables here
-  - ![photo](/assets/Pasted%20image%2020241104204300.png)
+  ![photo](/assets/Pasted%20image%2020241104204300.png)
 - We activate nfqws
-  - ![photo](/assets/Pasted%20image%2020241104204840.png)
+  ![photo](/assets/Pasted%20image%2020241104204840.png)
 - Press Y to change the default nfqws parameters.
-  - ![photo](/assets/Pasted%20image%2020241104204311.png)
+  ![photo](/assets/Pasted%20image%2020241104204311.png)
 - Delete the selected fields and paste the parameter from step 6.
-  - ![photo](/assets/Pasted%20image%2020241104204722.png)
+  ![photo](/assets/Pasted%20image%2020241104204722.png)
 - If you set it right, you should see this.
-  - ![photo](/assets/Pasted%20image%2020241104204317.png)
+  ![photo](/assets/Pasted%20image%2020241104204317.png)
 
 ---
 

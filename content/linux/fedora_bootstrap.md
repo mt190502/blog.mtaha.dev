@@ -44,7 +44,7 @@ this method.
   sudo apt update
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220102804.png)
+  ![photo](/assets/Pasted%20image%2020241220102804.png)
 
 <br>
 
@@ -57,7 +57,7 @@ since we chose fedora for the target installation.
   sudo apt install dnf
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220102859.png)
+  ![photo](/assets/Pasted%20image%2020241220102859.png)
 
 <br>
 
@@ -70,7 +70,7 @@ disk you want to install the system on:
   lsblk
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220103151.png)
+  ![photo](/assets/Pasted%20image%2020241220103151.png)
 
 - In my case, I will use `/dev/vda` disk. You can use `cfdisk` to create partitions
 on the disk. You can do this by running the following command:
@@ -80,27 +80,27 @@ on the disk. You can do this by running the following command:
     ```
   
 - Select `gpt`
-  - ![photo](/assets/Pasted%20image%2020241220103852.png)
+  ![photo](/assets/Pasted%20image%2020241220103852.png)
 
 - `cfdisk` will list the partitions on the disk. You can create a new
 efi partition by selecting `New` and then set the size to `512M` and type to `EFI
 System`.
 
-  - ![photo](/assets/Pasted%20image%2020241220103904.png)
-  - ![photo](/assets/Pasted%20image%2020241220103916.png)
-  - ![photo](/assets/Pasted%20image%2020241220103928.png)
-  - ![photo](/assets/Pasted%20image%2020241220103939.png)
+  ![photo](/assets/Pasted%20image%2020241220103904.png)
+  ![photo](/assets/Pasted%20image%2020241220103916.png)
+  ![photo](/assets/Pasted%20image%2020241220103928.png)
+  ![photo](/assets/Pasted%20image%2020241220103939.png)
 
 - Create a new root partition by selecting `New` and pressing `Enter` to use
 the remaining space.
 
-  - ![photo](/assets/Pasted%20image%2020241220103950.png)
-  - ![photo](/assets/Pasted%20image%2020241220104000.png)
+  ![photo](/assets/Pasted%20image%2020241220103950.png)
+  ![photo](/assets/Pasted%20image%2020241220104000.png)
 
 - Finally, select `Write` and type `yes` to write the changes to the disk.
   
-  - ![photo](/assets/Pasted%20image%2020241220104011.png)
-  - ![photo](/assets/Pasted%20image%2020241220104019.png)
+  ![photo](/assets/Pasted%20image%2020241220104011.png)
+  ![photo](/assets/Pasted%20image%2020241220104019.png)
 
 - After creating the partitions, check the partitions by running the following command:
 
@@ -108,7 +108,7 @@ the remaining space.
   lsblk
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220104041.png)
+  ![photo](/assets/Pasted%20image%2020241220104041.png)
 
 <br>
 
@@ -121,8 +121,8 @@ the remaining space.
   sudo mkfs.btrfs /dev/vda2                   # Root Partition
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220104105.png)
-  - ![photo](/assets/Pasted%20image%2020241220104127.png)
+  ![photo](/assets/Pasted%20image%2020241220104105.png)
+  ![photo](/assets/Pasted%20image%2020241220104127.png)
 
 - Then check filesystems:
 
@@ -130,7 +130,7 @@ the remaining space.
   lsblk -f
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220104428.png)
+  ![photo](/assets/Pasted%20image%2020241220104428.png)
 
 <br>
 
@@ -147,7 +147,7 @@ do this by running the following commands:
   mount | grep '/mnt'
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220104503.png)
+  ![photo](/assets/Pasted%20image%2020241220104503.png)
 
 - Then create subvolumes:
 
@@ -166,7 +166,7 @@ do this by running the following commands:
   sudo btrfs su cr fedora-$(date +%Y-%m-%d)/@without/var
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220104750.png)
+  ![photo](/assets/Pasted%20image%2020241220104750.png)
 
 - After creating the subvolumes, unmount the btrfs partition and remount with
 this flags:
@@ -182,7 +182,7 @@ this flags:
   sudo mount -o rw,noatime,compress=zstd:1,space_cache=v2,subvol=fedora-$(date +%Y-%m-%d)/@ /dev/vda2 /mnt
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220104908.png)
+  ![photo](/assets/Pasted%20image%2020241220104908.png)
 
 - Finally, mount the other subvolumes:
 
@@ -199,7 +199,7 @@ this flags:
   sudo mount /dev/vda1 /mnt/boot/efi
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220105119.png)
+  ![photo](/assets/Pasted%20image%2020241220105119.png)
 
 <br>
 
@@ -214,7 +214,7 @@ at boot time. You can do this by running the following commands:
   sudo apt install -y arch-install-scripts
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220105140.png)
+  ![photo](/assets/Pasted%20image%2020241220105140.png)
 
 - Then create etc folder and generate fstab file:
 
@@ -226,7 +226,7 @@ at boot time. You can do this by running the following commands:
   genfstab -U /mnt | sudo tee /mnt/etc/fstab
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220105312.png)
+  ![photo](/assets/Pasted%20image%2020241220105312.png)
 
 <br>
 
@@ -243,7 +243,7 @@ commands:
   sudo nano /etc/yum.repos.d/fedora.repo
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220105721.png)
+  ![photo](/assets/Pasted%20image%2020241220105721.png)
 
 - Then add the following lines to the `fedora.repo` file:
 
@@ -262,7 +262,7 @@ commands:
   skip_if_unavailable=False
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220110023.png)
+  ![photo](/assets/Pasted%20image%2020241220110023.png)
 
 - Then bootstrap the fedora installation:
 
@@ -270,9 +270,9 @@ commands:
   sudo dnf --installroot=/mnt --releasever=41 --forcearch=x86_64 --setopt=fastestmirror=True group install "Core"
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220110757.png)
-  - ![photo](/assets/Pasted%20image%2020241220110819.png)
-  - ![photo](/assets/Pasted%20image%2020241220110945.png)
+  ![photo](/assets/Pasted%20image%2020241220110757.png)
+  ![photo](/assets/Pasted%20image%2020241220110819.png)
+  ![photo](/assets/Pasted%20image%2020241220110945.png)
 
 <br>
 
@@ -299,7 +299,7 @@ root filesystem. First, you need to mount the filesystems:
   done
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220111128.png)
+  ![photo](/assets/Pasted%20image%2020241220111128.png)
 
 - Then chroot into the new installation:
 
@@ -311,7 +311,7 @@ root filesystem. First, you need to mount the filesystems:
   dnf --releasever=41 --setopt=fastermirror=True --refresh update
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220111346.png)
+  ![photo](/assets/Pasted%20image%2020241220111346.png)
 
 <br>
 
@@ -324,9 +324,9 @@ for a basic Fedora system. You can do this by running the following command:
   dnf --releasever=41 --setopt=fastermirror=True group install core standard
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220112003.png)
-  - ![photo](/assets/Pasted%20image%2020241220112050.png)
-  - ![photo](/assets/Pasted%20image%2020241220112730.png)
+  ![photo](/assets/Pasted%20image%2020241220112003.png)
+  ![photo](/assets/Pasted%20image%2020241220112050.png)
+  ![photo](/assets/Pasted%20image%2020241220112730.png)
 
 - Then check fedora version from rpm command:
   
@@ -334,7 +334,7 @@ for a basic Fedora system. You can do this by running the following command:
     rpm -e %fedora
     ```
   
-  - ![photo](/assets/Pasted%20image%2020241220112744.png)
+  ![photo](/assets/Pasted%20image%2020241220112744.png)
 
 <br>
 
@@ -359,7 +359,7 @@ the following commands:
   max_parallel_downloads=10          #~ download 10 packages at the same time 
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220112835.png)
+  ![photo](/assets/Pasted%20image%2020241220112835.png)
 
 <br>
 
@@ -373,7 +373,7 @@ the following commands:
   dnf install -y langpacks-{en,tr}* glibc-all-langpacks
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220173958.png)
+  ![photo](/assets/Pasted%20image%2020241220173958.png)
 
 - Then set the timezone, locale and vconsole:
 
@@ -392,7 +392,7 @@ the following commands:
   echo 'yourhostname' > /etc/hostname
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220174305.png)
+  ![photo](/assets/Pasted%20image%2020241220174305.png)
 
 <br>
 
@@ -413,8 +413,8 @@ entries. You can do this by running the following commands:
   dnf install -y systemd-boot-unsigned sdubby
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220113529.png)
-  - ![photo](/assets/Pasted%20image%2020241220113559.png)
+  ![photo](/assets/Pasted%20image%2020241220113529.png)
+  ![photo](/assets/Pasted%20image%2020241220113559.png)
 
 - Then install systemd-boot to the disk:
 
@@ -422,7 +422,7 @@ entries. You can do this by running the following commands:
   bootctl install
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220113626.png)
+  ![photo](/assets/Pasted%20image%2020241220113626.png)
 
 <br>
 
@@ -435,8 +435,8 @@ following commands:
   dnf install -y kernel{,-core,-devel,-modules,-modules-extra,-headers}
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220113722.png)
-  - ![photo](/assets/Pasted%20image%2020241220114015.png)
+  ![photo](/assets/Pasted%20image%2020241220113722.png)
+  ![photo](/assets/Pasted%20image%2020241220114015.png)
 
 <br>
 
@@ -456,7 +456,7 @@ the following commands:
   passwd user
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220114129.png)
+  ![photo](/assets/Pasted%20image%2020241220114129.png)
 
 <br>
 
@@ -473,8 +473,8 @@ the following commands:
   sudo umount -lf /mnt
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241220114607.png)
-  - ![photo](/assets/Pasted%20image%2020241220114628.png)
+  ![photo](/assets/Pasted%20image%2020241220114607.png)
+  ![photo](/assets/Pasted%20image%2020241220114628.png)
 
 <br>
 
@@ -485,7 +485,7 @@ not set correctly. Immediately after rebooting the system, press the up key repe
 after the BIOS screen. When the boot menu appears, press e to temporarily edit
 the boot entry. Add selinux=0 to the end of the line:
 
-  - ![photo](/assets/Pasted%20image%2020241220115239.png)
+  ![photo](/assets/Pasted%20image%2020241220115239.png)
 
 - Then press `Enter` to boot the system. After booting the system, login with the
 root user and change selinux mode to `permissive` by running the following command:
@@ -497,14 +497,14 @@ root user and change selinux mode to `permissive` by running the following comma
 
 - Then change the `SELINUX` line to `permissive`:
 
-  - ![photo](/assets/Pasted%20image%2020241220173247.png)
+  ![photo](/assets/Pasted%20image%2020241220173247.png)
 
 - Reboot the system and selinux contexts will be fixed automatically.
 
-  - ![photo](/assets/Pasted%20image%2020241220115425.png)
+  ![photo](/assets/Pasted%20image%2020241220115425.png)
 
 - After rebooting the system, change the selinux mode to `enforcing` back.
-  - ![photo](/assets/Pasted%20image%2020241220173327.png)
+  ![photo](/assets/Pasted%20image%2020241220173327.png)
 
 ---
 

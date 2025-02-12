@@ -46,7 +46,7 @@ command:
   sudo pacman -S cockpit
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241125111147.png)
+  ![photo](/assets/Pasted%20image%2020241125111147.png)
 
 <br>
 
@@ -59,7 +59,7 @@ You can do this by running the following commands:
   sudo systemctl enable --now cockpit.socket
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241125111508.png)
+  ![photo](/assets/Pasted%20image%2020241125111508.png)
 
 <br>
 
@@ -82,7 +82,7 @@ do this by running the following commands:
   sudo firewall-cmd --reload
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241125113523.png)
+  ![photo](/assets/Pasted%20image%2020241125113523.png)
 
 <br>
 
@@ -92,8 +92,8 @@ do this by running the following commands:
 navigating to `https://your-server-ip:9090` in your web browser. You will be
 prompted to log in with your server username and password.
 
-- ![photo](/assets/Pasted%20image%2020241125114321.png)
-- ![photo](/assets/Pasted%20image%2020241125120646.png)
+  ![photo](/assets/Pasted%20image%2020241125114321.png)
+  ![photo](/assets/Pasted%20image%2020241125120646.png)
 
 - If you get the Cockpit login page, then you have successfully installed Cockpit.
 Then you can close the cockpit port 9090 as follows:
@@ -111,7 +111,7 @@ Then you can close the cockpit port 9090 as follows:
     sudo firewall-cmd --reload
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241125151228.png)
+    ![photo](/assets/Pasted%20image%2020241125151228.png)
 
 <br>
 
@@ -160,16 +160,17 @@ web servers:
 
 - ### Caddy
 
-  - Note: If you don't have Caddy installed, you can follow [[sysadmin/caddyserv
-  er_setup|this]] guide to install it.
+> [!note] Note
+> If you don't have Caddy installed, you can follow [[sysadmin/caddyserver_setup
+|this]] guide to install it.
 
-  - Open the Caddyfile for editing:
+- Open the Caddyfile for editing:
 
     ```bash
     sudo vim /etc/caddy/Caddyfile
     ```
 
-  - Add the following configuration to the file:
+- Add the following configuration to the file:
 
     ```caddy
     your-domain.com {
@@ -178,13 +179,15 @@ web servers:
     }
     ```
 
-    - Note: Replace `your-domain.com` with your actual domain name.
-    - Note: If you want to use authorization with Caddy, you can follow [[securi
-    ty/caddyserver_auth_setup|this]] guide.
+  > [!note] Note
+  >
+  > Replace `your-domain.com` with your actual domain name.\
+  > If you want to use authorization with Caddy, you can follow [[security/caddyserver_auth_setup
+  |this]] guide.
 
-    - ![photo](/assets/Pasted%20image%2020241125122256.png)
+  ![photo](/assets/Pasted%20image%2020241125122256.png)
 
-  - Save the Caddyfile and reload Caddy:
+- Save the Caddyfile and reload Caddy:
 
     ```bash
     sudo systemctl reload caddy
@@ -240,7 +243,7 @@ web servers:
 - Then you can access Cockpit by navigating to `https://your-domain.com` in your
 web browser.
 
-  - ![photo](/assets/Pasted%20image%2020241125123935.png)
+  ![photo](/assets/Pasted%20image%2020241125123935.png)
 
 ---
 

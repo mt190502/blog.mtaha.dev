@@ -49,7 +49,7 @@ it from the official repository. Run the following commands to install them:
     sudo dnf install node-exporter golang-github-prometheus
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241126162443.png)
+    ![photo](/assets/Pasted%20image%2020241126162443.png)
 
 - After installing this packages, start and enable the services:
 
@@ -57,7 +57,7 @@ it from the official repository. Run the following commands to install them:
   sudo systemctl enable --now prometheus-node-exporter prometheus
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241126162500.png)
+  ![photo](/assets/Pasted%20image%2020241126162500.png)
 
 <br>
 
@@ -103,7 +103,7 @@ to install Grafana:
       sudo rpm --import gpg.key
       ```
 
-      - ![photo](/assets/Pasted%20image%2020241126142804.png)
+      ![photo](/assets/Pasted%20image%2020241126142804.png)
 
     - Create a file called `grafana.repo` in the `/etc/yum.repos.d/` directory
     and add the following content:
@@ -124,7 +124,7 @@ to install Grafana:
       sslcacert=/etc/pki/tls/certs/ca-bundle.crt
       ```
 
-      - ![photo](/assets/Pasted%20image%2020241126144152.png)
+      ![photo](/assets/Pasted%20image%2020241126144152.png)
 
     - Then, install Grafana:
   
@@ -133,8 +133,8 @@ to install Grafana:
       sudo yum install grafana
       ```
 
-      - ![photo](/assets/Pasted%20image%2020241126144254.png)
-      - ![photo](/assets/Pasted%20image%2020241126144313.png)
+      ![photo](/assets/Pasted%20image%2020241126144254.png)
+      ![photo](/assets/Pasted%20image%2020241126144313.png)
 
 <br>
 
@@ -149,7 +149,7 @@ following commands to install Grafana in Docker:
     curl -fsSL https://get.docker.com | sudo bash
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241126145733.png)
+    ![photo](/assets/Pasted%20image%2020241126145733.png)
 
   - Then, start and enable the Docker service:
 
@@ -157,7 +157,7 @@ following commands to install Grafana in Docker:
     sudo systemctl enable --now docker
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241126145813.png)
+    ![photo](/assets/Pasted%20image%2020241126145813.png)
 
   - After installing Docker, create a data directory for Grafana:
 
@@ -196,8 +196,8 @@ following commands to install Grafana in Docker:
     sudo docker compose up
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241126150351.png)
-    - ![photo](/assets/Pasted%20image%2020241126151855.png)
+    ![photo](/assets/Pasted%20image%2020241126150351.png)
+    ![photo](/assets/Pasted%20image%2020241126151855.png)
 
   - If all the steps are successful, you can detach from the container by pressing
   `Ctrl + C` and run the following command to start Grafana in the background:
@@ -233,7 +233,7 @@ port 3000
     sudo firewall-cmd --reload
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241126152651.png)
+    ![photo](/assets/Pasted%20image%2020241126152651.png)
 
 ### Method 2: Using Reverse Proxy
 
@@ -280,8 +280,10 @@ web servers:
 
 #### Caddy
 
-- Note: If you don't have Caddy installed, you can follow [[sysadmin/caddyserver_setup|this]]
-  guide to install it.
+> [!note] Note
+>
+> If you don't have Caddy installed, you can follow [[sysadmin/caddyserver_setup|this]]
+guide to install it.
 
 - Open the Caddyfile for editing:
 
@@ -298,11 +300,13 @@ web servers:
     }
     ```
 
-  - Note: Replace `your-domain.com` with your actual domain name.
-  - Note: If you want to use authorization with Caddy, you can follow [[security
-  /caddyserver_auth_setup|this]] guide.
+  > [!note] Note
+  >
+  > Replace `your-domain.com` with your actual domain name.\
+  > If you want to use authorization with Caddy, you can follow [[security/caddyserver_auth_setup|this]]
+  guide.
 
-  - ![photo](/assets/Pasted%20image%2020241126160412.png)
+  ![photo](/assets/Pasted%20image%2020241126160412.png)
 
 - Save the Caddyfile and reload Caddy:
 
@@ -364,40 +368,43 @@ web servers:
 - After accessing Grafana, you can add Prometheus Node Exporter as a data source.
 - Click on the left sidebar and navigate to `Connection > Data Sources`.
 
-  - ![photo](/assets/Pasted%20image%2020241126161438.png)
+  ![photo](/assets/Pasted%20image%2020241126161438.png)
 
 - Then click `Add data source` and select `Prometheus` from the list.
 
-  - ![photo](/assets/Pasted%20image%2020241126161554.png)
+  ![photo](/assets/Pasted%20image%2020241126161554.png)
 
 - In the `Connection` section, enter the URL of the Prometheus Node Exporter. The
 default URL is `http://localhost:9090`.
-- Note: If you are using the docker method, you can use `http://<MACHINE-IP>:9090`
-  as the URL.
 
-  - ![photo](/assets/Pasted%20image%2020241126163511.png)
+  > [!note] Note
+  >
+  > If you are using the docker method, you can use `http://<MACHINE-IP>:9090`
+  as the URL.
+  
+  ![photo](/assets/Pasted%20image%2020241126163511.png)
 
 - Then click `Save & Test` to save the data source.
   
-  - ![photo](/assets/Pasted%20image%2020241126163751.png)
+  ![photo](/assets/Pasted%20image%2020241126163751.png)
 
 - After adding the data source, back to the `Dashboard` and click on
 `Create Dashboard`.
 
-  - ![photo](/assets/Pasted%20image%2020241126164320.png)
+  ![photo](/assets/Pasted%20image%2020241126164320.png)
 
 - Then click `Import` and enter `1860` in the `Grafana.com Dashboard` field.
 
-  - ![photo](/assets/Pasted%20image%2020241126164511.png)
+  ![photo](/assets/Pasted%20image%2020241126164511.png)
 
 - Then click `Load` and select the Prometheus data source from the list.
 
-  - ![photo](/assets/Pasted%20image%2020241126164644.png)
+  ![photo](/assets/Pasted%20image%2020241126164644.png)
 
 - Then click `Import` to import the dashboard. You can now see the metrics of
 Prometheus Node Exporter in Grafana.
 
-  - ![photo](/assets/Pasted%20image%2020241126164732.png)
+  ![photo](/assets/Pasted%20image%2020241126164732.png)
 
 - You can customize the dashboard by adding more panels and changing the
 settings.

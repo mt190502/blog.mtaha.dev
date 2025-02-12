@@ -41,7 +41,7 @@ command:
   caddy hash-password --plaintext password123
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241125180321.png)
+  ![photo](/assets/Pasted%20image%2020241125180321.png)
 
 - Then, open the Caddyfile in your favourite text editor and add the following lines:
 
@@ -54,9 +54,12 @@ command:
     }
     ```
 
-  - Replace `<username>` with the username you want to use for authentication and
+  > [!note] Note
+  >
+  > Replace `<username>` with the username you want to use for authentication and
     `<password_hash>` with the password hash you generated in the previous step.
-  - ![photo](/assets/Pasted%20image%2020241125180721.png)
+
+  ![photo](/assets/Pasted%20image%2020241125180721.png)
 
 <br>
 
@@ -74,8 +77,8 @@ by running the following command:
 website in a web browser. You should see a prompt asking you to enter your username
 and password.
 
-  - ![photo](/assets/Pasted%20image%2020241125180213.png)
-  - ![photo](/assets/Pasted%20image%2020241125190305.png)
+  ![photo](/assets/Pasted%20image%2020241125180213.png)
+  ![photo](/assets/Pasted%20image%2020241125190305.png)
 
 ---
 
@@ -95,35 +98,35 @@ users. You can create a Google OAuth client by following the steps below:
 - Create a new project by clicking on the `Select a project` dropdown menu and
       then clicking on the `New Project` button.
 - Enter a name for your project and click on the `Create` button.
-  - ![photo](/assets/Pasted%20image%2020241125191722.png)
+  ![photo](/assets/Pasted%20image%2020241125191722.png)
 
 #### Step 1.2: Create OAuth Application
 
 - Once the project is created, switch to the project and go to the `APIs & Services`
-  - ![photo](/assets/Pasted%20image%2020241125192648.png)
+  ![photo](/assets/Pasted%20image%2020241125192648.png)
 
 - Select the `OAuth consent screen` tab on the left sidebar. Then select `External`
     and click on the `Create` button
-  - ![photo](/assets/Pasted%20image%2020241125193215.png)
+  ![photo](/assets/Pasted%20image%2020241125193215.png)
 
 - Fill in the required fields and click on the `Save` button
-  - ![photo](/assets/Pasted%20image%2020241125201512.png)
-  - ![photo](/assets/Pasted%20image%2020241125201841.png)
+  ![photo](/assets/Pasted%20image%2020241125201512.png)
+  ![photo](/assets/Pasted%20image%2020241125201841.png)
 
 #### Step 1.3: Create OAuth Client ID and Copy Credentials
 
 - Click on the `Credentials` tab on the left sidebar. Then click on the `Create Credentials`
     dropdown menu and select `OAuth client ID`
-  - ![photo](/assets/Pasted%20image%2020241125202154.png)
+  ![photo](/assets/Pasted%20image%2020241125202154.png)
 
 - Select `Web application` as the application type. Then fill the required fields.
 - Enter the following URL in the `Authorized redirect URIs` field:\
   `https://auth.<your-subdomain>/auth/oauth2/google/authorization-code-callback`\
   `https://auth.<your-subdomain>/oauth2/google/authorization-code-callback`
-  - ![photo](/assets/Pasted%20image%2020241125202826.png)
+  ![photo](/assets/Pasted%20image%2020241125202826.png)
 
 - Copy the `Client ID` and `Client Secret` values.
-  - ![photo](/assets/Pasted%20image%2020241125203033.png)
+  ![photo](/assets/Pasted%20image%2020241125203033.png)
 
 <br>
 
@@ -136,7 +139,7 @@ You can install the `caddy-security` plugin by running the following command:
   sudo caddy add-package github.com/greenpau/caddy-security
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241125215319.png)
+  ![photo](/assets/Pasted%20image%2020241125215319.png)
 
 <br>
 
@@ -181,7 +184,7 @@ You can install the `caddy-security` plugin by running the following command:
     }
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241125211346.png)
+  ![photo](/assets/Pasted%20image%2020241125211346.png)
 
 - Then create a new vhost in the Caddyfile and add the following lines:
 
@@ -190,6 +193,7 @@ You can install the `caddy-security` plugin by running the following command:
         import tls-cloudflare
         authenticate with myportal
     }
+    ```
 
 - Then assign the portal to the any vhost you wish to protect:
 
@@ -201,7 +205,7 @@ You can install the `caddy-security` plugin by running the following command:
     }
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241125213337.png)
+  ![photo](/assets/Pasted%20image%2020241125213337.png)
 
 ### Step 4: Restart and Test Caddy
 
@@ -217,25 +221,25 @@ the following command:
 your website in a web browser. You should see a prompt asking you to sign in with
 your Google account.
 
-  - ![photo](/assets/Pasted%20image%2020241125214118.png)
-  - ![photo](/assets/Pasted%20image%2020241125214133.png)
+  ![photo](/assets/Pasted%20image%2020241125214118.png)
+  ![photo](/assets/Pasted%20image%2020241125214133.png)
 
 - You will then be taken to the Google sign-in page, where you can enter your
 Google Account credentials. If you are successfully authenticated, you will be
 returned to your website.
 
-  - ![photo](/assets/Pasted%20image%2020241125214141.png)
+  ![photo](/assets/Pasted%20image%2020241125214141.png)
 
 - Back to the `https://auth.<your_domain>/whoami` page, you can see your identity
 information.
 
-  - ![photo](/assets/Pasted%20image%2020241125214149.png)
-  - ![photo](/assets/Pasted%20image%2020241125214449.png)
+  ![photo](/assets/Pasted%20image%2020241125214149.png)
+  ![photo](/assets/Pasted%20image%2020241125214449.png)
 
 - Then try to access the `https://test.<your_domain>` with another account, you
 will be denied access.
 
-  - ![photo](/assets/Pasted%20image%2020241125214823.png)
+  ![photo](/assets/Pasted%20image%2020241125214823.png)
 
 ---
 

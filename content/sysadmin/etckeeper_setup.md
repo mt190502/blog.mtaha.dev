@@ -37,7 +37,7 @@ the following commands:
     sudo yum install etckeeper
     ```
 
-    - ![photo](/assets/Pasted%20image%2020241218141919.png)
+    ![photo](/assets/Pasted%20image%2020241218141919.png)
 
 <br>
 
@@ -50,7 +50,7 @@ command:
   sudo etckeeper init
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241218142012.png)
+  ![photo](/assets/Pasted%20image%2020241218142012.png)
 
 - This will create a new Git repository in the `/etc` directory and start tracking
 changes to your configuration files. If you want to take a snapshot for daily autocommit,
@@ -60,7 +60,7 @@ you can run the following command:
   sudo systemctl enable --now etckeeper.timer
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241218142449.png)
+  ![photo](/assets/Pasted%20image%2020241218142449.png)
 
 <br>
 
@@ -74,7 +74,7 @@ To check the status of your commits, you can run the following command:
   sudo etckeeper vcs log
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241218144323.png)
+  ![photo](/assets/Pasted%20image%2020241218144323.png)
 
 <br>
 
@@ -95,7 +95,7 @@ the changes. You can do this by running the following commands:
     sudo yum install nginx
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241218144726.png)
+  ![photo](/assets/Pasted%20image%2020241218144726.png)
 
 - After installing the package, you can check the status of your changes by running
 the following command:
@@ -104,7 +104,7 @@ the following command:
   sudo etckeeper vcs status
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241218144951.png)
+  ![photo](/assets/Pasted%20image%2020241218144951.png)
 
 - To create a manual commit, you can run the following command:
 
@@ -112,7 +112,7 @@ the following command:
   sudo etckeeper commit "feat: install nginx package"
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241218145140.png)
+  ![photo](/assets/Pasted%20image%2020241218145140.png)
 
 - Now, you can check the status of your commits by running the following command:
 
@@ -120,7 +120,7 @@ the following command:
   sudo etckeeper vcs log
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241218145302.png)
+  ![photo](/assets/Pasted%20image%2020241218145302.png)
 
 - If you check a specific file, you can run the following command:
 (For example, to check the changes in the `/etc/passwd` file)
@@ -129,7 +129,7 @@ the following command:
   sudo etckeeper vcs diff HEAD~1 /etc/passwd
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241218145438.png)
+  ![photo](/assets/Pasted%20image%2020241218145438.png)
 
 <br>
 
@@ -138,39 +138,39 @@ the following command:
 - If you want to store your configuration files in a remote Git repository, you can
 do so by following these steps:
 
-  - Create a new **private** repository on GitHub or GitLab.
+- Create a new **private** repository on GitHub or GitLab.
 
-    - ![photo](/assets/Pasted%20image%2020241218151923.png)
+  ![photo](/assets/Pasted%20image%2020241218151923.png)
 
-  - Add the remote repository to your Etckeeper configuration by running the following
-  command:
+- Add the remote repository to your Etckeeper configuration by running the following
+command:
 
-    ```bash
-    sudo etckeeper vcs remote add origin <repository-url>    #~ add your repository url
-    sudo etckeeper vcs remote -v                             #~ check the remote repository
-    ```
+  ```bash
+  sudo etckeeper vcs remote add origin <repository-url>    #~ add your repository url
+  sudo etckeeper vcs remote -v                             #~ check the remote repository
+  ```
 
-    - ![photo](/assets/Pasted%20image%2020241218152109.png)
+  ![photo](/assets/Pasted%20image%2020241218152109.png)
 
-  - Push your changes to the remote repository by running the following command:
+- Push your changes to the remote repository by running the following command:
 
-    ```bash
-    sudo etckeeper vcs branch -M main                       #~ change the branch name to main
-    sudo etckeeper vcs push -u origin main                  #~ push the changes to the remote repository
-    ```
+  ```bash
+  sudo etckeeper vcs branch -M main                       #~ change the branch name to main
+  sudo etckeeper vcs push -u origin main                  #~ push the changes to the remote repository
+  ```
 
-    - ![photo](/assets/Pasted%20image%2020241218152259.png)
+  ![photo](/assets/Pasted%20image%2020241218152259.png)
 
-    {% alert(note=true) %}
-    If you are using etckeeper on multiple machines, I recommend using hostname
-    or machine-id as the branch name. Or you can use hostname to create multiple
-    git repositories.
-    {% end %}
+  > [!tip] Tip
+  >
+  > If you are using etckeeper on multiple machines, I recommend using hostname
+  or machine-id as the branch name. Or you can use hostname to create multiple
+  git repositories.
 
-  - Now, your configuration files will be stored in a remote Git repository, allowing
+- Now, your configuration files will be stored in a remote Git repository, allowing
 you to access them from anywhere.
 
-    - ![photo](/assets/Pasted%20image%2020241218152752.png)
+  ![photo](/assets/Pasted%20image%2020241218152752.png)
 
 ---
 

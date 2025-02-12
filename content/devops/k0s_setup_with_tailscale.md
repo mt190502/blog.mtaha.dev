@@ -10,6 +10,10 @@ tags: ["k0s", "kubernetes", "cluster", "kubernetes-distribution", "guide"]
 > [!warning] Disclaimer
 > In this guide, I will use Fedora 41 Cloud Edition as the base operating system.
 > Some steps may vary depending on the distribution you are using.
+>
+> This guide is similar to the [[devops/vanilla_kubernetes_setup_with_tailscale
+> |Vanilla Kubernetes Setup with Tailscale]] guide. It differs from the other
+> guide only in a few steps.
 
 <br>
 
@@ -24,9 +28,6 @@ straightforward and the software is compatible with a range of operating systems
 including Windows, macOS, Linux, iOS and Android.
 - This guide will demonstrate the process of establishing a basic K0s Kubernetes
 cluster using the Tailscale VPN infrastructure.
-- NOTE: This guide is similar to the [[devops/vanilla_kubernetes_setup_with_tail
-scale|Vanilla Kubernetes Setup with Tailscale]] guide. It differs from the other
-guide only in a few steps.
 
 <br>
 
@@ -36,7 +37,7 @@ guide only in a few steps.
 - Two or more machines with a minimum of a 2-core CPU and 4 GB of RAM, running a
 Linux operating system.
 
-> [!note] I will use the following machines:
+> [!info] I will use the following machines:
 >
 >- Master Node:
 >   - Hostname: m1.srv.mtaha.dev\
@@ -142,8 +143,8 @@ the main **Tailscale dashboard**.\
 Select the machine > click on the ellipsis and select Edit ACL Tags > add
 the tags 'servers' and 'k8s-node' to the Kubernetes nodes.
 
-  - ![photo](/assets/Pasted%20image%2020241115145810.png)
-  - ![photo](/assets/Pasted%20image%2020241115145824.png)
+  ![photo](/assets/Pasted%20image%2020241115145810.png)
+  ![photo](/assets/Pasted%20image%2020241115145824.png)
 
 <br>
   
@@ -158,7 +159,7 @@ hostname.
   sudo hostnamectl set-hostname <hostname>
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114153754.png)
+  ![photo](/assets/Pasted%20image%2020241114153754.png)
 
 - Then edit the `/etc/hosts` file. Add the following lines for the per machine:
 
@@ -167,12 +168,12 @@ hostname.
   ::1 <hostname>
   ```
 
-  {% alert(note=true) %}
-  Replace `<hostname>` with the hostname of the machine.
-  {% end %}
-  
-  - ![photo](/assets/Pasted%20image%2020241115150257.png)
+  > [!note] Note
+  >
+  > Replace `<hostname>` with the hostname of the machine.
 
+  ![photo](/assets/Pasted%20image%2020241115150257.png)
+  
 <br>
 
 ## Step 4: Set up FirewallD rules
@@ -198,7 +199,7 @@ this, run the following commands:
   sudo firewall-cmd --reload
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241203193447.png)
+  ![photo](/assets/Pasted%20image%2020241203193447.png)
 
 <br>
 
@@ -219,7 +220,9 @@ commands:
   #~ comment the swap line
   ```
 
-  - Example: ![photo](/assets/Pasted%20image%2020241115152555.png)
+  - Example:
+
+    ![photo](/assets/Pasted%20image%2020241115152555.png)
 
 - For GRUB users:
   - Open the `/etc/default/grub` file and change the following line:
@@ -242,8 +245,8 @@ commands:
     cgroup_enable=memory systemd.zram=0
     ```
 
-- ![photo](/assets/Pasted%20image%2020241114154035.png)
-- ![photo](/assets/Pasted%20image%2020241114154044.png)
+![photo](/assets/Pasted%20image%2020241114154035.png)
+![photo](/assets/Pasted%20image%2020241114154044.png)
 
 <br>
 
@@ -262,7 +265,7 @@ the steps below:
   net.ipv4.ip_forward = 1
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114154110.png)
+  ![photo](/assets/Pasted%20image%2020241114154110.png)
 
 - Then run the following command to apply the changes:
 
@@ -285,7 +288,7 @@ complete this step, run the following commands:
   sudo dnf --refresh update -y
   ```
 
-- ![photo](/assets/Pasted%20image%2020241114154253.png)
+  ![photo](/assets/Pasted%20image%2020241114154253.png)
 
 <br>
 
@@ -318,8 +321,8 @@ configuration to all the machines. You can do this by running the following comm
   sudo dnf reinstall -y kernel-core
   ```
 
-- ![photo](/assets/Pasted%20image%2020241114155019.png)
-- ![photo](/assets/Pasted%20image%2020241114155028.png)
+  ![photo](/assets/Pasted%20image%2020241114155019.png)
+  ![photo](/assets/Pasted%20image%2020241114155028.png)
 
 <br>
 
@@ -336,8 +339,8 @@ configuration to all the machines. You can do this by running the following comm
   cat /proc/cgroups
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241114155114.png)
-  - ![photo](/assets/Pasted%20image%2020241114155120.png)
+  ![photo](/assets/Pasted%20image%2020241114155114.png)
+  ![photo](/assets/Pasted%20image%2020241114155120.png)
 
 <br>
 
@@ -370,7 +373,7 @@ commands:
   sudo chmod +x /usr/local/bin/k0sctl
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241203203433.png)
+  ![photo](/assets/Pasted%20image%2020241203203433.png)
 <br>
 
 ## Step 11: Set up K0SCTL Init File
@@ -464,11 +467,11 @@ You can create the file by running the following command:
               enabled: false
     ```
 
-    {% alert(note=true) %}
-    If you are using systemd-resolved, you need append to the `kubelet-extra-args`
-the following line: `--resolv-conf=/run/systemd/resolve/resolv.conf`. For example:
-`--kubelet-extra-args=\"--node-ip=<IP_ADDRESS> --resolv-conf=/run/systemd/resolve/resolv.conf\"`
-    {% end %}
+    > [!note] Note
+    >
+    > If you are using systemd-resolved, you need append to the `kubelet-extra-args`
+    the following line: `--resolv-conf=/run/systemd/resolve/resolv.conf`.\
+    > For example: `--kubelet-extra-args=\"--node-ip=<IP_ADDRESS> --resolv-conf=/run/systemd/resolve/resolv.conf\"`
 
 <br>
 
@@ -481,7 +484,7 @@ command:
   k0sctl apply --config k0sctl.yaml
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241203211120.png)
+  ![photo](/assets/Pasted%20image%2020241203211120.png)
 
 - After the initialisation process is complete, run the following commands to
   set up the Kubernetes configuration file:
@@ -492,7 +495,7 @@ command:
   sudo chmod 0700 $HOME/.kube/config
   ```
 
-  - ![photo](/assets/Pasted%20image%2020241203164054.png)
+  ![photo](/assets/Pasted%20image%2020241203164054.png)
 
 <br>
 
@@ -527,7 +530,7 @@ You can install MetalLB by running the following steps:
       - 172.16.20.0/24
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241115133505.png)
+  ![photo](/assets/Pasted%20image%2020241115133505.png)
 
 - Install MetalLB by Helm with the following command:
 
@@ -536,7 +539,7 @@ You can install MetalLB by running the following steps:
     kubectl apply -f metallb.yaml
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241201230504.png)
+  ![photo](/assets/Pasted%20image%2020241201230504.png)
 
 - Verify the MetalLB installation by running the following command:
 
@@ -566,7 +569,7 @@ by running the following steps:
     kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true", "defaultVolumeType":"local"}}, "allowVolumeExpansion": true}'
     ```
 
-  - ![photo](/assets/Pasted%20image%2020241115133526.png)
+  ![photo](/assets/Pasted%20image%2020241115133526.png)
 
 - Verify the local-path-provisioner installation by running the following command:
 
