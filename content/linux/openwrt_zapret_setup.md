@@ -7,6 +7,13 @@ date: 2024-11-04T19:06:00+03:00
 tags: ["bypass", "censorship", "dpi", "firewall", "guide", "network", "openwrt", "router", "tutorial", "zapret"]
 ---
 
+> [!warning] Disclaimer
+> This guide is for EDUCATIONAL PURPOSES only. The author does not condone the
+> use of this guide for illegal activities. The author is not responsible for
+> any misuse of the information provided in this guide.
+
+<br>
+
 ## Introduction
 
 - Censorship has become a major issue affecting Internet freedom worldwide in
