@@ -115,7 +115,7 @@ install the prerequisites for Zapret. Run the following command to install the p
 - Then, run the following command to download and extract the binaries:
 
   ```bash
-  mkdir /opt/zapret/tmp
+  mkdir /opt/zapret/tmp && cd /opt/zapret/tmp
   wget -O zapret.tar.gz <link>
   tar -xvzf zapret.tar.gz
   ```
