@@ -2,7 +2,7 @@ import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
 const hideHiddenFilesInExplorer = (node: any) => {
-  return node?.displayName !== "hidden" || node?.data?.tags?.includes("hidden") !== true
+  return node?.displayName !== "hidden" || !(node?.data?.tags?.includes("hidden"))
 }
 
 // components shared across all pages
