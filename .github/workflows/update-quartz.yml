@@ -1,3 +1,4 @@
+# Big thanks: @kreatoo (https://github.com/kreatoo/kreato.dev/blob/v4/.github/workflows/update-quartz.yml)
 name: Update Quartz Automatically
 
 on:
@@ -10,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,8 +34,13 @@ jobs:
         run: npx quartz update
 
       - name: Ensure Changes
-        run: git diff --exit-code && { echo "needs_pr=false" >> $GITHUB_ENV; } || { echo "needs_pr=true" >> $GITHUB_ENV; }
- 
+        run: |
+          if [ -z "$(git status | grep 'is ahead')" ]; then
+            echo "needs_pr=false" >> $GITHUB_ENV
+          else
+            echo "needs_pr=true" >> $GITHUB_ENV
+          fi
+
       - name: Create Pull Request for Changes
         if: env.needs_pr == 'true'
         uses: peter-evans/create-pull-request@v7
