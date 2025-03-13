@@ -1,0 +1,46 @@
+name: Update Quartz Automatically
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * SUN'
+
+jobs:
+  update-quartz:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+        
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Update Quartz
+        run: npx quartz update
+
+      - name: Ensure Changes
+        run: git diff --exit-code && { echo "needs_pr=false" >> $GITHUB_ENV; } || { echo "needs_pr=true" >> $GITHUB_ENV; }
+ 
+      - name: Create Pull Request for Changes
+        if: env.needs_pr == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          title: 'ci: automated update of Quartz'
+          commit-message: 'update: updated quartz configurations'
+          base: v4
+          branch: automated/quartz-update
+          body: |
+            Please review the changes and merge if appropriate.
