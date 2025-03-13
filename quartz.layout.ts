@@ -1,6 +1,9 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
-import { FileNode } from "./quartz/components/ExplorerNode"
+
+const hideHiddenFilesInExplorer = (node: any) => {
+  return node?.displayName !== "hidden" || node?.data?.tags?.includes("hidden") !== true
+}
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -29,15 +32,17 @@ export const defaultContentPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
+    Component.Flex({
+      components: [
+        {
+          Component: Component.Search(),
+          grow: true,
+        },
+        { Component: Component.Darkmode() },
+      ],
+    }),
     Component.Explorer({
-      filterFn: (node: FileNode) => {
-        const value: boolean =
-          node.file?.frontmatter?.tags?.includes("hidden") !== true &&
-          node?.displayName !== "hidden"
-        return value
-      },
+      filterFn: hideHiddenFilesInExplorer,
     }),
   ],
   right: [
@@ -80,9 +85,18 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.Flex({
+      components: [
+        {
+          Component: Component.Search(),
+          grow: true,
+        },
+        { Component: Component.Darkmode() },
+      ],
+    }),
+    Component.DesktopOnly(Component.Explorer({
+      filterFn: hideHiddenFilesInExplorer,
+    })),
   ],
   right: [],
 }
