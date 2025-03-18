@@ -220,7 +220,7 @@ such as gaming, low latency, or power-saving.
   
   ![photo](/assets/Pasted%20image%2020250316220813.png)
 
-- In this guide, we will use the `bpfland` scheduler. To test the `bpfland`
+- In this section, we will use the `bpfland` scheduler. To test the `bpfland`
 scheduler, run the following command:
 
   ```bash
