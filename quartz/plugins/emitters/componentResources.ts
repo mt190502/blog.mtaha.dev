@@ -105,7 +105,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       };
       
       document.head.appendChild(gtagScript);
-    `);
+    `)
   } else if (cfg.analytics?.provider === "plausible") {
     const plausibleHost = cfg.analytics.host ?? "https://plausible.io"
     componentResources.afterDOMLoaded.push(`
@@ -122,7 +122,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       };
 
       document.head.appendChild(plausibleScript);
-    `);
+    `)
   } else if (cfg.analytics?.provider === "umami") {
     componentResources.afterDOMLoaded.push(`
       const umamiScript = document.createElement("script");
@@ -138,15 +138,15 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       };
 
       document.head.appendChild(umamiScript);
-    `);
+    `)
   } else if (cfg.analytics?.provider === "goatcounter") {
     componentResources.afterDOMLoaded.push(`
       const goatcounterScript = document.createElement('script');
-      goatcounterScript.src = "${cfg.analytics.scriptSrc ?? 'https://gc.zgo.at/count.js'}";
+      goatcounterScript.src = "${cfg.analytics.scriptSrc ?? "https://gc.zgo.at/count.js"}";
       goatcounterScript.defer = true;
       goatcounterScript.setAttribute(
         'data-goatcounter',
-        "https://${cfg.analytics.websiteId}.${cfg.analytics.host ?? 'goatcounter.com'}/count"
+        "https://${cfg.analytics.websiteId}.${cfg.analytics.host ?? "goatcounter.com"}/count"
       );
       goatcounterScript.onload = () => {
         window.goatcounter = { no_onload: true };
@@ -157,7 +157,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       };
 
       document.head.appendChild(goatcounterScript);
-    `);
+    `)
   } else if (cfg.analytics?.provider === "posthog") {
     componentResources.afterDOMLoaded.push(`
       const posthogScript = document.createElement("script");
@@ -175,7 +175,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       };
 
       document.head.appendChild(posthogScript);
-    `);
+    `)
   } else if (cfg.analytics?.provider === "tinylytics") {
     const siteId = cfg.analytics.siteId
     componentResources.afterDOMLoaded.push(`
