@@ -20,7 +20,7 @@ const config: QuartzConfig = {
     locale: "en-US",
     baseUrl: "blog.mtaha.dev",
     ignorePatterns: ["private", "templates", ".obsidian"],
-    defaultDateType: "created",
+    defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
