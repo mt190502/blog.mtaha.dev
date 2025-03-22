@@ -285,9 +285,9 @@ file called `local.zone`.
 - We add the local addresses to the `ALLOWLIST` ipset.
 
   ```bash
-  sudo firewall-cmd --permanent --ipset='ALLOWLIST' --add-entries-from-file=local.zone
-  sudo firewall-cmd --permanent --ipset='ALLOWLIST' --add-entries-from-file=de.zone
-  sudo firewall-cmd --permanent --ipset='ALLOWLIST' --add-entries-from-file=tr.zone
+  sudo firewall-cmd --permanent --ipset='ALLOWLIST' --add-entries-from-file=local.zone  # Local addresses
+  sudo firewall-cmd --permanent --ipset='ALLOWLIST' --add-entries-from-file=de.zone     # Deutschland
+  sudo firewall-cmd --permanent --ipset='ALLOWLIST' --add-entries-from-file=tr.zone     # Türkiye
   ```
 
 - Then we create a new rich rule to allow a server port for the ALLOWLIST ipset.
