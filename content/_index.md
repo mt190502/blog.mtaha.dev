@@ -12,13 +12,15 @@ date: 2025-01-01T12:00:00
 ╚═╝     ╚═╝╚═╝╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚══════╝    ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝ 
 ```
 
-I'm Muhammed Taha. I'm 22 years old. I have been interested in software development
-and linux for about 6 years. I am developing myself in these fields
+I'm **Muhammed Taha**. I'm **22** years old. I have been interested in **Software
+Development** and **Linux** for about 6 years. I am developing myself in these fields.
 
-In this blog you can find my articles on various topics such as Linux, programming
-and technology.
+In this blog you can find my articles on various topics such as **Linux**, **Programming**,
+**Technology** and more.
 
-To see all my articles, you can click on the categories on left of the page.
+To see all my articles, you can click on the categories on the left side of the page.
+
+<https://mtaha.dev>
 
 ---
 
