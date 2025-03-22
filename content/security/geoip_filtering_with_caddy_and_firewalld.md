@@ -15,8 +15,9 @@ address. This method is often used to restrict access from certain countries or
 regions associated with high levels of suspicious or malicious activity, such as
 spam, hacking attempts or unauthorised access.
 - Today I'm going to explain how to set up GeoIP filtering with Caddy and FirewallD.
-- I've explained how to set up Caddy in my previous articles: [[security/caddyse
-rver_auth_setup|Setting Up Caddy Web Server]]
+- I've explained how to set up Caddy in my previous articles: [[sysadmin/caddyserver_setup|
+Setting Up Caddy Web Server]], [[security/caddyserver_auth_setup|Authentication
+with Caddy Web Server]]
 
 <br>
 
