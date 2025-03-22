@@ -9,8 +9,6 @@ tags: ["cachyos", "guide", "linux", "optimization", "performance", "system", "tu
 
 > [!warning] Disclaimer
 >
-> - This guide is Work In Progress (WIP) and may contain incomplete or inaccurate
-information.
 > - This guide is for advanced users only.
 > - In this guide, we will apply performance tweaks inspired by CachyOS to Fedora
 Linux. Some steps may require advanced knowledge of Linux system administration.
