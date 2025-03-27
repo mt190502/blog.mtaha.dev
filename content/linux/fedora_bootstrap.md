@@ -308,7 +308,7 @@ root filesystem. First, you need to mount the filesystems:
   sudo chroot /mnt
 
   #~ update the system
-  dnf --releasever=41 --setopt=fastermirror=True --refresh update
+  dnf --releasever=41 --setopt=fastestmirror=True --refresh update
   ```
 
   ![photo](/assets/Pasted%20image%2020241220111346.png)
@@ -321,7 +321,7 @@ root filesystem. First, you need to mount the filesystems:
 for a basic Fedora system. You can do this by running the following command:
 
   ```bash
-  dnf --releasever=41 --setopt=fastermirror=True group install core standard
+  dnf --releasever=41 --setopt=fastestmirror=True group install core standard
   ```
 
   ![photo](/assets/Pasted%20image%2020241220112003.png)
@@ -331,7 +331,7 @@ for a basic Fedora system. You can do this by running the following command:
 - Then check fedora version from rpm command:
   
     ```bash
-    rpm -e %fedora
+    rpm -E %fedora
     ```
   
   ![photo](/assets/Pasted%20image%2020241220112744.png)
