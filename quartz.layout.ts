@@ -1,9 +1,7 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
-
-const hideHiddenFilesInExplorer = (node: any) => {
-  return node?.displayName !== "hidden" || !(node?.data?.tags?.includes("hidden"))
-}
+import { QuartzPluginData } from "./quartz/plugins/vfile"
+import { FileTrieNode } from "./quartz/util/fileTrie"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -45,8 +43,28 @@ export const defaultContentPageLayout: PageLayout = {
       ],
     }),
     Component.Explorer({
-      filterFn: hideHiddenFilesInExplorer,
+      filterFn: (f: FileTrieNode) => {
+        return f.displayName !== "hidden" && f.data?.tags?.includes("hidden") === false
+      },
     }),
+    Component.DesktopOnly(
+      Component.RecentNotes({
+        title: "Recent Notes",
+        limit: 3,
+        showTags: false,
+        filter: (f: QuartzPluginData) => {
+          return !(
+            f.frontmatter?.tags &&
+            ["home", "hidden"].some((tag) => f.frontmatter?.tags?.includes(tag))
+          )
+        },
+        sort: (f1, f2) => {
+          const date1 = f1.dates?.created ? new Date(f1.dates.created).getTime() : 0
+          const date2 = f2.dates?.created ? new Date(f2.dates.created).getTime() : 0
+          return date2 - date1
+        },
+      }),
+    ),
   ],
   right: [
     Component.Graph({
@@ -78,7 +96,7 @@ export const defaultContentPageLayout: PageLayout = {
       },
     }),
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
+    // Component.Backlinks(),
   ],
 }
 
@@ -97,9 +115,13 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.DesktopOnly(Component.Explorer({
-      filterFn: hideHiddenFilesInExplorer,
-    })),
+    Component.DesktopOnly(
+      Component.Explorer({
+        filterFn: (f: FileTrieNode) => {
+          return f.displayName !== "hidden" && f.data?.tags?.includes("hidden") === false
+        },
+      }),
+    ),
   ],
   right: [],
 }

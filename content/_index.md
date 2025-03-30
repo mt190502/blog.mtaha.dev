@@ -1,6 +1,7 @@
 ---
 title: Hi 👋
 date: 2025-01-01T12:00:00
+tags: ["home"]
 ---
 
 ```
@@ -26,6 +27,7 @@ To see all my articles, you can click on the categories on the left side of the 
 
 ## Highlighted Articles
 
+- [[performance/fedora_linux_performance_tuning|Fedora Linux Performance Tuning]]
 - [[security/caddyserver_auth_setup|Authentication with CaddyServer]]
 - [[sysadmin/caddyserver_setup|CaddyServer Setup]]
 - [[devops/k0s_setup_with_tailscale|K0s Setup with Tailscale Infrastructure]]
