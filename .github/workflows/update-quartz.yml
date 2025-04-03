@@ -6,6 +6,10 @@ on:
   schedule:
     - cron: '0 0 * * SUN'
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-quartz:
     runs-on: ubuntu-latest
