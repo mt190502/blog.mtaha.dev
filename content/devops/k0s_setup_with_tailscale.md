@@ -354,7 +354,7 @@ Kubernetes clusters. You can install K9s by following the steps in the official
 
 ## Step 10: Set up K0s and K0sctl
 
-- In this step, you will set up the K0s binaries on your computer (not the servers).
+- In this step, you will set up the K0s binaries on your computer **(not the servers)**.
 You can install k0s by running the following commands:
 
   ```bash
