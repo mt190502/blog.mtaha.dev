@@ -49,6 +49,7 @@ jobs:
         if: env.needs_pr == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ secrets.PAT }}
           title: 'ci: automated update of Quartz'
           commit-message: 'update: updated quartz configurations'
           base: v4
