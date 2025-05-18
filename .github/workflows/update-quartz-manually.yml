@@ -17,6 +17,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://github-actions[bot]:${{ secrets.PAT }}@github.com/${{ github.repository }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -30,8 +31,6 @@ jobs:
         run: npx quartz update
 
       - name: Commit and push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           git add -A
           git commit -m "update: update quartz to latest version automatically" || echo "No changes to commit"
