@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    steps:     
+    steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -30,6 +30,8 @@ jobs:
         run: npx quartz update
 
       - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           git add -A
           git commit -m "update: update quartz to latest version automatically" || echo "No changes to commit"
