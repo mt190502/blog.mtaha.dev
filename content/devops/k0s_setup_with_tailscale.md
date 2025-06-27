@@ -1,6 +1,6 @@
 ---
 author: Taha
-title: "K0s with Tailscale VPN"
+title: "K0s with Tailscale VPN (Updated Kubernetes 1.33)"
 description: "Installing K0s with Tailscale VPN Infrastructure"
 draft: false
 date: 2024-12-03T18:00:00+03:00
@@ -250,7 +250,7 @@ commands:
 
 <br>
 
-## Step 6: Enable IP Forwarding
+## Step 6: Enable IP Forwarding and Load Required Modules
 
 - The next step is to enable IP forwarding on all the machines. To do this, follow
 the steps below:
@@ -271,6 +271,14 @@ the steps below:
 
   ```bash
   sudo sysctl --system
+  ```
+
+- After that, we need to load the some required kernel modules. Create a file named
+`/etc/modules-load.d/kubernetes.conf` and add the following lines:
+
+  ```bash
+  br_netfilter
+  overlay
   ```
 
 <br>
@@ -422,6 +430,7 @@ You can create the file by running the following command:
         installFlags:
           - '--kubelet-extra-args=\"--node-ip=3.4.5.6\"'    # Write the IP address of the worker node 2 here (tailscale ip --4 w2)
       k0s:
+        version: 1.33.2+k0s.0
         config:
           apiVersion: k0s.k0sproject.io/v1beta1
           kind: Cluster
@@ -535,7 +544,14 @@ You can install MetalLB by running the following steps:
 - Install MetalLB by Helm with the following command:
 
     ```bash
+    helm repo add metallb https://metallb.github.io/metallb
     helm install metallb metallb/metallb --namespace metallb-system --create-namespace
+
+    until $(kubectl get pods -n metallb-system --no-headers | awk '{print $3}' | uniq | grep -q 'Running'); do
+      echo "Waiting for MetalLB pods to be in Running state..."
+      sleep 5
+    done
+
     kubectl apply -f metallb.yaml
     ```
 

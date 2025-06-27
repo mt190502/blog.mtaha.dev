@@ -1,6 +1,6 @@
 ---
 author: Taha
-title: "Vanilla Kubernetes Setup with Tailscale"
+title: "Vanilla Kubernetes Setup with Tailscale (Updated Kubernetes 1.33)"
 description: "Installing Kubernetes with Tailscale VPN Infrastructure"
 draft: false
 date: 2024-11-14T13:00:00+03:00
@@ -246,7 +246,7 @@ commands:
 
 <br>
 
-## Step 6: Enable IP Forwarding
+## Step 6: Enable IP Forwarding and Load Required Modules
 
 - The next step is to enable IP forwarding on all the machines. To do this, follow
 the steps below:
@@ -269,6 +269,14 @@ the steps below:
   sudo sysctl --system
   ```
 
+- After that, we need to load the some required kernel modules. Create a file named
+`/etc/modules-load.d/kubernetes.conf` and add the following lines:
+
+  ```bash
+  br_netfilter
+  overlay
+  ```
+  
 <br>
 
 ## Step 7: Update System Packages
@@ -360,13 +368,13 @@ by following the official Kubernetes installation guides:
   lines:
 
     ```bash
-    deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /
+    deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /
     ```
 
   - Then run the following commands to add the Kubernetes repository key:
 
     ```bash
-    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
     ```
 
 - For CentOS/RHEL users
@@ -375,10 +383,10 @@ by following the official Kubernetes installation guides:
     ```bash
     [kubernetes]
     name=Kubernetes
-    baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
+    baseurl=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/
     enabled=1
     gpgcheck=1
-    gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
+    gpgkey=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/repodata/repomd.xml.key
     ```
 
   ![photo](/assets/Pasted%20image%2020241114154307.png)
@@ -554,7 +562,7 @@ I recommend using the Calico CNI plugin. Otherwise you can use the Flannel CNI p
     helm install flannel --set podCidr="172.16.0.0/16" --set flannel.args[0]='--ip-masq' --set flannel.args[1]='--kube-subnet-mgr' --set flannel.args[2]='--iface=tailscale0' --namespace kube-flannel flannel/flannel --create-namespace
 
     # Label the Flannel pods
-    k label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
+    kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
     ```
 
     ![photo](/assets/Pasted%20image%2020241115125057.png)
@@ -596,7 +604,14 @@ You can install MetalLB by running the following steps:
 - Install MetalLB by Helm with the following command:
 
   ```bash
+  helm repo add metallb https://metallb.github.io/metallb
   helm install metallb metallb/metallb --namespace metallb-system --create-namespace
+
+  until $(kubectl get pods -n metallb-system --no-headers | awk '{print $3}' | uniq | grep -q 'Running'); do
+    echo "Waiting for MetalLB pods to be in Running state..."
+    sleep 5
+  done
+
   kubectl apply -f metallb.yaml
   ```
 
