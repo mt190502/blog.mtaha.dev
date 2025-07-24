@@ -91,7 +91,7 @@ of the system.
 - Next, configure memory-related tweaks by running the following command:
 
   ```bash
-  sudo cat <<EOF >/etc/tmpfiles.d/system_config.conf
+  cat <<EOF | sudo tee /etc/tmpfiles.d/system_config.conf
   w! /sys/kernel/mm/transparent_hugepage/shmem_enabled - - - - advise
   w! /sys/kernel/mm/ksm/sleep_millisecs - - - - 500
   EOF
@@ -112,7 +112,7 @@ of the system.
 tweaks:
 
   ```bash
-  sudo cat <<EOF >/etc/sysctl.d/99-sysctl-custom.conf
+  cat <<EOF | sudo tee /etc/sysctl.d/99-sysctl-custom.conf
   ### Memory tweaks
   vm.swappiness = 10
   vm.vfs_cache_pressure = 100
