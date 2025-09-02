@@ -13,11 +13,16 @@ tags: ["home"]
 ╚═╝     ╚═╝╚═╝╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚══════╝    ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝ 
 ```
 
-I'm **Muhammed Taha**. I'm **22** years old. I have been interested in **Software
-Development** and **Linux** for about 6 years. I am developing myself in these fields.
+I'm **Muhammed Taha**. I'm **22** years old. I manage systems and automate processes
+with a solution-oriented approach. I deepened my Linux journey, which started in
+2019, in the field of System Administration since 2022. Drawing on my one year of
+industry experience, I use my knowledge to build and manage robust, scalable and
+highly available infrastructures. I’m using technologies like **Linux**, **Apache**,
+**Nginx**, **Caddy**, **Traefik**, **Ansible**, **Kubernetes**, **Helm**, **Terraform**,
+**PostgreSQL**, **MySQL** and more. I am developing myself in these fields.
 
-In this blog you can find my articles on various topics such as **Linux**, **Programming**,
-**Technology** and more.
+In this blog you can find my articles on various topics such as **Computer Science**,
+**Linux**, **Networking**, **Programming**, **Technology** and more.
 
 To see all my articles, you can click on the categories on the left side of the page.
 
