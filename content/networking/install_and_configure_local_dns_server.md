@@ -377,7 +377,22 @@ or `host` commands instead.
     ```
 
     ![photo](/assets/Pasted%20image%2020250911202233.png)
+  
+  - To query the PTR record for `100.168.192.in-addr.arpa`:
 
+    ```bash
+    dig @192.168.100.2 100.168.192.in-addr.arpa
+    ```
+
+    ![photo](/assets/Pasted%20image%2020250912211038.png)
+
+  - To query the PTR record for `192.168.100.0/24` (reverse lookup):
+
+    ```bash
+    dig @192.168.100.2 -x 192.168.100.1
+    ```
+
+    ![photo](/assets/Pasted%20image%2020250912210906.png)
 <br>
 
 ### Step 9: Set DNS Server for Client Machines
