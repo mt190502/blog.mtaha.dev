@@ -56,6 +56,37 @@ for `blog.mtaha.dev`.
 
 ![photo](/assets/Pasted%20image%2020250912162555.png)
 
+## How Reverse DNS Works
+
+- Reverse DNS (rDNS) involves resolving an IP address back to a domain name.
+- The host asks the local DNS server: 'What is the PTR record for 172.67.145.169?'
+- The local DNS server responds with two things:
+  - 'I don't know, but I'll query the servers.'
+  - 'I previously asked about 172.67.145.169 and the answer was x.example.com.'
+- If the local DNS server does not have the answer, it queries the root DNS server.
+- The root DNS server then converts the IP address into the special format used
+for reverse DNS lookups. For IPv4 addresses, this involves reversing the octets
+and appending 'in-addr.arpa'. For `172.67.145.169`, the reversed format would be
+`169.145.67.172.in-addr.arpa`.
+- Local DNS server then asks the root DNS server for the NS records of `.arpa`.
+- Root DNS server responds with the NS record for the .arpa TLD DNS servers
+(`a.ns.arpa`, `b.ns.arpa`, etc.).
+- Local DNS server then asks these servers for the NS records for `.in-addr.arpa`.
+- These servers respond with the address of the authoritative DNS server for `.in-addr.arpa`
+(`a.in-addr-servers.arpa`, `b.in-addr-servers.arpa`, etc.).
+- Local DNS server then asks these servers for the NS records of `172.in-addr.arpa`.
+- These servers respond with the address of the authoritative DNS server for `172.in-addr.arpa`
+(`x.arin.net`, `y.arin.net`, etc.).
+
+> (Local DNS server repeats the same process for `67.172.in-addr.arpa`, `145.67.172.in-addr.arpa`
+and `169.145.67.172.in-addr.arpa`)
+
+- Last NS server responds with the address of the ISP's authoritative DNS server
+- Finally, the local DNS server asks the authoritative DNS server for the PTR record
+of `169.145.67.172.in-addr.arpa`.
+
+![photo](/assets/Pasted%20image%2020250913104311.png)
+
 <br>
 
 ## Some Important DNS Terms
@@ -464,6 +495,7 @@ domain names within your network.
 - <https://en.wikipedia.org/wiki/Domain_Name_System>
 - <https://en.wikipedia.org/wiki/SOA_record>
 - <https://root-servers.org/>
+- <https://serverfault.com/questions/673230/how-reverse-dns-works`>
 - <https://www.arin.net/resources/manage/reverse/>
 - <https://www.cloudflare.com/learning/dns/dns-records/dns-soa-record/>
 - <https://www.iana.org/domains/root/db>
