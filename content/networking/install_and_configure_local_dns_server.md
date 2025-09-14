@@ -495,7 +495,7 @@ domain names within your network.
 - <https://en.wikipedia.org/wiki/Domain_Name_System>
 - <https://en.wikipedia.org/wiki/SOA_record>
 - <https://root-servers.org/>
-- <https://serverfault.com/questions/673230/how-reverse-dns-works`>
+- <https://serverfault.com/questions/673230/how-reverse-dns-works>
 - <https://www.arin.net/resources/manage/reverse/>
 - <https://www.cloudflare.com/learning/dns/dns-records/dns-soa-record/>
 - <https://www.iana.org/domains/root/db>
