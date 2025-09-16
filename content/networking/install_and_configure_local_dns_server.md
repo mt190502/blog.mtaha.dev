@@ -320,7 +320,8 @@ sudo vim /etc/named.conf
                                                                     );
 
          IN  NS    ns1.homelab.localhost.                                        ; Name Server record
-    10   IN  PTR   ns1.homelab.localhost.                                        ; PTR record for 192.168.100.2
+    10   IN  PTR   ns1.homelab.localhost.                                        ; PTR record for 192.168.100.10
+    20   IN  PTR   dns.homelab.localhost.                                        ; PTR record for 192.168.100.20
     ```
 
   ![photo](/assets/Pasted%20image%2020250911202037.png)
@@ -409,7 +410,7 @@ or `host` commands instead.
 
     ![photo](/assets/Pasted%20image%2020250911202233.png)
   
-  - To query the PTR record for `100.168.192.in-addr.arpa`:
+  - To query the SOA record for `100.168.192.in-addr.arpa`:
 
     ```bash
     dig @192.168.100.2 100.168.192.in-addr.arpa
@@ -417,13 +418,13 @@ or `host` commands instead.
 
     ![photo](/assets/Pasted%20image%2020250912211038.png)
 
-  - To query the PTR record for `192.168.100.0/24` (reverse lookup):
+  - To query the PTR record for `192.168.100.10` (reverse lookup):
 
     ```bash
-    dig @192.168.100.2 -x 192.168.100.1
+    dig @192.168.100.2 -x 192.168.100.10
     ```
 
-    ![photo](/assets/Pasted%20image%2020250912210906.png)
+    ![photo](/assets/Pasted%20image%2020250916115805.png)
 <br>
 
 ### Step 9: Set DNS Server for Client Machines
