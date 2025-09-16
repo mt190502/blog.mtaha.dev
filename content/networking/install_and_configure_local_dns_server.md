@@ -338,8 +338,8 @@ may result in a failure. Use the following commands to check for errors:
 sudo named-checkconf /etc/named.conf
 
 #~ for forward and reverse zone files
-sudo named-checkzone homelab.localhost /var/named/db-homelab.localhost
-sudo named-checkzone 100.168.192.in-addr.arpa /var/named/db-192.168.100
+sudo named-checkzone homelab.localhost /etc/named/db-homelab.localhost
+sudo named-checkzone 100.168.192.in-addr.arpa /etc/named/db-192.168.100
 ```
 
 - If you see any errors, fix them before proceeding.
