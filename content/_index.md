@@ -36,5 +36,4 @@ To see all my articles, you can click on the categories on the left side of the 
 - [[security/caddyserver_auth_setup|Authentication with CaddyServer]]
 - [[sysadmin/caddyserver_setup|CaddyServer Setup]]
 - [[devops/k0s_setup_with_tailscale|K0s Setup with Tailscale Infrastructure]]
-- [[devops/vanilla_kubernetes_setup_with_tailscale|Vanilla Kubernetes Setup with
-Tailscale Infrastructure]]
+- [[devops/vanilla_kubernetes_setup_with_tailscale|Vanilla Kubernetes Setup with Tailscale Infrastructure]]
