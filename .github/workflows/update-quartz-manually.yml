@@ -1,0 +1,37 @@
+name: Update Quartz Manually
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-quartz:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://github-actions[bot]:${{ secrets.PAT }}@github.com/${{ github.repository }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Update Quartz
+        run: npx quartz update
+
+      - name: Commit and push changes
+        run: |
+          git add -A
+          git commit -m "update: update quartz to latest version automatically" || echo "No changes to commit"
+          git push || echo "No changes to push"

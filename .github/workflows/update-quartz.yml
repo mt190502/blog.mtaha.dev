@@ -1,0 +1,58 @@
+# Big thanks: @kreatoo (https://github.com/kreatoo/kreato.dev/blob/v4/.github/workflows/update-quartz.yml)
+name: Update Quartz Automatically
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * SUN'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-quartz:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+        
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Update Quartz
+        run: npx quartz update
+
+      - name: Ensure Changes
+        run: |
+          if [ -z "$(git status | grep 'is ahead')" ]; then
+            echo "needs_pr=false" >> $GITHUB_ENV
+          else
+            echo "needs_pr=true" >> $GITHUB_ENV
+          fi
+
+      - name: Create Pull Request for Changes
+        if: env.needs_pr == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.PAT }}
+          title: 'ci: automated update of Quartz'
+          commit-message: 'update: updated quartz configurations'
+          base: v4
+          branch: automated/quartz-update
+          body: |
+            Please review the changes and merge if appropriate.

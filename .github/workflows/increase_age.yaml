@@ -1,0 +1,32 @@
+name: "Increase Age"
+
+on:
+  schedule:
+    - cron: "0 0 10 JAN *"
+
+jobs:
+  increase_age:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://github-actions[bot]:${{ secrets.PAT }}@github.com/${{ github.repository }}
+
+      - name: Increase age
+        run: |
+          CURR_AGE="$(grep -Poi 'm \*\*..\*\* years' ./content/_index.md | awk -F '**' '{print $2}')"
+          NEW_AGE=$((CURR_AGE + 1))
+          sed -i "s/m \*\*$CURR_AGE\*\* years/m \*\*$NEW_AGE\*\* years/1" ./content/_index.md
+
+      - name: Commit and push changes
+        run: |
+          git add ./content/_index.md
+          git commit -m "update: increase age by +1 year" || echo "No changes to commit"
+          git push || echo "No changes to push"
