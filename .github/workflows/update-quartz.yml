@@ -47,7 +47,7 @@ jobs:
 
       - name: Create Pull Request for Changes
         if: env.needs_pr == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.PAT }}
           title: 'ci: automated update of Quartz'
