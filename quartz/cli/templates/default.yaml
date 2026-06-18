@@ -100,6 +100,8 @@ plugins:
   - source: github:quartz-community/roam
     enabled: false
     order: 92
+  - source: github:quartz-community/fonts
+    enabled: true
   - source: github:quartz-community/remove-draft
     enabled: true
   - source: github:quartz-community/explicit-publish
