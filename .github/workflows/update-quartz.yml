@@ -52,7 +52,7 @@ jobs:
           token: ${{ secrets.PAT }}
           title: 'ci: automated update of Quartz'
           commit-message: 'update: updated quartz configurations'
-          base: v4
+          base: v5
           branch: automated/quartz-update
           body: |
             Please review the changes and merge if appropriate.
