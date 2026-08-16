@@ -1,5 +1,7 @@
 ---
 title: Hi 👋
+socialDescription: Personal blog of Taha covering Linux, systems administration, DevOps, networking, and programming.
+socialImage: homepage-og.jpg
 date: 2025-01-01T12:00:00
 tags: ["home"]
 ---
