@@ -20,7 +20,7 @@ jobs:
           git remote set-url origin https://github-actions[bot]:${{ secrets.PAT }}@github.com/${{ github.repository }}
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
 
