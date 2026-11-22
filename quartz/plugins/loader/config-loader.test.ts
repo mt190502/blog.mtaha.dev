@@ -1,16 +1,36 @@
 import test, { describe, afterEach } from "node:test"
 import assert from "node:assert"
+import path from "path"
 import {
   buildLayoutForEntries,
   isExcluded,
+  resolveConfigPath,
   resolveGroups,
   validateDependencies,
+  detectCategoryFromModule,
 } from "./config-loader"
 import { planBuiltins } from "../builtins"
 import type { PluginManifest } from "./types"
 import { componentRegistry } from "../../components/registry"
 import type { QuartzComponent, QuartzComponentConstructor } from "../../components/types"
 import { PluginJsonEntry, LayoutPosition } from "./types"
+
+describe("resolveConfigPath", () => {
+  afterEach(() => {
+    delete process.env.QUARTZ_CONFIG_PATH
+  })
+
+  test("QUARTZ_CONFIG_PATH overrides the default lookup", () => {
+    const custom = path.join("some", "dir", "quartz.config.yaml")
+    process.env.QUARTZ_CONFIG_PATH = custom
+    assert.strictEqual(resolveConfigPath(), path.resolve(custom))
+  })
+
+  test("falls back to the cwd default when QUARTZ_CONFIG_PATH is unset", () => {
+    delete process.env.QUARTZ_CONFIG_PATH
+    assert.notStrictEqual(resolveConfigPath(), path.resolve("some", "dir", "quartz.config.yaml"))
+  })
+})
 
 const makeComponent = (name: string): QuartzComponent => {
   const c = (() => null) as unknown as QuartzComponent
@@ -387,5 +407,28 @@ describe("a dependency that is configured but disabled", () => {
     const { errors, warnings } = validateDependencies(entries, manifests, [])
     assert.deepStrictEqual(errors, [])
     assert.match(warnings[0], /depends on "@quartz-community\/explorer" which is disabled/)
+  })
+})
+
+describe("async plugin factories", () => {
+  test("category detection gives up on an async factory without an unhandled rejection", async () => {
+    let rejected = false
+    const factory = () =>
+      Promise.reject(new Error("network")).catch((e) => {
+        rejected = true
+        throw e
+      })
+    // No manifest category and no static marker: detection must give up, not throw
+    // or leave an unhandled rejection.
+    assert.strictEqual(detectCategoryFromModule({ default: factory }), null)
+    await new Promise((r) => setTimeout(r, 0))
+    assert.strictEqual(rejected, true)
+  })
+
+  test("a static category marker still wins for async factories", () => {
+    const factory = Object.assign(async () => ({ name: "x", markdownPlugins: () => [] }), {
+      quartzCategory: "transformer",
+    })
+    assert.strictEqual(detectCategoryFromModule({ default: factory }), "transformer")
   })
 })
